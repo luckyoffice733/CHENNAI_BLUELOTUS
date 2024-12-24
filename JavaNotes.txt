@@ -1,0 +1,958 @@
+JAVA:
+=====
+
+  what is java?
+
+  Object oriented Programming language and Platform independent language,
+  java was developed by James gosling in 1995.
+
+  jdk--1.7 java is object oriented programming language.
+
+  
+  What is latest version of version?
+ 
+   jdk 1.8 --object oriented and Functional programming language
+            (lambda expressions,streams,jondi api).
+
+   jdk -1.9 -- Object oriented and Functional Programming langauge.
+
+           --Additional funtionality is called JS shell
+
+
+   to check which version of java is installed in system:
+ =---------------------------------------------------------
+
+  cmd-> javac -version --jdk -- system independent -- tocompile
+
+  cmd-> java -version  --jre -- system dependent -- to run (JVM)
+
+
+   write a simple java program to print welcome message:
+  ==========================================================
+
+  syntax:
+  =======
+
+   class <classname>
+
+   {
+
+    public static void main(String args[]){
+
+    //statements;
+
+
+   }
+
+   }
+  
+  steps:
+  ======
+
+ 1) create a file and the save the file with .java Extension
+
+ 2) write a java code inside the file.java
+
+ 3)to compile a java program
+
+  syntax:
+ -======
+
+
+ javac Filename.java
+
+
+ 4) to run the java program
+
+ syntax:
+  ======
+
+  java Filename
+
+
+ex1:
+=====
+
+ public class Ex1{
+
+  public static void main(String args[]){
+
+  System.out.print("welcome the java"); //same line
+
+  System.out.println("welcome the java");//place the cursor in next line
+
+ }
+
+ }
+
+
+note:
+======
+
+1)If we are creating any class with out any access modifier then
+by default the class will have default access modifier.
+
+2) if class contain Default access modifier then the class name
+   and Saved filename.java Need not be same.
+
+3) if class contain public access modifier then, the class name
+    and saved filename.java should be same.
+
+4)  A class can contain default, public access modifiers.
+
+5) Inner class can contain private, protected, static.. access modifiers.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ comments:
+ =========
+
+   1)single line comments
+   =======================
+
+   syntax:
+  =======
+
+   // comments
+
+
+   2)multiple line comments:
+    ==========================
+
+    syntax:
+      ========
+
+    /*
+
+    statements
+
+     */
+ 
+
+  Datatypes:
+  ==========
+  java  contain eight primitive datatypes
+
+   Integer Datatypes:
+  ================
+   1)byte -size is 1 byte(8bits)  --range -128to 127 -default value-0
+
+   2)short -size is 2 bytes --range -32768 to 32767 --default value -0
+
+   3)int - size is 4 bytes -- range -2147483648 to 21747483647 
+                                --default-value 0
+                                                           
+   4)long -- size is 8 bytes --default value is 0
+
+    Floating point Datatypes:
+   ---------------------------------------
+
+   5)float -- to store the decimal point values(5 to 6 --scale)
+
+      --size 4 bytes ---default value-- 0.0 
+     ex:-- float a=10.12345 --10 is precision nd 123---scale
+
+
+    6)double :--to store the decimal point values(15 to 16 --scale)
+         --size 8 bytes --default value-- 0.0
+
+    7)char:-- to store characters values.
+   
+    --size is 2 bytes --default value- '\u0000'
+
+   8) boolean :- to store logical values(true nd false) --size is 1 bit
+
+         --default value is -- false.
+
+
+ Note:
+ =====
+ ==> f  or  l is a literals to store float and Long values into a variables
+
+     By default compile will treat as int  we need to specify compiler has to 
+     read as long by specifying 
+     literal l or L
+ 
+     long a=10L;
+
+     float b = 20.0f;
+
+
+
+
+
+   Object Referenced Datatypes:
+   =============================
+
+     1)String --is class available in java.lang Package  
+
+   note:
+  =====
+  Any predefined class will act as Referenced types.
+   Default value for the Referenced Types is = null
+
+  ex:
+  ===
+    String s;
+
+
+
+  variables :
+  ==========
+
+  1)variable is used to store the value temporarily.
+
+    syntax:
+    ========
+    accessmodifier datatype  variablename ;
+    default
+    private
+    protected
+    public    
+
+
+    In java the variables are
+
+    1)instance variable --
+     =================
+     a)memory is allocated at Heap area of JVM 
+
+     b)For every object their is a separate copy of instance of variables
+      available(memory)-- at run time
+
+    c)we can declare the instance variable inside the class
+      before or outside  the methods.
+
+    ex:
+   ====
+    public class Ex1{
+
+        int b; --declaration
+        int a=10; --declarattion and initialization
+         int a,b;
+         int a=10,b=30,c;
+     //methods
+       public static void main(String args[]){
+    }
+  }
+
+    2)static variable-- 
+  =================
+
+   a)For static variables the memory is allocated method area of JVM
+
+   b)the memory is allocated at once
+
+    c)we can declare the variable using static keyword.
+  
+   d)instance variable cannot be used directly inside the static
+     context(static block,static method) and if we want to access
+     the  instance variables inside static context using object.
+
+   e)They are shared among all instances of the class.
+
+   ex:
+   ===
+   public class Ex2{
+
+     static int a=10;
+    //methods  
+ 
+   }                     
+
+
+  3)local variable --
+   ==============
+  a)For local variable the memory is allocated
+                   at stack  in JVM
+     
+  b) Local variable is declared inside a method or block.
+   
+  c)scope the local variable with in the method or block ==>{}.
+
+  d) A local variable which declared must be initialized.
+
+
+  ex:
+  ====
+
+    public class Ex3
+   {
+
+   public void methodOne(){
+
+    int a=10;
+
+    }
+
+    }
+
+
+
+  JAVANAMING CONVENTIONS:
+  ==========================
+
+  1)CLASSNAME:
+  =============
+  Class name is a noun  and  the class name should start with Capital Letter and second Word also
+  followed by Capital.
+
+  Ex:
+  ===
+  class  StudentRegistration{
+
+
+  }
+
+ 2) methodName:
+ =============
+  method name is verb and the method name should start with small letter and next word
+  start with capital Letter(camelCase)
+
+  Ex:
+  ===
+  class Employee{
+
+   void getEmployeeDetails(){
+
+    //statements
+   }
+
+   }
+
+  3) variableName:
+  ==============
+   variableName is also camelCase
+
+  ex:
+  ===
+
+   class Employee{
+ 
+     int empId;
+     int empName;
+     int sal;
+
+   }
+
+  
+
+  Example:
+  =======
+
+  write a java program to declare the variables
+  =======================================
+
+  class ExampleOnVariables{
+
+  int  studentNo;
+  String studentName;
+  float  studentMarks;   //instance variables
+
+
+ public static void main(String args[]){
+
+  System.out.println(studentNo);
+  System.out.println(studentName);
+  System.out.println(studentMarks);
+
+ }
+
+
+ }
+
+
+
+ Example2:
+ ========
+  WAP named as ExampleOnVariables1  and declare 
+  three instance variables  of type int and 
+  create a method named as  getSum() ,return type of method is void and perform sum of two numbers
+  and display the sum of two numbers.
+
+ sol:
+ ===
+ public class ExampleOnVariables1{
+
+ int num1;
+ int num2;
+ int res;
+
+ public void getSum(){
+
+ res=num1+num2;
+ System.out.println("sum of two numbers is "+res);
+
+ }
+
+ public static void main(String args[]){
+
+  ExampleOnVariables1 env1 = new ExampleOnvariables1();
+  env1.getSum();
+
+ }}
+ }
+
+
+ oops:
+ =====
+  1)class
+  2)Object
+  3)Inheritance
+  4)Encapsulation
+  5)Abstraction
+  6)Polymorphism
+
+
+ Class:
+ ======
+
+  A class is Blue print(template) for an Object.
+
+  A class is user defined Datatype.
+
+ syntax:
+ =======
+
+ class classname
+ {
+   //Datamemebers        //to specify object properties 
+   //member methods   // to specify object functionality or actions.
+
+ }
+
+ Object:
+ =======
+
+ An  Object which exists phsically in the real world.
+
+ An object is an instance of a class(initalization of an object)
+
+ An object can contain properties and Actions.
+
+ In java we represent Properties in the form of datamembers(variables)
+
+ In java we represent Actions in the form of member methods.
+
+ to define Object properties and Actions we require class.
+
+ to perfrom any operations in java  we require Class(template).
+
+  example:
+  =======
+  Chair is an Object
+
+  properites of chair:- color,material,shape,wheels..etc
+
+  Actions of chair  --  movieable(),seatAdjustable()
+
+  sol:
+  =====
+
+  class Chair
+ {
+
+  String color="black";
+  String material="plastic";
+
+  int wheels = 4; //properties
+
+  public void movieable(){  //actions
+
+  System.out.println("Chair is moveable");
+
+ }
+
+ }
+
+ How to create object for class:
+ ===============================
+1) new operator:
+= ===============
+
+  Using  new operator we can create the Object for a class
+
+  syntax:
+ =======
+
+  classname  referencename = new classname();
+
+  ex:
+  ===
+
+  Chair c = new Chair();
+
+
+  to call the instance data members and instance methods;
+  ========================================================
+
+  syntax:
+  =======
+
+   referencename.variablename  //to call instance variables
+
+   referencename.methodname() // to call instance methods
+
+   ex:
+  ====
+
+  System.out.println(c.color);
+  System.out.println(c.wheels); //to call instance variables
+
+   c.movieable();//to call instance method
+
+
+  to call static data members(variables) and static methods:
+  ==========================================================
+
+  syntax:
+  ========
+
+  classname.variable  --- to call a static variable
+
+  classname.methodname --to call static methods.
+
+
+
+  type Casting:
+  =========
+  There are  two typecasting
+
+  1) Widening casting or implicit casting:
+  ================================
+
+  converting one datatype of a variable  into other data type.
+
+  note:
+  ====
+  it convert lower datatype to higher datatype
+
+   byte->short->int->long->float->double
+    or
+   char->int->long->float->double
+
+
+  2)Narrowing casting or Explicitly casting:
+  ================================
+  Converting higher datatype of a variable into Lower datatype.
+  with help of  type cast () operator .
+
+  syntax:
+  ======
+  (specify the data type)
+
+
+  Example :
+  ========
+
+  1) write a java program to convert one datatype into another data type.
+
+  sol:
+  ===
+
+    public class ExampleOnCasting{
+
+    public static void main(String args[]){
+ 
+    int a=10;
+ 
+    double b = a; //widening casting or implicit casting
+
+    System.out.println("the value of a variable is "+b);
+
+
+    double d = 20.0;
+
+    int c = (int)d; //narrowing casting or explicit casting
+
+    System.out.println("the value of a variable is "+c);
+
+    float x =(float) d; //converting double to float
+
+    System.out.println(x);
+
+    long aa = 30;
+
+    float y= aa; //converting long to float 
+
+    System.out.println(y);
+
+  }
+ 
+ }
+
+
+Operators:
+ =========
+
+ 1)Arithmetic operators: 
+ ===================
+ this operators are used to perform calculations between two operands.
+
+ +   -- ADDITION
+ -     --SUBSTRACTION
+ *   --MULTIPLICATION
+ /    --DIVISION     --- IT WILL RETURN QUOTIENT
+
+ %    -- MODULES  --- IT WILL RETURN REMAINDER
+
+
+ 2)Relational operators:
+ ==================
+
+  >    GREATER THAN
+  >=    GREATER THAN OR EQUALS TO
+  <     LESSTHAN
+  <=     LESSTHAN OR EQUALS TO
+  !=     NOT EQUALS TO
+  ==    EQUALS TO 
+
+ 3)Logical operators:
+ ================
+  &&      -- logical and
+  ||      -- logical or
+  ^       -- logical XOR
+  !       -- logical Not
+
+4)Unary operators
+  
+   ++,--,+=,-=,%=....etc
+
+ Example:
+ =======
+
+ 1)WAP  to perform addition,substraction,division,modules.
+  and display sum of numbers,sub of numbers or.......
+
+
+
+Conditional operator or ternary operator:
+=========================================
+  this operator is used to make Conditional Expressions.
+
+  syntax:
+  ======
+  Datatype variableName =Expression1?Expression2:Expression3;
+
+   if Expression1 condition is matched it will return expression2
+.
+   if Expression 1 condition is not matched it will return Expression3
+
+  Ex:
+  ===
+  int a=10;
+  int b=20;
+
+  int value1=(a<b)?a:b;
+
+  int value2=(a>b)?a:b;
+
+
+
+
+Conditional Statements:
+ ======================
+  1)if
+  ===
+  syntax:
+  =======
+  if(condition){
+  
+  //true statements 
+  }
+
+  note:
+  =====
+  In if condition it contains only one statement braces
+  are optional but this statement should not be initialization statement.
+
+  Example:
+  =======
+  1)WAp to compare two int variables and print which is greater.
+   using if-else condition.
+
+
+  if-else
+  ======
+    syntax:
+    ======
+    if(condition){
+   
+      //true statments   
+    
+    }else{
+ 
+      //else /false statements
+     }
+
+  1)WAp to compare two int variables and print which is greater.
+   using if-else condition.
+
+
+
+  if-else-if:
+  ===========
+  to check multiple conditions
+
+  syntax:
+  ======
+
+  if(condition1){
+
+  //statements
+  
+   }else if(condition2){
+   //statements
+ 
+   }else{
+       //statements
+   }
+
+  ex:
+   ===
+    WAp to compare three int variables and print which is greater.
+    using if-else-if condition and logical operators (&& or ||).
+
+
+
+  Nested If-else:
+  ==========
+  Nested if-else statements which means you can use one if or else if statement
+  inside another if or else if statement.
+
+  Syntax: 
+  ========
+   if(condition1){
+       //if condition1 is true then this if block of code will be executed.
+     
+     if(condition2){
+
+      //Executes the statments when condition2 is true
+     }
+     
+   }else{
+
+      if(condition2){
+
+      //Executes the statments when condition2 is true
+     }
+
+   }
+
+   Assignment:
+   -----------
+    WAp to compare three int variables and print which is greater.
+    using nested-if condition and logical operators (&& or ||).
+
+
+
+  switch-case:
+  ===========
+   The Switch statement allows us to execute a block of code among many alternatives.
+   to check multiple condition based on expression
+
+    syntax:
+    =======
+    switch(expression){
+
+       case  cond1 : statements;
+                       break;
+       case  cond2 : statements;
+                        break;
+        case cond3 : statements;
+                       break;
+        case cond4 : statements;
+                       break; 
+
+     .....
+       case cond n: statements;
+                    break;
+        default : statement;
+    }
+
+    Note:
+    =====
+    fall-through mechanism in java
+    the break statement is used to terminate the switch-case statement.
+    if break is not used, all the cases after the matching case are also executed.
+	
+    The java Switch statement we can work with types:
+    a)primitives datatypes
+    b)Enumerated types
+    c)String Class
+    d)Wrapper Classes 
+
+
+    Example 
+    ++++++++
+    wAp to perform arithmetic operations using switch case expression .
+    
+
+
+   Iterative statements:
+   =====================
+
+   While loop:
+   ===========
+   to repeat the statements until the condition become true.
+
+   syntax:
+   =======
+   initialize a variable;
+
+    while(condition)
+    {
+    //statements;
+
+    //increment/decrement
+
+    }
+   ex:
+   ==
+   Write a program to print 1 to 10 natural numbers.
+   write a program to display multiplication table of 2 using while loop;
+
+  sol:
+  ===
+
+   public class ExampleOnWhile{
+
+   public static void main(String args[]){
+
+   int i=1;
+    int n=2;
+
+   while(i<=10){
+
+   System.out.println(n+ " X " +i+" = "+(n*i));
+   i++;    //i=i+1; or //i+=1
+
+   }}
+  }
+
+ 2) WAP to print 1 to 10 integers using while loop.
+
+   sol:
+  ===
+
+   public class ExampleOnIntegers{
+
+   public static void main(String args[]){
+
+   int i=1;
+
+   while(i<=10){
+
+   System.out.println(i);
+  i++
+  }
+
+ }
+ }
+
+ for loop
+ ========
+  syntax:
+ =======
+
+  for(initilization;condition;increment/decrement){
+
+  //statements
+
+  }
+
+  ex:
+  ===
+  WAP to print 1 to 10 integers
+  WAP to display multiplication table of 5 using for loop;
+
+ sol:
+ ====
+ public class ExampleOnFor{
+ public static void main(String args[]){
+
+ int n=5;
+
+ for(int i=1;i<=10;i++){
+
+ System.out.println(n+" X "+i+" = "+(n*i));
+
+ }
+  }
+ }
+
+
+  do-while loop
+  =============
+  syntax:
+   =======
+	initilization variable;
+   do{
+
+   //statements;
+   //increment/decrement
+
+    }while(condition);
+
+  note:
+  =====
+  the statements will execute atleast one time before checking the condition.
+
+
+
+ Example:
+ =======
+  write a java program to print 1 to 10 integers using do-while loop.
+  WAP to print multiplication table of 4
+
+sol:
+   ===
+  public class ExampleOndoWhile{
+
+  public static void main(String args[]){
+
+     int i=1;
+   do{
+        System.out.println(i);
+     i++;
+    }while(i<=10);
+  }
+  
+
+
+break:- explicitly based on condition to exit loop.
+
+continue :- explicitly based on condition to skip the iteration and continue the loop. 
