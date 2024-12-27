@@ -114,6 +114,142 @@ In a class having same method name but differs in:
 
 
 
+@Override
+default->protected->public
+          
+
+Parent:
+
+void show(String msg){
+
+
+}
+
+
+Child extends Parent
+
+
+
+@Override
+
+protected void show(String msg){
+
+
+}
+
+
+// A super class reference variable holding its child class Object
+Ex:
+-----
+Parent referenceVariable = Child();
+
+Execution Flow is :
+-------------------
+first it will check the method signature in parent class its available then its search the same method
+in its holding child class Object, it's available then it will call from child class, if not available
+then it will call from the parent.
+
+Super Keyword:
+==============
+Super keyword refers to Super/Parent class Object.
+
+By using super keyword we can call super/Parent class instance variables and instance methods in Child/Sub class instance method.
+
+Ex:
+---
+super.VariableName
+super.methodName(if any arguments)
+
+
+By using super Keyword we can call Super/Parent Class Constructors in Child/Sub Class Constructor.
+
+ex:
+----
+public Child(){
+  //super(); //calling super class Constructor
+   super(if passing any paramters values) //calling a super class parameter constructor in Child Class Constructor
+  
+}
+
+Interface:
+==========
+An interface in the Java programming language is an abstract type that is used to declare a object behavior that classes must implement.
+
+All methods of an Interface do not contain implementation (method bodies).
+
+Interfaces cannot be instantiated, but rather are implemented. 
+
+A class that implements an interface must implement all of the abstracts methods described in the interface.
+ 
+If class partially implemented interface then declare the class as abstract. But for abstract class cannot be instantiated. Then create a new class which extends from abstract class and provide the implementation for 
+the unimplemented method which was not implemented in abstract class. Then create the object for newly created
+class and access all the implemented methods.
+
+Interfaces can’t have constructors because we can’t instantiate them and interfaces can’t have a method with body.
+
+By default any attribute of interface is public, static and final, so we don’t need to provide access modifiers to the attributes but if we do, compiler doesn’t complain about it either.
+
+By default interface methods are implicitly abstract and public, it makes total sense because the method don’t have body and so that subclasses can provide the method implementation.
+
+An interface can’t extend any class but it can extend another interface.
+
+Note:
+-----
+A interface can extends another interface
+
+A class can implements more than one interface.
+
+A class can extends another class as well as implement an interface.
+
+
+
+Assignment:
+-----------
+1.What is the difference between normal class and abstract class?
+ a) can abstract class contain abstract  method?
+ b) can abstract class contain normal methods/static methods?
+
+2.What is JDK and JVM?
+
+3.JVM ARCHITECTURE?(class loader ,verifier ,Interpreter and Jit Compiler...memory components)
+
+4.Java Features(Robust, platform independent....)
+
+5.Difference between this and super keyword?
+
+6.Search for interface and abstract classes ,try to complete atleast three examples from java guides and 
+tutorialpoint.com  ****
+
+7.Try to practice the question on Hackerrank.com. ***
+
+8.Lab Assigment.docx  Lab1(4)....Lab2.
+
+9. Aggregation and Composition search for it.
+
+10. Recall the topics till what we covered, Monday able to give presentation .
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
