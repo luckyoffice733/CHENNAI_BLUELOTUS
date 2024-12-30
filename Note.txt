@@ -214,7 +214,6 @@ Assignment:
 3.JVM ARCHITECTURE?(class loader ,verifier ,Interpreter and Jit Compiler...memory components)
 
 4.Java Features(Robust, platform independent....)
-
 5.Difference between this and super keyword?
 
 6.Search for interface and abstract classes ,try to complete atleast three examples from java guides and 
@@ -229,6 +228,31 @@ tutorialpoint.com  ****
 10. Recall the topics till what we covered, Monday able to give presentation .
 
 
+final:
+======
+We can declare a variable as final, final variable must be initialized it.
+once variable declared as final ,if we try to reassignment the final variable ,you will get the error.
+
+we can declare or create a methods as final but final methods cannot be override in the child class/sub class.
+
+we can declare the class as final and we can create the object for the final class. But final classes
+cannot be inherited(will not participate in inheritance concept). Ex: String is a final class.
+
+
+
+Arrays:
+========
+
+
+
+what is exception?
+what is try-catch-finally?
+what is checked exception? list some exception classes?
+what is unchecked exception? list some exception classes?
+
+what is the super exception for all the exception?
+Difference between throws and throw?
+UserDefined Exception?
 
 
 
