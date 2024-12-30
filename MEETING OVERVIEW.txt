@@ -1,0 +1,24 @@
+MEETING OVERVIEW:
+=================
+paper pattern for core java assessment on hacker rank platform is different from that of tekstac platform 
+ 
+FS BATCHES EXAM ON HACKER RANK:
+===============================
+2 q's in hacker rank core java test for FS batches 
+ 
+one Q on problem solving and second Q on java basics
+ 
+Note:
+-----
+problem solving q will be on DSA concept 
+
+Practice On Hacker Rank , Problem Solving and Java Basics Questions.
+
+ 
+Refer Udemy Course:
+=====================
+
+https://capgemini.udemy.com/course/data-structures-and-algorithms-deep-dive-using-java/
+Data Structures and Algorithms:  Deep Dive Using Java
+Learn about Arrays,  Linked Lists, Trees,  Hashtable , Stacks,  Queues,  Heaps, Sort algorithms and Search algorithms
+ 
