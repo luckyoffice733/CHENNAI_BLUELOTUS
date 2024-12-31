@@ -68,19 +68,49 @@ public class ExampleOnManipulation {
      
      String ste="";
      String ste1=null;
-     System.out.println(ste.isBlank());//
-     System.out.println(ste.isEmpty());//
+     System.out.println(ste.isBlank());//true
+     System.out.println(ste.isEmpty());//false
+     System.out.println("length of the string");
+     System.out.println(ste.length());
+    
+     String m="hello ravi is";
+     
+     System.out.println("search is : "+m.contains("ra"));//true
       
+     String m1="ramu";
+     String m2="Ramu";
+     System.out.println(m1.equals(m2));//false
+     System.out.println(m1.equalsIgnoreCase(m2));//true
+     
+     String m3="      HelloHi       ";
+     System.out.println("Spaces exist in string ? :"+m3.trim());
+     System.out.println(" remove the space at end :"+m3.stripTrailing());
+     System.out.println(" remove the space at start :"+m3.stripLeading());
       
-      
-      
-      
+     
+     String sc1="SACHIN";
+     String sc2="SAURAV";
+     System.out.println(sc2.compareTo(sc1));
+     
+     String sc3="SAURAV";
+     String sc4="SACHIN";
+     System.out.println(sc3.compareTo(sc4));
+       
+     System.out.println("hello \n ramu raju ramesh suresh manish");  
+       
+     String regex="[0-9]{10}";
+     
+     System.out.println("8161490191".matches(regex));
+       
+     String es="8154141901";
+     System.out.println(es.matches(regex));
        
        
-       
-       
-       
-       
+     String regex1="j...s";
+     System.out.println("javs".matches(regex1));
+     
+     String regex2="[ab]+";
+     System.out.println("bb".matches(regex2));
        
        
 	}
