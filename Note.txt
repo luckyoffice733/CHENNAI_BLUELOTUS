@@ -249,20 +249,184 @@ what is exception?
 what is try-catch-finally?
 what is checked exception? list some exception classes?
 what is unchecked exception? list some exception classes?
-
 what is the super exception for all the exception?
+
 Difference between throws and throw?
 UserDefined Exception?
 
 
 
+String:
+-------
+String is a class available in java.lang package.
+
+String is a final class(we cannot inherited)
+
+Immutable:
+----------
+In java, string objects are immutable. Immutable simply means unmodifiable or unchangeable. 
+
+Once string object is created its data or state can't be changed but a new string 
+object is created. 
+
+In java whenever an immutable string is attempted to be modified then that string will not be 
+modified, instead another string is created in non-constant pool(heap segment) with new reference. 
+
+CONSTANT POOL:
+============= 
+Strings that are created without using new keyword are allocated memory on 
+this pool. Duplicates are not allowed. 
+ 
+Non-CONSTANT POOL or Heap Segment:
+==================================
+Strings that are created using new keyword are allocated memory on this pool. 
+Duplicates are allowed. 
+
+Note:
+=====
+“==” operator to compare two strings. We know “==” operator compares two strings based on the references. 
+
+“equals ()” to compare two strings. We know equals() compares two strings based on the values(content).
+
+
+Why string objects are immutable in java? 
+==========================================
+Because java uses the concept of string literal. 
+
+Suppose there are 5 reference variables, all refer to one object "java". 
+If one reference variable changes the value of the object, it will 
+be affected to all the reference variables. 
+
+That is why string objects are immutable in java.
+
+compareTo():
+============
+The String compareTo() method compares values lexicographically and 
+returns an integer value that describes if first string is less than, equal to or 
+greater than second string. 
+
+Suppose s1 and s2 are two string variables. 
+If: 
+s1 == s2 :0 
+s1 > s2   :positive value 
+s1 < s2   :negative value 
+
+
+
+Case1: 
+S1 = "SACHIN"
+S2 = "SAURAV"
+
+Comparison happens as shown below 
+S A C H I N 
+S A U R A V 
+
+Each character is compared in lexical order. In the above example S,A are same 
+in both string but when C and U are compared we know that C comes before U 
+therefore s1 is considered lesser than s2. Which will give negative number 
+when printed on screen. 
+
+
+
+Case2: 
+S1= "SAURAV" 
+S2= "SACHIN" 
+
+Comparison happens as shown below 
+S A U R A V 
+S A C H I N 
+
+In the above example S,A are same in both string but when U and C are 
+compared we know that U comes after C therefore s1 is considered greater 
+than s2. Which will give positive number when printed on screen.
+
+
+Case3: 
+S1 = "SACHIN" 
+S2 ="SACHIN"
+Comparison happens as shown below
+
+S A C H I N 
+S A C H I N 
+Above we see that all the characters are same in both the strings. Therefore 
+when compared character by character there is no character greater or 
+smaller than the other which means it will give the result as 0 when printed on 
+the screen. 
+
+Case4: 
+S1= "JAVA"
+S2= "JAVAC"
+ 
+Let’s now see what happens when the size of the string is different. 
+J A V A  
+J A V A C  
+
+We can see that both the strings contain “JAVA” but the second string has 
+extra character C. Therefore second string is considered to be greater than 
+the first. And when printed on screen we will get negative number.
+
+
+s1=Java
+s2=JavA
 
 
 
 
 
+string s1="10";
+int = Integer.parseInt(s1);
 
 
+
+int b=20;
+String a = String.valueOf(b);
+
+Regular Expression:
+===================
+[abc] - \\w :it represent  either a or b or c
+[a-zA-Z] -  :it represent either a to z or A to Z 
+[0-9]  -\\d : it represent any number from 0 to 9
+^[0-9]- except digits it will represent any lower or uppercase character
+
+Quantifiers:
+============
++ -- atleast one time  or any number of times
+*  --- zero or any number of times
+? -- zero or exactly one time
+{n} -- number of occurances
+{min,max} -- occurance of pattern min and max no of times.
+
+[.]  -- any time of character
+\\s  -- it will present the space
+
+write a regular expression for a mobile number?
+sol:
+
+[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]
+
+or
+[0-9]{10}
+
+or 
+
+\\d{10}
+
+
+
+
+StringBuffer:
+-------------
+
+StringBuffer is final class available in java.lang
+
+StringBuffer is a mutable( changeable or modified the state)
+
+StringBuffer mostly the methods are synchronized(Thread-Safe).
+
+
+Note:
+----
+In StringBuffer  "==" operator and equals() method will compare the references.
 
 
 
