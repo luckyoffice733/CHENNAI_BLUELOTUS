@@ -1,30 +1,34 @@
-package com.training.abstraction;
+package com.training.generic;
 
-public class Main extends Test{
-
-	@Override
-	public void methodOne() {
-		// TODO Auto-generated method stub
-		System.out.println("we are in methodOne");
-	}
-
-	public static void main(String[] args) {
-		//FirstWay
-		 Main mobj = new Main();
-		 
-		 mobj.methodOne();
-		int sum= mobj.getSum(10,30);
-		System.out.println("sum of two numbers is : "+sum);
+class Test <T>{
    
-		System.out.println(mobj.sayHello());
+	T obj;
+
+	public T getObj() {
+		return obj;
+	}
+
+	public void setObj(T obj) {
+		this.obj = obj;
+	}
+	
+}
+
+public class Main{
+	public static void main(String[] args) {
+	
+		 Test<Integer> t1 = new Test();
+		 t1.setObj(100);
+		 System.out.println(t1.getObj());
+		 
+	
+		 Test<Double> t2 = new Test();
+		 t2.setObj(121221.00);
+		 System.out.println(t2.getObj());
+		 
 		
-		
-		//2ndWay 
-		MyApp mapp = new Main();
-		mapp.methodOne();
-		int res =mapp.getSum(40,50);
-		System.out.println("sum of two numbers is : "+res);
-		System.out.println(mapp.sayHello());
 		
 	}
+	
+	
 }
