@@ -1,6 +1,7 @@
 package com.training.listinterface;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 
 public class ExampleOnList3 {
@@ -66,11 +67,21 @@ public class ExampleOnList3 {
 	    System.out.println("Displaying the elements using Java8 Foreach");
 	    al.forEach(e -> System.out.println(e));//toString();
 	    al.forEach(e -> System.out.println(e.getProductId()+" "+e.getProductName()));
+	     
+	    MyComparator mycmpt = new MyComparator();
+	    Collections.sort(al,mycmpt);
 	    
-	    
-	    
+	    System.out.println();
+	    System.out.println("After sortin the elements using Java8 Foreach");
+	    al.forEach(e -> System.out.println(e.getProductId()+" "+e.getProductName()+" "+e.getPrice()));
 	   
 		
+	   al.sort(mycmpt);
+	   System.out.println();
+	    System.out.println("After sortin the elements using Java8 Foreach");
+	    al.forEach(e -> System.out.println(e.getProductId()+" "+e.getProductName()+" "+e.getPrice()));
+	   
+	   
 		
 		
 		
