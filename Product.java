@@ -1,11 +1,21 @@
-package com.training;
+package com.training.listinterface;
 
 public class Product {
-
+	
 	private long productId;
 	private String productName;
 	private double price;
-	//setters method to initialize the private instance variables
+	
+	public Product() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public Product(long productId, String productName, double price) {
+		super();
+		this.productId = productId;
+		this.productName = productName;
+		this.price = price;
+	}
 	public long getProductId() {
 		return productId;
 	}
@@ -24,7 +34,12 @@ public class Product {
 	public void setPrice(double price) {
 		this.price = price;
 	}
+	@Override
+	public String toString() {
+		return "Product [productId=" + productId + ", productName=" + productName + ", price=" + price + "]";
+	}
 	
 	
-		
+	
+
 }
