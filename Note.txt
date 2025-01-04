@@ -428,6 +428,381 @@ Note:
 ----
 In StringBuffer  "==" operator and equals() method will compare the references.
 
+Wrapper Classes:
+================
+Java is an impure object-oriented programming language because it supports 
+primitive data type. 
+ 
+To understand this, you must know an important fact about primitive data types 
+which is Primitive data types are not treated as objects in java.    
+
+object However, 100% pure object-oriented programs can be written in java using 
+Wrapper Class. 
+
+Now you understood why wrapper class let us understand what is Wrapper class. 
+
+What is Wrapper class? 
+
+The wrapper class in Java is a class provides the mechanism to convert 
+primitive data types into object and object into primitive data type.
+
+Ex:
+----
+int x=5;//primitiver
+
+Integer ob= new Integer(x); //Wrapper class Object Integer
+
+PM  --  Wrapper classes
+------------------------
+int --->Integer
+float --> Float
+double -->Double
+long --->Long
+char  ---> Character
+boolean --> Boolean
+
+
+
+Array Approach: 
+================
+type of data in series one after the other, which made it easy to store the 
+values as well as access. But this approach came with its own limitations which 
+were, 
+1.Only homogeneous can be stored. 
+2.Require contiguous memory allocations in RAM. 
+3.Cannot grow or shrink in size.  
+4.Do not have built-in methods for data manipulation. 
+
+Why Collections??? 
+
+To overcome the limitations that we came across with variable, array type approach we are now 
+going to see what Collections consists of… 
+
+The Collection in Java is a framework that provides an architecture to store 
+and manipulate the group of objects. 
+
+Java Collections can achieve all the operations that you perform on a data such 
+as searching, sorting, insertion, manipulation, and deletion.
+
+Java Collection means a single unit of objects. 
+Java Collection framework provides many interfaces (Set, List, Queue, Deque) and classes (ArrayList, 
+Vector, LinkedList, PriorityQueue, HashSet, LinkedHashSet, TreeSet).
+
+
+
+
+Generics in java :
+------------------
+<E>
+<T>
+
+
+public class Test<T>{
+
+   T obj;
+
+   public void setObj(T obj){
+      this.obj= obj;
+   }
+
+   public T getObject(){
+    return this.obj;
+   }
+
+
+}
+
+Note:
+-----
+In Generics we should pass the T,E of Wrapper classes
+
+
+
+custom sorting logic:
+=====================
+Product p1 
+Product p2
+
+Ascending order:
+==================
+p1.fieldName=p2.fieldName  then return 0;
+
+p1.fieldName>p2.fieldName  then return 1;
+
+p1.fieldName<p2.fieldName  then return -1;  
+
+descending order:
+==================
+p1.fieldName=p2.fieldName  then return 0;
+
+p1.fieldName>p2.fieldName  then return -1;
+
+p1.fieldName<p2.fieldName  then return 1;
+
+
+
+Stack:
+-------
+perform crud operations.
+
+
+Why to override hashCode() and equals()?
+what is the contract hashCode() and equals()?
+
+
+//java8 Comparator Logic for custom sorting
+
+Comparator<Employee> emcmpt=(o1, o2) ->o1.getEmpId()>o2.getEmpId()?1:o1.getEmpId()<o2.getEmpId()?-1:0;
+		
+//for String emName column sort with compareTo() method
+
+Comparator<Employee> emcmpt=(o1, o2) ->o1.getEmpName.compareTo(o2.getEmpName);
+
+
+Draw backs of array:
+  --------------------
+  Array size fixed once declared
+  We can store only similar or homogenous types of elements
+
+  Collections:
+  ============
+  A Collection is a group of individual objects represented as a single unit. 
+  Java provides Collection Framework which defines several classes and 
+  interfaces to represent a group of objects as a single unit.
+
+  The Collection interface (java.util.Collection) and Map interface (java.util.Map) 
+  are the two main “root” interfaces of Java collections.
+
+
+
+   List Interface:
+   ===============
+   ArrayList:
+   ----------
+
+  1) ArrayList is class which provide implementations for
+   List interface
+
+  2)ArrayList internally uses re-sizeable (DS)array.
+
+  3)duplicate elements are allowed.
+
+  4)Insertion order is preserved.
+
+
+
+  1)WAP to insert some Objects into ArrayList.
+
+  2)Write a java to only String object into arraylist 
+    using generics.
+
+   Generics are used to specify a type of data to store into an Collection.
+   Syntax:
+  =======
+   Classname <T> referencevariable = new ClassName<T>()
+
+   note:
+   ====
+  1)Generic type should be a Wrapper class.
+  
+   byte   ----Byte   
+   int       ---Integer
+   float     --Float
+   double   --Double
+   long       --Long
+  
+
+  2) Generic Type can be a Referenced Classes also.
+     ex: String or UserDefined Class(javabean class,model)
+
+ Example:
+ --------------   
+  WAP to store Employee(javabean) class Object into ArrayList and
+    display the  Employees details empId,empName,empSal  using generics
+
+      
+ Iterator
+ ========
+
+ hasNext() - boolean
+
+ next() ---Object
+
+ remove(Object o)--void;
+
+
+ ListIterator:
+ =============
+
+  hasNext() - boolean
+  next() ---Object
+
+remove(Object o)--void;
+
+hasPrevious() - boolean
+
+previous() ---Object
+
+remove(Object o)--void;
+
+
+  LinkedList: 
+  ============
+   LinkedList is a class Which Implements List Interface
+
+   LinkedList internally uses double-linked list data structure .
+
+   Duplicated values are allowed
+  
+   Insertion Order is preserved
+
+   null elements can be allowed
+
+   heterogeneous and Homogeneous elements are allowed
+
+
+
+
+
+  1) WAP to add elements into LinkedList Object
+
+  2) WAP to store only  String Objects into LinkedList using Generics and
+    display the elements
+ 
+  3)WAP to store Course(courseId,courseName,fee) class Object into Linked List
+  using generics and display the elements(courseid,courseName,fee) using ListIterator Forward direction and
+  backward direction.
+
+ ex:
+ ===
+ public class Course{
+    private int cid;
+    private String cname;
+   //constructor
+   //settters and getters methdod
+
+ }
+
+ note:
+ --------
+=>   In ArrayList by default the capacity is 10.
+
+=>    once the capacity is reaches internally the Arraysize
+        growable as (initialcapacity *3/2)+1
+
+ 
+ Vector
+ ============
+ Vector class is legacy class (jdk 1.0)and is a thread safe class
+ 
+ Vector  is a implementation class for List interface.
+
+ Duplicates are allowed
+
+ insertion order is preserved
+
+
+Vector and Stack:
+------------------
+1)WAP to store heterogenous elements into Vector.
+2)WAP to store homogeneous(specific type) elements into Vector using generics.
+3)WAP to store JavaBean Object(Employee) into Vector using generics.
+
+1)WAP to store heterogenous elements into Stack.
+2)WAP to store homogeneous(specific type) elements into Stack using generics.
+3)WAP to store JavaBean Object(Employee) into Stack using generics.
+
+
+SET:
+  ====
+    1) It is a child interface of Collection
+    2)Duplicates are not allowed
+    3)Insertion order is  not preserved
+    
+    Set interface is used to represent unique objects
+    as single entity.
+
+    Classes:
+    ======
+
+    HashSet
+    LinkedHashSet 
+    interfaces-->Set-->SortedSet-->NaviagableSet-->TreeSet Class
+    note(using TreeSet class we can store Homogeneous elements)
+
+
+
+ Set(Interface):
+ ====
+ 1) HashSet:
+    ==========
+    HashSet is class which provide implementation for Set Interface
+    HashSet is class internally uses Data Structure is HashTable
+   
+    2)Duplicates are not allowed and null values are allowed
+    3)Insertion order is  not preserved(it will display the elements in random order)
+
+    Constructors:
+    ===========
+
+    HashSet hs = new HashSet();
+
+    by default capacity is 16 elements
+
+    HashSet hs = new HashSet(int capacity);
+
+    HashSet  hs  = new HashSet(Collection c);
+
+   
+Example:
+=======
+
+ 1)WAP to add the elements in HashSet 
+
+ 2) WAP to add product class object into HashSet using Generics
+    and display the product elements using iterator
+
+  public class Product{
+
+      private int pid;
+      private String pname;
+      private float price;
+    
+    //constructors
+    //setters and getters
+  }
+
+
+   2)LinkedHashSet:
+    ===================  
+
+     Duplicates are not allowed
+   
+     Insertion order is preserved --- important point
+
+     null values are allowed
+
+     Heterogeneous and Homogeneous elements are allowed
+
+    LinkedHashSet internally uses Data Structure is hash table and double linked list.
+
+    constructor:
+    =============
+
+     LinkedHashSet lhs = new LinkedHashSet();
+
+     LinkedHashSet lhs = new LinkedHashSet(int capacity); 
+
+     LinkedHashSet lhs = new LinkedHashSet(Collection c);
+
+   
+
+     1)WAP to add elements in to LInkedHashSet Object and display the
+      elements using iterator
+
+    2) WAP to add javabean class Item class(itemid,itemName,itemPrice)
+       into linkedHashSet usign Generic and display the itemid,itemName and itemPrice 
+        desceding order based on price.
 
 
 
@@ -435,11 +810,390 @@ In StringBuffer  "==" operator and equals() method will compare the references.
 
 
 
+    TreeSet:
+    ========
+    TreeSet is a implementation  class for ->SortedSet(I)->NavigableSet->(I)->Set(I)
+
+    Duplicates are not allowed
+ 
+    We can store only homogeneous elements .
+
+    In Treeset internally it supports natural sorting order(using Comparable interface),
+    so that elements displayed in ascending order
+
+    TreeSet Internally uses DataStructure is  Red-black-Tree /Balanced Treed
+
+    Constructors:
+    =============
+
+     TreeSet ts = new TreeSet();
+
+     TreeSet ts = new TreeSet(Comparator);
+
+     TreeSet ts = new TreeSet(Collection c);
+
+    Example 
+    =======
+    1)WAP to add integers element into TreeSet
+   
+    2)WAP to add String elements into TreeSet 
+
+    3)WAP to add Employee (javabean) class into TreeSet and 
+      Display the element in ascending order based on empId
+  
+
+
+
+    note:
+    =====
+     TreeSet ts = new TreeSet();
+
+
+    1)first it will check whether Object type(element) which 
+      implements camparable interface or not.
+
+    2) if it implements comparable interface  then elements
+      will display in natural sorting order
+  
+      
+  
+   
+   Ex:
+   ====
+
+    TreeSet s = new TreeSet();
+
+    s.add("hello");
+    s.add("welcome");
+
+    s.add(new StringBuffer("java")); //castCastException
+    s.add(10);//class Cast Exception
+
+
+   in above example String implements Comparable interface
+   then we wont get any ClassCastException
+
+   But StringBuffer class will not implement
+   comparable interface then we will get error ClassCastException
+
+  note:
+  =====
+   String and all Wrapper classes by default implements 
+   Comparable interface.
+      
+   what is comparable class?
+   ==========================
+
+    A class Which provide the implementation for Comparable 
+    interface  then corresponding class is said to be comparable class.
+
+    interface(comparable):
+   =======================
+ 
+    interface Comparable {
+
+        int compareTo(Object obj);
+
+   }  ---java.lang.Comparable
+
+
+   
+   Comparator
+   ==========
+
+   1)if we want to store heterogeneous elements
+       and display the elements in custom sorting order
+       then we should go for Comparator interface
+
+   2)This interface available in java.util.Comparator
+      this interface contains two methods
+        
+   public interface Comparator<T>{
+        int compare(T obj1,T  obj2);
+        ...
+   }
+
+      What is Comparator class?
+
+      A class which provide implementation for Comparator interface
+       for custom sorting and heterogeneous elements
+        to store inside TreeSet Object then corressponding
+        class is said to be Comparator class.
+   
+     3)we need to pass this Comparator Class Object
+       to TreeSet parameterized Constructor to sort the elements in descending
+       order and to store heteorgenious elements.
+
+    4)to compare the Objects
+ 
+    Ascending order
+   --------------------------
+     1) if Obj1 is lessthan Obj2 then it will return  -1
+     2)if Obj1 is greater than Obj2 then  it will return 1
+     3)if obj1 equals to Obj2 then it will return 0
+
+  descending order
+   --------------------------
+     1) if Obj1 is lessthan Obj2 then it will return  1
+     2)if Obj1 is greater than Obj2 then  it will return -1
+     3)if obj1 equals to Obj2 then it will return 0
+
+
+
+   sal compare:
+    ===========
+
+                if(eob1.getSal()>eob2.getSal()) {
+			return 1;
+		}else  {
+			
+			return -1;
+		}
+
+
+
+    
+   Example:
+   ========
+   1)WAP to add Integer elements using generic into TreeSet and
+     display the element in custom sorting order 
+     (descending order using Comparator  interface).
+
+
+  2)WAP to add dissimilar elements into TreeSet and
+   display the element in custom sorting order 
+    (descending order using Comparator  interface)
+
+  3)WAP to add Item class  object into TreeSet  using Generics
+   and display the elements from TreeSet using iterator
+
+ class Item 
+
+
+ {
+     private int id ;
+     private String name;
+     //constructors 
+    //setter and getters
+}   
+
+
+  Assignments:
+  ===========
+  1)Wap to insert integer elements into ArrayList using Generics
+    a)Display the elements using iterator
+    b)while read the elements from the list , try to remove integer object.
+  
+  2)What is meant by Comparable(interface) class?
+       a)Which predefined classes implement this Comparable Interface
+
+ 
+
+    Example:
+    ========
+
+    1) create a class named as Employee with
+      two instance variables String name, int id
+
+    2)create class to store employee object  inside 
+      Tree Set
+
+    
+  MAP:
+  ====
+   Map is a interface
+
+   Map is not a Child interface of Collection
+   
+   To represent group of key, value pairs as a single entity
+   then we need to go for Map
+
+   Duplicate Keys are not allowed ,values can be duplicated
+
+   we can store heterogeneous and homogeneous type of data.
+  
+   we can store null key as once and null value no of times(HashMap and LinkedHashMap).    
+     
+  Implementation Classes 
+  ======================
+
+   HashMap
+   LinkedHashMap
+   TreeMap --(we can store only Homogeneous key type values)
+
+  NOTE:
+  ====
+   Key,value --Paired  -key is an Object
+                                 --value is an Object
+
+   key,value --paired is called as EntrySet.
+
+
+   
+  1)HashMap :
+   ==========
+   Duplicate keys are not allowed and values can be duplicated
+
+   Insertion order is not preserved (based on key)
+   
+   Internally uses  HashTable as DataStructure.
+
+   Duplicate Keys are not allowed ,values can be duplicated
+
+   Heterogeneous and Homogeneous keys and values are allowed
+   
+   methods:
+   ========
+   put(Object key,value Object value);
+   get(Object o);
+   Set  entrySet();
+   containsKey();
+   containsValue();
+   remove(Object Key)  
+   values() -->only values
+   keySet() --> only key
+   
+   Constructors:
+   =============
+
+    HashMap hm = new HashMap();
+    by default capacity is 16 elements
+
+    Hashmap hm = new HashMap(Int initialCapacity);
+
+
+
+
+    1 )WAP to store key,value pairs inside HashMap Object
+ 
+   2) WAP to store  Key as Integers and Values are String 
+     into HashMap using Generics and display the key,value pairs 
+    using iterator 
 
 
 
 
 
+   3) WAP to store Key as Integer and Value as a UserDefined ClassObject
+      is Student(sid,sname,marks)  into HashMap and display the values(Student) 
+    from HashMap using iterator.
+       
+
+
+
+
+
+
+   LinkedHashMap:
+   ==============
+   Duplicate keys are not allowed(unique) and values are duplicates
+
+   Insertion order is preserved based  on key 
+
+   underline DataStructure is double linked-list and hashtable.
+
+   Homogeneous and hetergeneous key,value pairs are allowed
+
+
+  1)WAP to Add Key,value pairs into LinkedHashMap
+
+
+
+
+
+
+   TreeMap:
+   =========
+  
+   TreeMap  underlying Datastrucure is RED-BLACK tree based alogrithm.
+
+   In TreeMap the key should be Homogeneous type
+    and values can be  heterogeneous.
+
+   it display the elements in natural sorting order(ascending order)
+     based on key.
+      
+   Duplicate key are not allowed
+ 
+  null keys are not allowed and multiple null values are allowed
+
+  TreeMap(c)->--NavigableMap(I)-->--SortedMap(I)-->Map(I)-->
+    
+   Constructors:
+   ==============
+   
+    TreeMap tm = new TreeMap();
+    TreeMap tm = new TreeMap(Comparator c);
+    TreeMap tm = new TreeMap(Map m);
+ 
+  
+   1) WAP to add Integer key and String as values  into TreeMap
+
+
+   Assignment
+   2) WAP to add Integer as  a Key and Book(bid,bname,author) java bean
+        class Object as Value into TreeMap  using Generics and display the
+        Bookdetails using enhanced For loop.
+
+      Interface Map{
+
+    ----put(Object key,Object value);
+-----------
+     Interface Entry{
+             
+       Object getKey();
+        Object getValue();
+        setValue(Object o); 
+
+         }
+  }  
+    note:
+    =====
+
+   to store heterogeneous keys and heterogeneous values
+   inside TreeMap we need to go for Comparator interface.
+
+   Example:
+   ========
+
+   1)WAP to store Heterogenous as key type and
+      hetergeneous values inside TreeMap.
+    note:
+    -----
+   by using Comparator Class
+  
+  
+  self-study:
+  ============
+   1)Hashtable
+   2)vector,Stack
+   3)IdentityHashMap
+   4)WeakHashMap
+   5)Queue(PriorityQueue,BlockingQueue) 
+
+  
+  6)to sort List Object in  ascending
+  ==================================
+
+   Collections.sort(--ArrayListobject/LinkedListObject--);
+
+   note:
+   ======
+   for sorting in ArrayList/LinkedList we need to store homogeneous.
+
+
+  7)INArrayList/LinkedList Hetegeneous elements sorting:
+  ====================================================
+
+   Collections.sort(ArrayList/LinkedList,Comparator c);
+
+   note:
+   =====
+   for custom sorting and hetergeneous we need to go for
+    Comparator class.
+
+      
+  8)Object[] toArray() -- to convert list Object into Object Array.
 
 
 
