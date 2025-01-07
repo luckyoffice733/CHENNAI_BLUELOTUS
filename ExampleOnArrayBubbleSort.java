@@ -1,9 +1,9 @@
-package com.training.ds.arrays;
+package com.training.ds.sorting;
 
 public class ExampleOnArrayBubbleSort {
 	public static void main(String[] args) {
 
-		int a[] = {6,5,2,8,3,7};
+		int a[] = {6,5,2,8,9,4};
 		int temp=0;
 		
 		System.out.println("before sort");
@@ -12,12 +12,12 @@ public class ExampleOnArrayBubbleSort {
 		}
 		
 		System.out.println("");
-		for(int i=0;i<a.length;i++) {  //time-complexity --> O(n2)
-			for(int j=0;j<a.length;j++) {
-				if(a[i]>a[j]) {
+		for(int i=0;i<a.length-1;i++) {  //time-complexity --> O(n2)
+			for(int j=0;j<a.length-i-1;j++) {
+				if(a[j]>a[j+1]) {
 					temp=a[j];
-					a[j]=a[i];
-					a[i]=temp;		
+					a[j]=a[j+1];
+					a[j+1]=temp;		
 				}
 			}
 			System.out.println("");//each iteration which element is swapped we can check
