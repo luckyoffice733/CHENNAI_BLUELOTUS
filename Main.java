@@ -1,34 +1,52 @@
-package com.training.generic;
+package com.training.ds.sll;
 
-class Test <T>{
-   
-	T obj;
+class Node{
+	int data;
+	Node next;
+}
 
-	public T getObj() {
-		return obj;
+class SingleLinkedList{
+	Node head;
+	
+	public void insert(int val) {  //10
+		Node n = new Node();
+		n.data=val;
+		n.next=null;
+		
+		if(head==null) {      
+			head=n;       //   head ->10/null
+		}else {
+			Node n1 =head;  //get the first node
+			while(n1.next!=null) {
+				n1=n1.next; //
+			}
+			n1.next=n;
+		}
 	}
-
-	public void setObj(T obj) {
-		this.obj = obj;
+	
+	
+	public void show() {
+		Node n =head;
+		while(n.next!=null) {
+			System.out.println(n.data);
+			n=n.next;
+		}
+		 System.out.println(n.data);
+		
 	}
 	
 }
 
-public class Main{
-	public static void main(String[] args) {
-	
-		 Test<Integer> t1 = new Test();
-		 t1.setObj(100);
-		 System.out.println(t1.getObj());
-		 
-	
-		 Test<Double> t2 = new Test();
-		 t2.setObj(121221.00);
-		 System.out.println(t2.getObj());
-		 
+
+public class Main {
+     public static void main(String[] args) {
 		
-		
+    	 SingleLinkedList sll = new SingleLinkedList();
+    	 sll.insert(10);
+    	 sll.insert(40);
+    	 sll.insert(20);
+    	 
+    	 System.out.println("elements");
+    	 sll.show();
 	}
-	
-	
 }
