@@ -1,0 +1,116 @@
+Multitasking:
+
+→Executing Several tasks Simultaneously is Caned multitasking.
+
+There are 2 types of multitasking:
+
+(1) Process-based multitasking
+
+(2) Thread-based multitasking
+
+
+
+(1) Process-based multi-tasking:
+
+Executing Several tasks Simultaneously, where each task is a Separate Independent process, its Called process based multitasking.
+
+ex :white typing a Java program its editor we can able to listen audio songs by music player in the System. at the same time we can download a file form the net. all these tasks are Executing Simultaneously & independent off each other.
+
+Hence, it is process-based multi-tasking.
+
+process-based multi-tasking is best Suitable at o's Level.
+
+
+2)Thread-based multitasking:
+
+→Executing Several tasks Simultaneously where each task is a Separate independent part of the Same program is Called Thread based multitasking each independent part is Called thread.
+
+It is Best Suitable for programmatic Level.
+
+whether it is process-based or thread-based the main objective A multitasking is to improve performance of the System by reducing Response time.
+
+→The main important application areas of multithreading are developing video games, multimedia Graphics, implementing animations..etc
+
+Java provides inbuilt Support for multithreading by introducing a Rich ApI (Thread, Runnable, Thread Group, ThreadLocal.....) being a programmer we have to know How to use this ApI and we are not responsible to define that API. Hence, developing multi-Threading Programs is very easy in Java when Compared with C++.
+
+The ways to define Instantiate & Start a new Thread:-
+
+We can define a Thread in the following ways:
+
+(1) By extending Thread Class
+(2) By Implements Runnable Interface.
+
+
+Multithreading is a powerful concept in Java that allows us to run multiple threads concurrently within a single process. 
+
+It’s crucial for developing responsive and efficient applications, especially in today’s multi-core processor environments. What is Multithreading?
+
+Multithreading is a programming concept that allows a single process to execute multiple threads concurrently. 
+
+Threads are lightweight sub-processes within a process that share the same memory space, but they can run independently. 
+
+Each thread represents a separate flow of control, making it possible to perform multiple tasks simultaneously within a single program.
+
+Key Points:
+------------
+-> Threads are smaller units of a process, sharing the same memory space.
+
+-> Threads can be thought of as independent, parallel execution paths.
+
+-> Multithreading enables efficient utilization of multi-core processors.
+
+-> Threads are smaller units of a process, sharing the same memory space.
+
+-> Threads can be thought of as independent, parallel execution paths.
+
+-> Multithreading enables efficient utilization of multi-core processors.
+
+
+
+Terminology and Concepts
+==========================
+To understand multithreading, it’s essential to grasp the following key concepts:
+
+Thread:
+-------
+A thread is the smallest unit of execution within a process. Multiple threads can exist within a single process and share the same memory space.
+
+Process: 
+--------
+A process is an independent program that runs in its memory space. It can consist of one or multiple threads.
+
+Concurrency: 
+------------
+Concurrency refers to the execution of multiple threads in overlapping time intervals. It allows tasks to appear as if they are executing simultaneously.
+
+Parallelism: 
+------------
+Parallelism involves the actual simultaneous execution of multiple threads or processes, typically on multi-core processors. It achieves true simultaneous execution.
+
+Race Condition: 
+---------------
+A race condition occurs when two or more threads access shared data concurrently, and the final outcome depends on the timing and order of execution. It can lead to unpredictable behavior and bugs.
+
+Synchronization:
+----------------
+Synchronization is a mechanism used to coordinate and control access to shared resources. 
+It prevents race conditions by allowing only one thread to access a resource at a time.
+
+Deadlock: 
+=========
+Deadlock is a situation in which two or more threads are unable to proceed because each is waiting for the other to release a resource. It can result in a system freeze.
+
+
+The Thread Lifecycle:
+---------------------
+Threads in Java go through various states in their lifecycle:
+
+New: When a thread is created but not yet started.
+
+Runnable: The thread is ready to run and is waiting for its turn to execute.
+
+Running: The thread is actively executing its code.
+
+Blocked/Waiting: The thread is temporarily inactive, often due to waiting for a resource or event.
+
+Terminated: The thread has completed execution and has been terminated.
