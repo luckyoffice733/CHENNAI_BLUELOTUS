@@ -1198,11 +1198,518 @@ Example:
 
 
 
+Data   es and Algorithms
+------------------------------
+Arrays and Big O notations(Time Complexity)
+
+Search algorithms (Linear Search/Binary Search)
+
+Sorting 
+
+List
+
+Stack
+
+Queues
+
+
+
+pseudocode : procedure(variableArray: a,targetVariabe :b)
+begin
+for(int i=0;i<a.length;i++){
+   if (a[i]==b){
+  return i; 
+  }else{
+     return -1; 
+  }
+  
+}
+
+end procedure;
+
+
+===================
+
+pseudocode : procedure(variableArray: a,targetVariabe :b)
+begin
+left;
+right;
+mid;
+for(int i=0;i<a.length;i++)
+     mid=(left+right)/2;
+    if(a[mid]==b)
+    return mid;
+    else if(left <=mid)
+       left=mid+1;
+   else 
+     right=mid-1;
+
+end procedure;
 
 
 
 
 
+
+
+
+
+
+
+
+
+variable a;
+
+variable b;
+
+variable c= a+b;
+
+
+
+
+
+
+
+
+
+
+int max=0;;
+        List<List<Integer>> outArray= new ArrayList<>();
+        for (int i=0; i<arr.size()-2;i++) {//rows
+
+            List<Integer> rows= new ArrayList<>();
+            for (int j=0; j<arr.size()-2;j++) {
+                rows.add(arr.get(i).get(j)+arr.get(i).get(j+1)+arr.get(i).get(j+2)+
+                        arr.get(i+1).get(j+1)+
+                        arr.get(i+2).get(j)+arr.get(i+2).get(j+1)+arr.get(i+2).get(j+2));
+                if(max<rows.get(j)) {                    
+                    max= rows.get(j);
+                }
+            }
+            outArray.add(rows);
+        }
+        return max;
+
+
+
+++++++++++++++++++++
+
+Array Complex
+Regular expression
+String complex
+Date  --- default date format  (YYYY-mm-dd)// SimpleDateFormat class and format() .
+LocaDate --(custom pattern date -> DateTimeFormatter class and parse())
+LocalTime 
+LocalDateTime
+
+
+
+=============
+what is Layered Architecture ?
+
+================================
+JAVA IO PACKAGE:
+ ================
+     Most programs need to access external data. 
+     Data is retrieved from an input source. 
+     Program results are sent to output destination. 
+
+    We require this package to read the data from files and
+      to write the data into files.
+
+   
+       We can read and write the data into file 
+      in two ways 
+      1)character
+      2)byte(Stream)
+
+
+       1)character:
+         ==========
+
+            1)File
+            2) FileWriter
+            3) FileReader
+            4)BufferedWriter
+            5)BufferedReader
+            6)PrintWriter
+
+     1) File:
+     ========
+             syntax:
+             ======
+
+         File f  = new File("path of the file");
+
+        ex:
+        ===
+
+         File f = new File("D:\temp.txt");
+
+     note:
+     ======
+     The java complier will check whether file is available or not
+     if file not available the File class will not create that file.
+
+     to create a file:
+     =================
+
+     f.createNewFile();
+
+       Directory:
+       ----------===
+
+       File f = new File("D:\");
+  
+     note:
+     ======
+     The java complier will check whether folder is availabe or not
+     if not available the file class will not create that folder.
+
+
+        to create a Directory :
+        =====================
+   
+             f.mkdir();
+   
+             
+    methods:
+   ---------------
+
+   boolean isFile();
+   boolean isDirectory();
+   String[] list(); -- it will list all directory and subdirectories
+                        and files.
+
+
+
+   2)FileWriter:
+   =============
+
+   This class is used to write character data into a File
+
+    Constructor:
+    ============
+
+     1)FileWriter fw = new FileWriter(String file);
+
+     2)FileWriter fw = new FileWriter(File file);
+
+      
+    Methods:
+   ============
+    void write(int ch);
+     void write(Char ch[]);
+     void write(String);
+      void flush(); -- it will guarantee that last character
+                            written into a file.
+ 
+      void close();-- to close the File Write Object
+ 
+   Example:
+   ---------
+   
+   1) write a java program to write some data into a
+        file c:\\simple.txt using FileWriter.
+
+   sol:
+   =====
+
+     public class ExampleOnFileWriter{
+
+      public static void main(String args[]){
+         // File f = new File("D:\\simple.txt);
+       //FileWriter fw = new FileWriter(f);
+
+     FileWriter fw = new FileWriter("D:\\simple.txt");
+
+         //write(int i)
+
+        fw.write(100); //d
+       
+        fw.write("\n");
+
+        //write (char ch[]);
+
+        char ch[] = {'a','b','c'};
+
+        fw.write(ch);
+
+       //write(String)
+       
+       fw.write("\n welcome to java");
+
+      fw.flush();
+
+      fw.close();   
+    }}
+
+   FileReader:
+   ===========
+
+   FileReader  is used to  read the characters data from
+    the file.
+
+   Constructor:
+  ==============
+
+    FileReader fr  = new FileReader("path of the file to read");
+
+    methods:
+    ========
+
+    int read();  -- it will read the characters until its become   -1
+
+    int read(Char ch[]);
+
+    void close();
+
+
+    Example:
+    ========
+
+   1) write a java program to read the character data from c:\\Data.txt file
+     using FileReader 
+
+
+    sol    
+     ----
+   public class ExampleOnFileReader{
+
+       public static void main(String args[]){
+
+       FileReader fr  = new FileReader("E:\\Data.txt");
+
+          
+     int i = fr.read();
+
+     while(i!=-1){
+      System.out.print((char)i);
+
+        i= fr.read();
+
+    }
+    fr.close();
+    }
+  }
+
+
+
+  BufferedWriter:
+  ===============
+  TO write character data or text data into a file.
+
+  to solve the problem of Filewriter  \n
+
+
+  Java BufferedWriter class is used to provide buffering for Writer instances. 
+  It makes the performance fast. It inherits Writer class. 
+
+  constructors:
+  ==================
+  1)BufferedWriter bw= new BufferedWriter(Writer w);
+
+  2) BufferedWriter bw= new BufferedWriter(Writer w,int buffersize)
+
+ 
+  methods of BufferedWriter:
+  ================================
+
+ 1) write(int ch)
+ 
+  to write single characters to the file
+
+ 2) write(char[] ch)
+
+ 3) write(String s)
+
+ 4) flush()
+
+ 5) close();
+
+ 6) newLine()
+    --------------- to insert a line seperator
+
+  
+   Example:
+   ========
+   
+   WAP to write character data into a file D:\\temp.txt
+
+     sol:
+    =====
+
+     public class ExampleOnBufferedWriter{
+      public static void main(String args[]){
+
+            FileWriter fw = new FileWriter("E:\\temp.txt")
+           BufferedWriter bw = new BufferedWriter(fw);
+
+          //write(int i);
+
+          bw.write(100);
+          bw.newLine();
+    
+          //write(String);
+
+         bw.write("welcome to java");
+
+          bw.newLine();
+         
+        //writer(char ch[]);
+   
+           char ch[] =  { 'a','b','c'};
+
+          bw.write(ch);
+
+          bw.flush();
+
+       bw.close();
+     
+ }
+ }            
+    
+
+  BufferedReader:
+ ==================              
+  BufferedReader is used to read characters data from file;
+ 
+ 1. BufferedReader br = new BufferedReader(Reader r);  
+ 2. BufferedReader br = new BufferedReader(Reader r,int buffersize);
+
+  methods:
+  ========
+
+  1) int read() --- unitl character will become   -1
+
+  2) int read(char[] ch)
+
+  3) void close();
+
+  4)String readLine()   --> !=null
+       
+ 
+     
+   Example:
+   ========
+
+   WAP to read character from the file E:\\temp_read.txt
+
+   sol:
+   ====
+
+    public class ExampleOnBufferedReader
+   {
+
+        public static voia main(String args[])          
+  {
+
+      FileReader fr = new FileReader("E:\\temp_read.txt");
+
+      BufferedReader br = new BufferedReader(fr);
+
+        String s = br.readLine();   //it will read first line from file
+
+             System.out.println(s);
+
+
+    }
+ } 
+
+ PrintWriter:
+ ============
+ Printwriter  is used to write any type of data into a file.
+  constructors:
+  =============
+
+  PrintWriter pw = new PrintWriter(String name);
+  PrintWriter pw = new PrintWriter(File f);
+  PrintWriter pw = new PrintWriter(Writer w);
+
+  methods:
+  ========
+   write(int i);
+   write(char ch);
+   write(String n);
+   flush();
+    close();
+     print(char c);
+     print(int i);
+     print(double d);
+     print(String s);
+     print(boolean b);
+   .......
+
+   example:
+   ========
+
+   1) Write a java program to write text into a file using
+      printWriter
+
+   sol:
+   ====
+    public class ExampleOnPrintWriter
+    {
+       public static void main(String args[]){
+
+         FileWriter fw = new FileWriter("E:\\print_out.txt");
+       PrintWriter pw  = new PrintWriter(fw);
+     
+          //write(int i);
+         pw.write(100); //d 
+          pw.println(100); //100 
+
+       pw.println("welcome to java");
+
+       pw.println(120.0);
+       
+       pw.println(true);
+
+       pw.flush();
+       pw.close();
+
+   }}    
+      }
+
+   }  
+
+conclusion:
+============
+
+1)FileReader and BufferedReader(br -Recommended)
+
+2) FW,BW and PW  (pw is Recommended)
+
+conclusion:2
+=============
+
+=>binary data(video file,audio files,images)==streams class
+
+===InputStream   is   to read binary data 
+
+===to write binary data into file using outputStream
+
+  InputStreamReader
+  FileInputStream
+  DataInputStream is a subclass of FilterInputStream
+ 
+  OutputStreamWriter
+  FileOutputStream
+  DataOutputStream
+
+  Example:
+  =========
+   1)wAP to read the data from a file(temp.txt) and write the data 
+     into sample.txt using FileInputStream and FileOutputStreaam
+
+
+Serialization:
+ ==============
+
+  Serialization is process of saving or writing state of an
+  Object into a file is called Serialization
+
+  Serializable  is a marker interface
 
 
 
