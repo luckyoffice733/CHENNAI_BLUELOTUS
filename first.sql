@@ -1,3 +1,13 @@
+create table employee(empno int,ename varchar(20),sal float);
+
+
+select * from bluelotus.employee;
+
+#insert the multiple records
+insert into bluelotus.employee values(1041,'martin',6000),
+									(1031,'allen',5000),(1021,'gopal',4000);
+
+
 select * from employee;
 
 describe employee;
