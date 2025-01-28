@@ -2,10 +2,11 @@ package com.training;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class ExampleOnInsertUsingStatement {
+public class ExampleOnUpdateUsingPreparedStatement2 {
 	
 	public static void main(String[] args) {
 		
@@ -17,19 +18,26 @@ public class ExampleOnInsertUsingStatement {
 		Connection con =DriverManager.getConnection(url,"root","root");
 			
 			  
-		String query="insert into employee values(13121,'elwin','clerk',5000)";
-		//statement object
+		String query="update employee set ename=?,job=?,sal=? where empno=? ";
+		//Preparedstatement object
 		
-		Statement stmt =con.createStatement();
-		 int iobj=  stmt.executeUpdate(query);
+		PreparedStatement pstmt = con.prepareStatement(query);
+		pstmt.setString(1,"sunil");
+		pstmt.setString(2,"Manager");
+		pstmt.setFloat(3,50000);
+		pstmt.setInt(4,13121);
+		
+		int iobj = pstmt.executeUpdate();
+		
+		
 		if(iobj>0) {
-			System.out.println("Record Inserted....");
+			System.out.println("Record Updated ....");
 		}else {
-			System.out.println("Record not inserted");
+			System.out.println("Record not updated");
 		}
 		
 		//close the connection
-		stmt.close();
+		pstmt.close();
 		con.close();
 		
 			

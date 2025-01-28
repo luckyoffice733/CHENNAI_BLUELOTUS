@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class ExampleOnInsertUsingStatement {
+public class ExampleOnUpdateUsingStatement {
 	
 	public static void main(String[] args) {
 		
@@ -17,15 +17,15 @@ public class ExampleOnInsertUsingStatement {
 		Connection con =DriverManager.getConnection(url,"root","root");
 			
 			  
-		String query="insert into employee values(13121,'elwin','clerk',5000)";
+		String query="update employee set job='SALEMAN' where empno=2121 ";
 		//statement object
 		
 		Statement stmt =con.createStatement();
 		 int iobj=  stmt.executeUpdate(query);
 		if(iobj>0) {
-			System.out.println("Record Inserted....");
+			System.out.println("Record Updated ....");
 		}else {
-			System.out.println("Record not inserted");
+			System.out.println("Record not updated");
 		}
 		
 		//close the connection

@@ -2,10 +2,10 @@ package com.training;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
 
-public class ExampleOnInsertUsingStatement {
+public class ExampleOnDeleteUsingPreparedStatement {
 	
 	public static void main(String[] args) {
 		
@@ -17,19 +17,22 @@ public class ExampleOnInsertUsingStatement {
 		Connection con =DriverManager.getConnection(url,"root","root");
 			
 			  
-		String query="insert into employee values(13121,'elwin','clerk',5000)";
+		String query="delete from employee where empno=? ";
 		//statement object
 		
-		Statement stmt =con.createStatement();
-		 int iobj=  stmt.executeUpdate(query);
+	    PreparedStatement pstmt =con.prepareStatement(query);
+	    pstmt.setInt(1,13121);
+	    
+	    
+		 int iobj=  pstmt.executeUpdate();
 		if(iobj>0) {
-			System.out.println("Record Inserted....");
+			System.out.println("Record Deleted ....");
 		}else {
-			System.out.println("Record not inserted");
+			System.out.println("Record not Deleted");
 		}
 		
 		//close the connection
-		stmt.close();
+		pstmt.close();
 		con.close();
 		
 			
