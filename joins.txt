@@ -1,0 +1,186 @@
+mysql> select e.empno,e.ename,e.sal,d.deptno,d.dname,d.loc from emp e ,dept d
+    -> where e.deptno=d.deptno;
++-------+--------+---------+--------+------------+----------+
+| empno | ename  | sal     | deptno | dname      | loc      |
++-------+--------+---------+--------+------------+----------+
+|  7369 | SMITH  |  800.00 |     20 | RESEARCH   | DALLAS   |
+|  7499 | ALLEN  | 1600.00 |     30 | SALES      | CHICAGO  |
+|  7521 | WARD   | 1250.00 |     30 | SALES      | CHICAGO  |
+|  7566 | JONES  | 2975.00 |     20 | RESEARCH   | DALLAS   |
+|  7654 | MARTIN | 1250.00 |     30 | SALES      | CHICAGO  |
+|  7698 | BLAKE  | 2850.00 |     30 | SALES      | CHICAGO  |
+|  7782 | CLARK  | 2450.00 |     10 | ACCOUNTING | NEW YORK |
+|  7788 | SCOTT  | 3000.00 |     20 | RESEARCH   | DALLAS   |
+|  7839 | KING   | 5000.00 |     10 | ACCOUNTING | NEW YORK |
+|  7844 | TURNER | 1500.00 |     30 | SALES      | CHICAGO  |
+|  7876 | ADAMS  | 1100.00 |     20 | RESEARCH   | DALLAS   |
+|  7900 | JAMES  |  950.00 |     30 | SALES      | CHICAGO  |
+|  7902 | FORD   | 3000.00 |     20 | RESEARCH   | DALLAS   |
+|  7934 | MILLER | 1300.00 |     10 | ACCOUNTING | NEW YORK |
++-------+--------+---------+--------+------------+----------+
+14 rows in set (0.01 sec)
+
+mysql> --SECCOND WAY USING ON Operator
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '--SECCOND WAY USING ON Operator' at line 1
+mysql> select e.empno,e.ename,e.sal,d.deptno,d.dname,d.loc from emp e join dept d
+    -> on(e.deptno=d.deptno);
++-------+--------+---------+--------+------------+----------+
+| empno | ename  | sal     | deptno | dname      | loc      |
++-------+--------+---------+--------+------------+----------+
+|  7369 | SMITH  |  800.00 |     20 | RESEARCH   | DALLAS   |
+|  7499 | ALLEN  | 1600.00 |     30 | SALES      | CHICAGO  |
+|  7521 | WARD   | 1250.00 |     30 | SALES      | CHICAGO  |
+|  7566 | JONES  | 2975.00 |     20 | RESEARCH   | DALLAS   |
+|  7654 | MARTIN | 1250.00 |     30 | SALES      | CHICAGO  |
+|  7698 | BLAKE  | 2850.00 |     30 | SALES      | CHICAGO  |
+|  7782 | CLARK  | 2450.00 |     10 | ACCOUNTING | NEW YORK |
+|  7788 | SCOTT  | 3000.00 |     20 | RESEARCH   | DALLAS   |
+|  7839 | KING   | 5000.00 |     10 | ACCOUNTING | NEW YORK |
+|  7844 | TURNER | 1500.00 |     30 | SALES      | CHICAGO  |
+|  7876 | ADAMS  | 1100.00 |     20 | RESEARCH   | DALLAS   |
+|  7900 | JAMES  |  950.00 |     30 | SALES      | CHICAGO  |
+|  7902 | FORD   | 3000.00 |     20 | RESEARCH   | DALLAS   |
+|  7934 | MILLER | 1300.00 |     10 | ACCOUNTING | NEW YORK |
++-------+--------+---------+--------+------------+----------+
+14 rows in set (0.00 sec)
+
+mysql>
+Left Outer Join
+---------------
+mysql> select e.empno,e.ename,e.sal,d.deptno,d.dname,d.loc
+    -> from dept d
+    -> left outer join
+    -> emp e on(d.deptno=e.deptno);
++-------+--------+---------+--------+------------+----------+
+| empno | ename  | sal     | deptno | dname      | loc      |
++-------+--------+---------+--------+------------+----------+
+|  7934 | MILLER | 1300.00 |     10 | ACCOUNTING | NEW YORK |
+|  7839 | KING   | 5000.00 |     10 | ACCOUNTING | NEW YORK |
+|  7782 | CLARK  | 2450.00 |     10 | ACCOUNTING | NEW YORK |
+|  7902 | FORD   | 3000.00 |     20 | RESEARCH   | DALLAS   |
+|  7876 | ADAMS  | 1100.00 |     20 | RESEARCH   | DALLAS   |
+|  7788 | SCOTT  | 3000.00 |     20 | RESEARCH   | DALLAS   |
+|  7566 | JONES  | 2975.00 |     20 | RESEARCH   | DALLAS   |
+|  7369 | SMITH  |  800.00 |     20 | RESEARCH   | DALLAS   |
+|  7900 | JAMES  |  950.00 |     30 | SALES      | CHICAGO  |
+|  7844 | TURNER | 1500.00 |     30 | SALES      | CHICAGO  |
+|  7698 | BLAKE  | 2850.00 |     30 | SALES      | CHICAGO  |
+|  7654 | MARTIN | 1250.00 |     30 | SALES      | CHICAGO  |
+|  7521 | WARD   | 1250.00 |     30 | SALES      | CHICAGO  |
+|  7499 | ALLEN  | 1600.00 |     30 | SALES      | CHICAGO  |
+|  NULL | NULL   |    NULL |     40 | OPERATIONS | BOSTON   |
+|  NULL | NULL   |    NULL |     50 | HR         | TEXAS    |
++-------+--------+---------+--------+------------+----------+
+16 rows in set (0.00 sec)
+
+mysql>select e.empno,e.ename,e.sal,d.deptno,d.dname,d.loc
+    -> from dept d
+    -> left join
+    -> emp e on(d.deptno=e.deptno);
+
+
+Right OUTER JOIN:
+=================
+ select e.empno,e.ename,e.sal,d.deptno,d.dname,d.loc
+    -> from dept d
+    -> right outer join
+    -> emp e on(d.deptno=e.deptno);
++-------+--------+---------+--------+------------+----------+
+| empno | ename  | sal     | deptno | dname      | loc      |
++-------+--------+---------+--------+------------+----------+
+|  7369 | SMITH  |  800.00 |     20 | RESEARCH   | DALLAS   |
+|  7499 | ALLEN  | 1600.00 |     30 | SALES      | CHICAGO  |
+|  7521 | WARD   | 1250.00 |     30 | SALES      | CHICAGO  |
+|  7566 | JONES  | 2975.00 |     20 | RESEARCH   | DALLAS   |
+|  7654 | MARTIN | 1250.00 |     30 | SALES      | CHICAGO  |
+|  7698 | BLAKE  | 2850.00 |     30 | SALES      | CHICAGO  |
+|  7782 | CLARK  | 2450.00 |     10 | ACCOUNTING | NEW YORK |
+|  7788 | SCOTT  | 3000.00 |     20 | RESEARCH   | DALLAS   |
+|  7839 | KING   | 5000.00 |     10 | ACCOUNTING | NEW YORK |
+|  7844 | TURNER | 1500.00 |     30 | SALES      | CHICAGO  |
+|  7876 | ADAMS  | 1100.00 |     20 | RESEARCH   | DALLAS   |
+|  7900 | JAMES  |  950.00 |     30 | SALES      | CHICAGO  |
+|  7902 | FORD   | 3000.00 |     20 | RESEARCH   | DALLAS   |
+|  7934 | MILLER | 1300.00 |     10 | ACCOUNTING | NEW YORK |
+|  1111 | One    | 1000.00 |   NULL | NULL       | NULL     |
++-------+--------+---------+--------+------------+----------+
+15 rows in set (0.00 sec)
+
+mysql>FUll OUTER JOIN
+mysql> select e.empno,e.ename,e.sal,d.deptno,d.dname,d.loc
+    -> from dept d
+    -> Left outer join emp e on(d.deptno=e.deptno)
+    -> Union
+    -> select e.empno,e.ename,e.sal,d.deptno,d.dname,d.loc
+    -> from dept d
+    -> right outer join emp e on(d.deptno=e.deptno);
++-------+--------+---------+--------+------------+----------+
+| empno | ename  | sal     | deptno | dname      | loc      |
++-------+--------+---------+--------+------------+----------+
+|  7934 | MILLER | 1300.00 |     10 | ACCOUNTING | NEW YORK |
+|  7839 | KING   | 5000.00 |     10 | ACCOUNTING | NEW YORK |
+|  7782 | CLARK  | 2450.00 |     10 | ACCOUNTING | NEW YORK |
+|  7902 | FORD   | 3000.00 |     20 | RESEARCH   | DALLAS   |
+|  7876 | ADAMS  | 1100.00 |     20 | RESEARCH   | DALLAS   |
+|  7788 | SCOTT  | 3000.00 |     20 | RESEARCH   | DALLAS   |
+|  7566 | JONES  | 2975.00 |     20 | RESEARCH   | DALLAS   |
+|  7369 | SMITH  |  800.00 |     20 | RESEARCH   | DALLAS   |
+|  7900 | JAMES  |  950.00 |     30 | SALES      | CHICAGO  |
+|  7844 | TURNER | 1500.00 |     30 | SALES      | CHICAGO  |
+|  7698 | BLAKE  | 2850.00 |     30 | SALES      | CHICAGO  |
+|  7654 | MARTIN | 1250.00 |     30 | SALES      | CHICAGO  |
+|  7521 | WARD   | 1250.00 |     30 | SALES      | CHICAGO  |
+|  7499 | ALLEN  | 1600.00 |     30 | SALES      | CHICAGO  |
+|  NULL | NULL   |    NULL |     40 | OPERATIONS | BOSTON   |
+|  NULL | NULL   |    NULL |     50 | HR         | TEXAS    |
+|  1111 | One    | 1000.00 |   NULL | NULL       | NULL     |
++-------+--------+---------+--------+------------+----------+
+17 rows in set (0.00 sec)
+
+mysql>--SELF JOIN
+--------------------
+mysql> select e.ename,m.ename as manager from emp e,emp m where e.mgr=m.empno;
++--------+---------+
+| ename  | manager |
++--------+---------+
+| FORD   | JONES   |
+| SCOTT  | JONES   |
+| JAMES  | BLAKE   |
+| TURNER | BLAKE   |
+| MARTIN | BLAKE   |
+| WARD   | BLAKE   |
+| ALLEN  | BLAKE   |
+| MILLER | CLARK   |
+| ADAMS  | SCOTT   |
+| CLARK  | KING    |
+| BLAKE  | KING    |
+| JONES  | KING    |
+| SMITH  | FORD    |
++--------+---------+
+13 rows in set (0.00 sec)
+--
+Cross JOIN:
+===========
+l> select e.empno,e.ename,e.sal,d.deptno,d.dname,d.loc from dept d cross join emp e;
+
+2) select e.empno,e.ename,e.sal,d.deptno,d.dname,d.loc from dept d ,emp e;
+
+
+Natural Join:
+===============
+select e.empno,e.ename,e.sal,d.deptno,d.dname,d.loc
+    -> from dept d
+    -> NATURAL JOIN
+    -> emp e;
+
+
+alter table dept rename column deptno to dno
+
+mysql> select e.empno,e.ename,e.sal,d.dno,d.dname,d.loc
+    -> from dept d
+    -> NATURAL JOIN
+    -> emp e;  --- cross product
+
+
+alter table dept rename column dno to deptno;
