@@ -1,0 +1,166 @@
+mysql> create table emp11(empno int not null,ename varchar(20), sal float not null);
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> insert into emp11 values(1001,'smith',4000);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into emp11 values(null,null,null);
+ERROR 1048 (23000): Column 'empno' cannot be null
+mysql> insert into emp11 (ename) values('martin');
+ERROR 1364 (HY000): Field 'empno' doesn't have a default value
+mysql> insert into emp11 (empno,sal) values(1211,5000);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> drop table emp11;
+Query OK, 0 rows affected (0.03 sec)
+
+default
+========
+mysql> create table emp12(empno int not null,
+    -> ename varchar(20),
+    -> sal float not null default '0.0');
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> insert into emp12 (empno,ename) values (1011,'martin');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from emp12;
++-------+--------+-----+
+| empno | ename  | sal |
++-------+--------+-----+
+|  1011 | martin |   0 |
++-------+--------+-----+
+1 row in set (0.00 sec)
+
+Check:
+======
+mysql> create table payment(paymentId int,
+    -> dateofTransaction date,
+    -> modeOfPayment varchar(30) check (modeOfPayment in('CASH','DEBIT','CREDIT',"UPI
+")));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> insert into payment values(3121,'2023-10-22','cash');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into payment values(3122,'2020-11-2','credit');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into payment values(3122,'2020-11-2','NEFT');
+ERROR 3819 (HY000): Check constraint 'payment_chk_1' is violated.
+mysql>
+mysql> drop table payment;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> create table payment(paymentId int,
+    -> dateofTransaction date,
+    -> modeOfPayment varchar(30));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> alter table payment add constraint check(modeOfPayment In('CASH',"UPI"));
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> insert into payment values(3122,'2020-11-2','NEFT');
+ERROR 3819 (HY000): Check constraint 'payment_chk_1' is violated.
+mysql>
+
+Primary Key:
+------------
+mysql> create table emp13(empno int primary key,ename varchar(20),sal float);
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> insert into emp13 values(1001,'smith',4000);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into emp13 values(1001,'smith',4000);
+ERROR 1062 (23000): Duplicate entry '1001' for key 'emp13.PRIMARY'
+mysql> insert into emp13 values(null,'smith',4000);
+ERROR 1048 (23000): Column 'empno' cannot be null
+mysql> create table emp14(empno int ,ename varchar(20),sal float);
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> drop table emp14;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> create table emp14(empno int,
+    -> ename varchar(20),
+    -> sal decimal(10,2),
+    -> primary key(empno));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> --table level
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '--table level' at line 1
+mysql>
+
+Foreign Key:
+============
+mysql> create table course(cid int,cname varchar(20),
+    -> fees float,
+    -> primary key(cid));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> create table student(sid int,sname varchar(20),
+    -> address varchar(20),
+    -> cid int,
+    -> primary key(sid),
+    -> foreign key(cid) references course(cid));
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> insert into course values (1,'java',5000),(2,'animation',50000),
+    -> (3,'CyberSecurity',10000);
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> insert into student(131,'Sayyed','ODISHA',1);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '131,'Sayyed','ODISHA',1)' at line 1
+mysql> insert into student values(131,'Sayyed','ODISHA',1);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into student values(132,'BASHA','KURNOOL',12);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`bluelotus`.`student`, CONSTRAINT `student_ibfk_1` FOREIGN KEY (`cid`) REFERENCES `course` (`cid`))
+mysql> insert into student values(132,'BASHA','KURNOOL',1);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into student values(1345,'SAI','HYD',null);
+Query OK, 1 row affected (0.01 sec)
+
+mysql>
+
+mysql> select * from course;
++-----+---------------+-------+
+| cid | cname         | fees  |
++-----+---------------+-------+
+|   1 | java          |  5000 |
+|   2 | animation     | 50000 |
+|   3 | CyberSecurity | 10000 |
++-----+---------------+-------+
+3 rows in set (0.00 sec)
+
+mysql> select * from student;
++------+--------+---------+------+
+| sid  | sname  | address | cid  |
++------+--------+---------+------+
+|  131 | Sayyed | ODISHA  |    1 |
+|  132 | BASHA  | KURNOOL |    1 |
+| 1345 | SAI    | HYD     | NULL |
++------+--------+---------+------+
+3 rows in set (0.00 sec)
+
+mysql> drop table course;
+ERROR 3730 (HY000): Cannot drop table 'course' referenced by a foreign key constraint 'student_ibfk_1' on table 'student'.
+mysql> drop table course cascade;
+ERROR 3730 (HY000): Cannot drop table 'course' referenced by a foreign key constraint 'student_ibfk_1' on table 'student'.
+mysql> alter table drop constraint 'student_ibfk_1';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'drop constraint 'student_ibfk_1'' at line 1
+mysql> alter table student drop constraint 'student_ibfk_1';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''student_ibfk_1'' at line 1
+mysql> alter table student drop constraint student_ibfk_1;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> drop table course;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql>
