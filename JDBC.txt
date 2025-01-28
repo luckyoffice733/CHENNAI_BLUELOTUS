@@ -1,0 +1,74 @@
+Step to create jdbc program inorder to interact with database:
+
+step1:
+=======
+Register or load the driver
+
+Syntax:
+------
+Class.forName("specify the driver class name");
+
+Ex:
+===
+Class.forName("com.mysql.jdbc.cj.Driver");
+
+
+Step2:
+=======
+Get the connection Object from the database.
+1)get the database Url: 
+
+ex:
+---
+jdbc:mysql://localhost:3306/bluelotus
+
+2) username and password
+
+username = root
+pwd = root
+
+Ex:
+----
+Connection con=DriverManager.getConnection(url,username,password);
+
+
+3)create statement Or preparedStatement Object to specify the queries.
+
+non-select ->insert/update/delete(DML)  ---- int executeUpdate() -->int --no of rows effected in the database.
+
+select  ---> select   ----       ResultSet executeQuery()
+
+                        ---> Boolean execute()   ---> DML/select
+
+
+Ex:
+----
+Statement stmt  = con.createStatment();
+
+String query="insert into emp11 values(1021,'elwin',5000)";
+
+int i=stmt.executeUpdate();
+
+or
+
+String query="insert into emp11 values(?,?,?)";
+
+PreparedStatement pstmt = con.prepareStatement(query);
+pstmt.setInt(1,101);
+pstmt.setString(2,"raju");
+pstmt.setFloat(3,5000);
+
+int i=pstmt.executeUpdate();
+
+
+4) close the connection/statement/preparedstatement object
+
+  ptmst.close()
+   stmt.close()
+   con.close()
+
+
+
+
+
+
