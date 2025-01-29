@@ -11,11 +11,15 @@ public class ExampleOnRetriveAllTheRecords {
 	public static void main(String[] args) {
 		
 		try {//load or register the driver
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			
-			//establish the connection
-			String url="jdbc:mysql://localhost:3306/bluelotus";
-		Connection con =DriverManager.getConnection(url,"root","root");
+			/*
+			 * Class.forName("com.mysql.cj.jdbc.Driver");
+			 * 
+			 * //establish the connection String
+			 * url="jdbc:mysql://localhost:3306/bluelotus"; Connection con
+			 * =DriverManager.getConnection(url,"root","root");
+			 */
+		
+		Connection con = DBUtil.getMySqlConnection();
 			
 			  
 		String query="select * from dept";
@@ -36,12 +40,9 @@ public class ExampleOnRetriveAllTheRecords {
 		
 	    rs.close();
 	    stmt.close();
-		con.close();
-		
+		//con.close();
+		DBUtil.closeMySqlConnection(con);
 			
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
