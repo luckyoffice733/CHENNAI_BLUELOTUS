@@ -1,0 +1,21 @@
+select * from hibernate_sequences;
++---------------+----------+
+| sequence_name | next_val |
++---------------+----------+
+| default       |       50 |    
++---------------+----------+
+ 																						1 smith hyd
+									2  roshan dallas
+customer Table Sequence:
+------------------------
+
+@TableGenerator(
+name="pkgen",   
+table="id_gen",  //instead of hibernate_sequences;
+pkColumnName="gen_key",//instead of sequence_name
+valueColumnName="gen_value",  //instead of next_val
+pkColumnValue="cust_id",  //instead of default
+allocationSize=2)  // it generate the one
+
+								        1 smith hyd
+									2  roshan dallas

@@ -1,0 +1,1621 @@
+https://medium.com/@shehaan.avishka00/what-is-hibernate-jakarta-persistence-api-c76a01cdfefb
+
+
+
+what is JPA?   
+------------
+JPA stands for Jakarta Persistence API (JPA), formerly known as Java Persistence API.
+ persistence means Database
+JPA is just a specification that facilitates object-relational mapping to manage relational data in Java applications. 
+
+It provides a platform to work directly with objects instead of using SQL statements.
+
+JPA defines only specifications, it does not provide an implementation. 
+
+JPA implementation is provided as a reference implementation by the vendors developing O/R Mappers such as Hibernate, EclipseLink,Apache OpenJPA,ibatis....
+
+JPA permits the developer to work directly with objects rather than with SQL statements. 
+The JPA implementation is typically called persistence provider.
+
+What are the advantages of JPA?
+------------------------------
+The advantages of JPA are given below.
+
+We no need to create SQL statements if we use JPA. We directly persist an object into the database.
+
+The burden of interacting with the database reduces significantly by using JPA
+
+The user programming becomes easy by concealing the O/R mapping and database access processing
+
+The cost of creating the definition file is reduced by using annotations
+
+We can merge the applications used with other JPA providers
+
+Using different implementations can add the features to the standard Implementation which can later be the part of JPA specification
+
+
+What is ORM(Hibernate)?
+-------------
+Object-relational mapping or ORM is the programming technique to map application domain model objects(pojo) to the relational database tables.
+
+
+
+@Entity : It maps model class(pojo class) with DB Table and Variables with columns
+
+@Id: It indicates primary Key. Every Table must Contain Primary key.
+
+@Table :- It is Optional , We can provide column details like column name.
+*** if @Table, @Column are not provided then className is TableName,variableName is
+    ColumnName(taken by Hibernate);
+
+
+Configuration File persistence.xml:
+====================================
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<persistence xmlns="https://jakarta.ee/xml/ns/persistence" version="3.0">
+
+<persistence-unit name="examplePU">
+        <!-- model class /entity class -->
+        <class>com.cg.model.Student</class>
+        <properties>
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/batch2"/>
+            <property name="jakarta.persistence.jdbc.user" value="root"/>
+            <property name="jakarta.persistence.jdbc.password" value="root"/>
+            <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+        </properties>
+        
+    </persistence-unit>
+
+
+
+</persistence>
+
+UserMain Code:
+===============
+ EntityManagerFactory emfty= Persistence.createEntityManagerFactory("persistent_unitname");
+   EntityManager  em=emfty.createEntityManager();
+   EntityTransaction  etx =	  em.getTransaction();
+
+
+Hibernate Configuration File(hibernate.cfg.xml):- 
+===========================================================
+for one application we should provide one configuration file 
+*) it is XML Format
+*) it contains details like properties + mapping classes 
+Cfg= property + mapping class
+
+*) Here Property means data in key= value format.
+
+Keys are given below (8 keys)
+-------------------------------
+1) hibernate.connection.driver_class=com.mysql.cj.jdbc.Driver
+2) hibernate.connection.url=jdbc:mysql://localhost:3306/batch2
+3) hibernate.connection.username=root
+4) hibernate.connection.password=root
+5) hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
+6) hibernate.show_sql=true
+7) hibernate.format_sql=true
+8) hibernate.hbm2ddl.auto=update
+
+1. dialect: dialect is class it will be generate the SQL Query when programmer performs 
+operation, for every database dialect is different
+
+EX:- Oracle DB= OracleDialect
+ MySQL DB= MySQLDialect
+ Sybase DB= SybaseDialect
+ H2 DB = H2Dialect
+ All dialect are defined in package org.hibernate.dialect
+
+2. show_sql:- it is a Boolean property default value is false. To see generated SQL on 
+Console make value as true.
+
+3. format_sql:- it is a Boolean property default value is false. It will display sql clause by 
+clause (part by part)
+
+Ex:- SelectEid ,name From Emptab  Where Eid=10
+Value must be set to ‘true’ 
+
+4. hbm2ddl.auto:- here hbm= hibernate mapping 
+ddl=Data definition language(create /alter/drop/update in SQL)
+
+it has four possible value. 
+Those are:-
+a. validate (default value)
+b. create 
+c. update
+d. create-drop
+
+Validate:- in this case hibernate creates no tables programmer has to create or modify tables 
+manually. It is only default value.
+
+Create:- hibernate creates always new tables, if table exist then it will be drop.
+
+Update:- it creates new table if table not exits else uses same tables. 
+
+Create-drop:- this option is used for testing process not in development, it’s new table and 
+performs operation at last table will be drop.
+
+configuration file must follow naming rule given by hibernate for auto-detection.
+Naming rule is: hibernate.cfg.xml
+
+hibernate.cfg.xml
+-----------------
+<hibernate-configuration>
+<session-factory>
+<property name=”key”>value</property>
+…………………………………………………………………….
+………………………
+<mapping class=”--------”/>
+</session-factory>
+</hibernate-configuration>
+
+Example code with key=value(mysql)
+hibernate.cfg.xml
+-----------------
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-configuration PUBLIC
+"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+"http://hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+<session-factory>
+<property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/nri
+</property>
+<property name="hibernate.connection.username">root</property>
+<property name="hibernate.connection.password">root</property>
+<property name="hiberante.dialect"> org.hibernate.dialect.MySQL8Dialect</property>
+<property name="hibernate.show_sql">true</property>
+<property name="hibernate.format_sql">true</property>
+<property name="hibernate.hbm2ddl.auto">update</property>
+<mapping class="com.app.model.Employee"/>  
+</session-factory>
+</hibernate-configuration>
+
+
+Coding Steps with Concept:-
+----------------------------------
+1. Create empty configuration object using class “configuration” given by hibernate.
+Configuration cfg=new Configuration();
+
+2. Load hibernate.cfg.xml file into above object using method configure()
+cfg.configure();
+
+** if XML file name or location is different then code will be:
+cfg.configure(“abcd.cfg.xml”);
+cfg.configure(“com/app/one.cfg.xml”);
+
+3. Create object to SessionFactory using cfg, which load driver class and creates connection and 
+   statement type.
+
+SessionFactory sf=cfg.buildSessionFactory();
+
+4. To perform operations (Task) create one Session object using SF.
+
+Session ses=sf.openSession();
+
+5. Start one Transaction if operation type is non-select (insert, update and delete). 
+If select operation then Tx not required.
+
+Transaction tx=ses.beginTransaction();
+
+6. Perform operation using session 
+…………………………..
+…………………………..
+7. Either commit or rollback if Tx is started. 
+tx.commit ()/tx.rollback();
+
+8. Finally close Session
+ses.close();
+
+
+
+
+download hibernate orm jar file:
+---------------------------------
+https://sourceforge.net/projects/hibernate/files/hibernate-orm/
+
+
+
+HQL(HIBERNATE QUERY LANGUAGE ):-
+--------------------------------
+By session operation like save(),update(),delete(),get(),load(),saveOrUpdate()..
+We can perform single row operation.
+
+• To perform multi row operation hibernate has provided HQL Concept. 
+It will support both select and Non-Select operation(update,delete,and copy)
+
+• *** HQL will not support multi-row insert. 
+
+• HQL is partially case sensitive that is java related word case sensitive and SQL related words (select ,update, delete, from, set,group by having…..) case sensitive 
+
+• To convert HQL to SQL replace with column name with variable name table name with class name.
+
+Ex:- SQL:-
+ Select eid,ename from emptab
+HQL: 
+ Select empId, empName from com.training.entity.Employee
+
+SQL:
+select * from emptab;
+HQL:
+ from com.training.entity.Employee;
+
+
+HQL SELECT: 
+-----------
+we can use select queries to fetch data DB tables (Multiple rows). 
+Final output is given by 
+Hibernate is java.util.List(no.of rows=no.of objects>> stored in List Collection only)
+
+FULL LOADING :
+--------------
+select all columns using Query(HQL/SQL) is known as Full loading (One Full row = one complete Model class Object). 
+So final output will be List<T>, T=Type/Model class Name
+
+PARTIAL LOADING : selecting one column (=1 column) or more then one columns (>1 column) is known as Partial loading.
+
+final output will be
+
+List<DT> 
+DT=DataType of varivales/column 
+>1 column :List<Object[]>
+
+
+HQL CODING:
+-----------
+1. Define one HQL String 
+Ex: String hql=”….”;
+
+2. Create Query object using session object
+Query q=ses.createQuery(hql);
+
+3. Execute query object using list() method
+List<__> data=q.list()
+
+
+
+PARAMETER IN HQL:- 
+-------------------
+it is used to pass data to query at runtime. 
+
+A parameter in simple called as input to HQL/SQL query at runtime.
+
+Hibernate supports two types of parameters concepts.
+1. Positional Parameters(?)
+2. Named Parameters (:name)
+
+1. Positional Parameters:- 
+---------------------------
+It indicates position numbers of ? Symbols. States from Zero (in hibernate).
+
+• Starts from 1 in JDBC. 
+
+• One HQL Query can have multiple “?” symbols which indicates data comes at 
+runtime.
+
+• Index number starts from zero, to set data based on position used method 
+“setParameter(index,data)”
+
+Example:-
+Select eid from emptab 
+Where eid> ?-------0
+Or ename= ?--------1
+And esal < ? ---------2
+Select eid from emptab
+Where eid< ? -----------------0
+And eid > ?----------------------0 ---0
+Or ename =?--------------------1
+• Position number may get changed if query gets changes
+
+Ex:
+----
+String hql="from com.app.model.Manager where mngId=? or mngName=?";
+Query q=ses.createQuery(hql);
+q.setParameter(0, 102);
+q.setParameter(1, "AA");
+
+
+2) Named Parameters:- 
+--------------------
+it is used to provide a name in place of ? symbole, to indicate data 
+comes at runtime.
+
+* This is new concept in Hibernate, not exist in JDBC 
+
+* Name should be unique in HQL (duplicates not allowed )
+
+**** We can use variableName as parameter name also. 
+
+• Name never gets changed if query is changed. 
+• To pass data at runtime code is : setParameter(name,data)
+• Syntax is : name (colon name)
+
+ex:
+--
+String hql="from com.app.model.Manager where mngId=:a or mngName=:b";
+Query q=ses.createQuery(hql);
+q.setParameter("a", 101);
+q.setParameter("b", "aa");
+
+
+
+
+Collection Mapping in Hibernate:
+---------------------------------
+Hibernate framework supports working with collection like List,Map,Set…..etc. for every 
+collection hibernate creates one new child table which will be linked with parent Table.
+ 
+These collections mapping are two types in hibernate.
+1. Index-based collections :- List,Map, and Id-Bag
+2. Non=index based collections :- Set,Bag
+
+For every child table min=2 and max=3 columns are provide by hibernate. 
+Those are:
+Key=column= PK-FK link column
+Index column= Position number 
+element column=data of collection.
+
+Hibernate has provided collection mapping annotation:
+----------------------------------------------------
+@ElementCollection it must be applied over collection type variable in model class. 
+
+• If no child table details are provided then hibernate creates child table with it’s own 
+column, table names.
+
+• To provide child table details use annotation @Collectiontable
+
+• **** To provide index number for List type use @OrderColumn
+
+
+List:
+------
+package com.training.entity;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OrderColumn;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="StudTab")
+public class Student {
+	@Id
+	@Column(name="sid")
+	private int stdId;
+	
+	@Column(name="sname")
+	private String stdName;
+	
+	@ElementCollection
+	@CollectionTable(name="stdproj", joinColumns=@JoinColumn(name="sid") )
+	@OrderColumn(name="pos")
+	@Column(name="Data")
+	private List<String> stdData=new ArrayList<String>();
+
+	public Student() {
+		super();
+	}
+	public int getStdId() {
+		return stdId;
+	}
+	public void setStdId(int stdId) {
+		this.stdId = stdId;
+	}
+	public String getStdName() {
+		return stdName;
+	}
+	public void setStdName(String stdName) {
+		this.stdName = stdName;
+	}
+	public List<String> getStdData() {
+		return stdData;
+	}
+	public void setStdData(List<String> stdData) {
+		this.stdData = stdData;
+	}
+	@Override
+	public String toString() {
+		return "Student [stdId=" + stdId + ", stdName=" + stdName + ", stdData=" + stdData + "]";
+	}
+}
+
+
+
+package com.training.operations;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+
+import com.training.entity.Student;
+
+public class exOnCollectionList {
+	public static void main(String[] args) {
+		
+		Configuration cfg=new Configuration();
+		cfg.configure();
+		SessionFactory sf=cfg.buildSessionFactory();
+		Session ses=sf.openSession();
+		Transaction tx=ses.beginTransaction();
+		Student st=new Student();
+		st.setStdId(1001);
+		st.setStdName("Ram");
+		st.getStdData().add("D1");
+		st.getStdData().add("D2");
+		ses.save(st);
+		tx.commit();
+		ses.close();
+	}
+}
+
+
+Internal Generated Query:
+-------------------------
+Hibernate: 
+    
+    create table stdproj (
+       sid integer not null,
+        Data varchar(255),
+        pos integer not null,
+        primary key (sid, pos)
+    ) engine=InnoDB
+Hibernate: 
+    
+    create table StudTab (
+       sid integer not null,
+        sname varchar(255),
+        primary key (sid)
+    ) engine=InnoDB
+Hibernate: 
+    
+    alter table stdproj 
+       add constraint FKlxykolv0hyb8sbqgwh7okri8t 
+       foreign key (sid) 
+       references StudTab (sid)
+Hibernate: 
+    insert 
+    into
+        StudTab
+        (sname, sid) 
+    values
+        (?, ?)
+Hibernate: 
+    insert 
+    into
+        stdproj
+        (sid, pos, Data) 
+    values
+        (?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        stdproj
+        (sid, pos, Data) 
+    values
+        (?, ?, ?)
+
+
+Example for Set and Map Collection:
+-----------------------------------
+Entity or model class
+---------------------
+
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.MapKeyColumn;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="custTab")
+public class Customer {
+@Id
+@Column(name="cid")
+private int custId;
+
+@Column(name="cname")
+private String custName;
+
+@ElementCollection
+@CollectionTable(name="custData",joinColumns=@JoinColumn(name="cid"))
+@Column(name="data")
+private Set<String>custData=new HashSet<String>();
+
+@ElementCollection
+@CollectionTable(name="mapTab",joinColumns=@JoinColumn(name="cid"))
+@nMapKeyColum(name="pos")
+@Column(name="data")
+private Map<Integer,String>Data=new TreeMap<Integer,String>();
+
+public Customer() {
+super();
+}
+public int getCustId() {
+return custId;
+}
+public void setCustId(int custId) {
+this.custId = custId;
+}
+public String getCustName() {
+return custName;
+}
+public void setCustName(String custName) {
+this.custName = custName;
+}
+public Set<String> getCustData() {
+return custData;
+}
+public void setCustData(Set<String> custData) {
+this.custData = custData;
+}
+public Map<Integer, String> getData() {
+return Data;
+}
+public void setData(Map<Integer, String> data) {
+Data = data;
+}
+@Override
+public String toString() {
+return "Customer [custId=" + custId + ", custName=" + custName + ", custData=" + 
+custData + ", Data=" + Data
++ "]";
+}
+}
+	
+
+package com.training.operations;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+
+import com.training.entity.Customer;
+
+public class ExOnSetMapCollection {
+	public static void main(String[] args) {
+		
+		Configuration cfg=new Configuration();
+		cfg.configure();
+		SessionFactory sf=cfg.buildSessionFactory();
+		Session ses=sf.openSession();
+		Transaction tx=ses.beginTransaction();
+		Customer c=new Customer();
+		c.setCustId(1001);
+		c.setCustName("mohan");
+		c.getCustData().add("D1");
+		c.getCustData().add("D2");
+		c.getData().put(10, "M1");
+		c.getData().put(11, "M2");
+		ses.save(c);
+		tx.commit();
+		ses.close();
+	}
+}
+
+
+
+Component Mapping:
+-------------------
+Two or more classes will be connected to one table. 
+In this case Parent class makes HAS-A Relation with child as fully dependent.
+
+That is if parent data not exist then child data has no meaning that should also be removed. It is 
+called as fully dependent 
+
+Ex:
+---
+Code:
+-----
+class Address{}
+
+class Employee
+{
+Address addr;//Has-A
+}
+
+• Coding order child first write then parent class
+
+
+
+@Embeddable:- This annotation must be applied on child class, to indicate it is eligible to 
+connect with other (parent) class. That is Selected for linking
+
+@Embedded:- This annotation must be applied on HAS-A relation level.
+It indicates linked with parent.
+
+@AttributeOverride:- It is optional (less used in Real-time). It is used to modify column 
+name, without effecting child class code (Column name).
+
+
+
+HIBERNATE OBJECT STATE or JPA:
+------------------------------
+ Every model class object must be having identifications steps based on 
+ operation perform by programmer, possible state are three
+
+1. Transient state 
+2. persistence state
+3. Detached state
+
+Transient state
+----------------
+A model class object exist in heap area which not connected in data base (which not in Cache), a 
+newly created object comes under transient state
+
+Ex:-Employee emp=new employee();
+
+Persistence State:
+------------------
+A model class object which existed in Cache memory 
+(Session Cache/Session Factory Cache) is known as Persistence State. 
+
+If we perform session operation like. Save(),update(),saveOrUpdate() then object move to Persistence state from transient state. 
+
+If we perform get() or load() operations object will be created in Cache that is 
+directly Persistence State.
+
+Detached state:
+---------------
+An object (model class object ) removed from Cache(Session Cache /Session 
+Factory Cache)is known as Detached state.
+ 
+This object is eligible for garbage collection by 
+performing operation like. 
+ses.close() or ses.delete(obj);
+
+
+
+
+Mulitiplicity:
+----------------
+Rows in one table connected to rows in another table using Tables PK-FK Columns.
+
+• One table PK column should be taken as another table FK column.
+
+• These are 4 types in Database.There are
+
+a). one-to-one (1…1)
+b). one-to-many(1…*)
+c). many-to-one(*…1)
+d). many-to-many(*…*)
+
+* In simple 1…* means “ 1 row in one table is conneted to many(*) rows in another table”
+
+* it speaks relations between rows. By creating link between tables.
+
+* Hint: many(*) side extra column(FK) is created. 
+
+For *…* extra table with 2 FK column will be created. 
+
+** for 1…1 use *…1 and apply unique condition at many side.
+
+ASSOCIATION MAPPING (HAS-A):
+-----------------------------
+Hibernate supports multiplicity using HAS-A relation. 
+
+It has made them into 2 types.
+a. Non-Collection based 
+b. Collection based.
+
+
+
+Steps to implement HAS-A concept:
+--------------------------------
+1. Write tw0 classes code any apply HAS-A relation between those
+
+2. Write multiplicity Annotation over HAS-A Relation level
+
+1…* => @OneToMany
+*…* => @ManyToMany
+*…1 => @ManyToOne
+1…1 => @OneToOne(Unique)
+
+3. Convert HAS- to collection mode if multiplicity is collection type
+
+4. Draw tables with PK-FK columns
+
+	Employee  has a relation Address 
+
+Exm#1						 *…1
+-----						-------
+Class Employee 					classAddress
+{ 						{
+@ManyToOne
+Address addr;
+} 						}
+
+Class Project { 				class Module {
+@OneToMany
+Set<Module> mobs; 				}
+}
+
+
+Example for :Many-to-One(*…1)
+------------------------------
+Address Entity or Model Class
+-----------------------------
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="addrtab")
+public class Address {
+@Id
+@Column(name="aid")
+privateintaddrId;
+@Column(name="loc")
+private String loc;
+@Column(name="pin")
+private String pin;
+public Address() {
+super();
+}
+publicint getAddrId() {
+returnaddrId;
+}
+publicvoid setAddrId(intaddrId) {
+this.addrId = addrId;
+}
+public String getLoc() {
+returnloc;
+}
+publicvoid setLoc(String loc) {
+this.loc = loc;
+}
+public String getPin() {
+returnpin;
+}
+publicvoid setPin(String pin) {
+this.pin = pin;
+}
+@Override
+public String toString() {
+return"Address [addrId=" + addrId + ", loc=" + loc + ", pin=" + pin + "]";
+}
+}
+
+Employee:
+---------
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+@Entity
+@Table(name="empTab")
+publicclass Employee {
+@Id
+@Column(name="eid")
+privateintempId;
+@Column(name="ename")
+private String empName;
+@Column(name="esal")
+privatedoubleempSal;
+
+@ManyToOne
+@JoinColumn(name="aidFk")//fk column
+private Address addr;
+public Employee() {
+super();
+}
+
+publicint getEmpId() {
+return empId;
+}
+publicvoid setEmpId(intempId) {
+this.empId = empId;
+}
+public String getEmpName() {
+return empName;
+}
+publicvoid setEmpName(String empName) {
+this.empName = empName;
+}
+publicdouble getEmpSal() {
+returnempSal;
+}
+publicvoid setEmpSal(doubleempSal) {
+this.empSal = empSal;
+}
+public Address getAddr() {
+returnaddr;
+}
+publicvoid setAddr(Address addr) {
+this.addr = addr;
+}
+@Override
+public String toString() {
+return"Employee [empId=" + empId + ", empName=" + empName + ", empSal=" + 
+empSal + ", addr=" + addr + "]";
+}
+}
+
+
+TestCode:
+----------
+HibernateUtil
+---------------
+
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
+public class HibernateUtil {
+private static SessionFactory sf=null;
+static
+{
+sf=new Configuration().configure().buildSessionFactory();
+}
+public static SessionFactory getSf()
+{
+return sf;
+}
+}
+
+main code:
+----------
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import com.app.model.Address;
+import com.app.model.Employee;
+import com.app.util.HibernateUtil;
+
+public class ExOnManyToOne {
+public staticvoid main(String[] args) {
+Transaction tx=null;
+
+try(Session ses=HibernateUtil.getSf().openSession())
+{
+tx=ses.beginTransaction();
+Address addr=new Address();
+addr.setAddrId(101);
+addr.setLoc("HYD");
+addr.setPin("58849");
+Employee e1=new Employee();
+e1.setEmpId(1);
+e1.setEmpName("A");
+e1.setEmpSal(3.3);
+e1.setAddr(addr);
+//alt+shift+R -> to rename local variable
+Employee e3=new Employee();
+e3.setEmpId(3);
+e3.setEmpName("B");
+e3.setEmpSal(4.3);
+e3.setAddr(addr);
+ses.save(addr);
+ses.save(e1);
+ses.save(e3);
+tx.commit();
+}
+}
+}
+
+
+ONE-TO-ONE:
+---------
+For this case use many-to-one with unique condition over FK column.
+• Unique column will not allow duplicates. But null values (multiple) are accepted. 
+• Null indicates no-data and FK column null indicates no child row.
+• To make FK column unique code is: @JoinColumn(name="",unique=true)
+
+
+Address Entity or Model Class
+-----------------------------
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+@Entity
+@Table(name="addrtab")
+publicclass Address {
+@Id
+@Column(name="aid")
+privateintaddrId;
+@Column(name="loc")
+private String loc;
+@Column(name="pin")
+private String pin;
+public Address() {
+super();
+}
+publicint getAddrId() {
+returnaddrId;
+}
+publicvoid setAddrId(intaddrId) {
+this.addrId = addrId;
+}
+public String getLoc() {
+returnloc;
+}
+publicvoid setLoc(String loc) {
+this.loc = loc;
+}
+public String getPin() {
+returnpin;
+}
+publicvoid setPin(String pin) {
+this.pin = pin;
+}
+@Override
+public String toString() {
+return"Address [addrId=" + addrId + ", loc=" + loc + ", pin=" + pin + "]";
+}
+}
+
+Employee:
+---------
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="empTab")
+publicclass Employee {
+@Id
+@Column(name="eid")
+privateintempId;
+@Column(name="ename")
+private String empName;
+@Column(name="esal")
+privatedoubleempSal;
+
+@OneToOne
+@JoinColumn(name="aidFk",unique=true)//fk column
+private Address addr;
+public Employee() {
+super();
+}
+
+publicint getEmpId() {
+return empId;
+}
+publicvoid setEmpId(intempId) {
+this.empId = empId;
+}
+public String getEmpName() {
+return empName;
+}
+publicvoid setEmpName(String empName) {
+this.empName = empName;
+}
+publicdouble getEmpSal() {
+returnempSal;
+}
+publicvoid setEmpSal(doubleempSal) {
+this.empSal = empSal;
+}
+public Address getAddr() {
+returnaddr;
+}
+publicvoid setAddr(Address addr) {
+this.addr = addr;
+}
+@Override
+public String toString() {
+return"Employee [empId=" + empId + ", empName=" + empName + ", empSal=" + 
+empSal + ", addr=" + addr + "]";
+}
+}
+
+TestCode:
+---------
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import com.app.model.Address;
+import com.app.model.Employee;
+import com.app.util.HibernateUtil;
+publicclass ExOnOneToOne {
+publicstaticvoid main(String[] args) {
+Transaction tx=null;
+try(Session ses=HibernateUtil.getSf().openSession()){
+tx=ses.beginTransaction();
+Address a1=new Address();
+a1.setAddrId(101);
+a1.setLoc("HYD");
+a1.setPin("50019");
+Employee e1=new Employee();
+e1.setEmpId(1);
+e1.setEmpName("A");
+e1.setEmpSal(3.2);
+e1.setAddr(a1);
+Employee e2=new Employee();
+e2.setEmpId(3);
+e2.setEmpName("C");
+e2.setEmpSal(4.4);
+ses.save(a1);
+ses.save(e1);
+ses.save(e2);
+tx.commit();
+}
+}
+}
+
+
+ONE-TO-MANY:
+------------
+It is collection based multiplicity in Hibernate.
+
+For Parent class create one object and child class create multiple objects and convert them 
+into One collection Type(List,Set….)
+
+Here first child objects are inserted (insert query for child..) then parent objects are inserted (insert query for parent) them finally parent ID will be updated with child table FK column (update query for child table).
+
+
+Entity or Model Classes:
+------------------------
+Module
+------
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+@Entity
+@Table(name="modtab")
+public class Module {
+@Id
+@Column(name="mid")
+privateintmodId;
+@Column(name="mname")
+private String modName;
+@Column(name="mtype")
+private String modType;
+public Module() {
+super();
+}
+publicint getModId() {
+returnmodId;
+}
+publicvoid setModId(intmodId) {
+this.modId = modId;
+}
+public String getModName() {
+returnmodName;
+}
+publicvoid setModName(String modName) {
+this.modName = modName;
+}
+public String getModType() {
+returnmodType;
+}
+publicvoid setModType(String modType) {
+this.modType = modType;
+}
+@Override
+public String toString() {
+return"Module [modId=" + modId + ", modName=" + modName + ", modType=" + 
+modType + "]";
+}
+}
+
+Product:
+--------
+
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+@Entity
+@Table(name="prodtab")
+publicclass Product {
+
+@Id
+@Column(name="pid")
+privateintprodId;
+
+@Column(name="pname")
+private String prodName;
+
+@Column(name="pcost")
+privatedoubleprodCost;
+
+@OneToMany
+@JoinColumn(name="pidFk")
+private Set<Module>mob=new HashSet<Module>();
+
+public Product() {
+super();
+}
+publicint getProdId() {
+returnprodId;
+}
+publicvoid setProdId(intprodId) {
+this.prodId = prodId;
+}
+public String getProdName() {
+returnprodName;
+}
+publicvoid setProdName(String prodName) {
+this.prodName = prodName;
+}
+publicdouble getProdCost() {
+returnprodCost;
+}
+publicvoid setProdCost(doubleprodCost) {
+this.prodCost = prodCost;
+}
+public Set<Module> getMob() {
+returnmob;
+}
+publicvoid setMob(Set<Module>mob) {
+this.mob = mob;
+}
+@Override
+public String toString() {
+return"Product [prodId=" + prodId + ", prodName=" + prodName + ", prodCost=" + 
+prodCost + ", mob=" + mob + "]";
+}
+}
+
+TestCode:
+---------
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import com.app.model.Module;
+import com.app.model.Product;
+import com.app.util.HibernateUtil;
+public class ExOnOneToMany {
+publicstaticvoid main(String[] args) {
+Transaction tx=null;
+try(Session ses=HibernateUtil.getSf().openSession()){
+tx=ses.beginTransaction();
+Module m1=new Module();
+m1.setModId(101);
+m1.setModName("A");
+//m1.setModCost(3.3);
+Module m2=new Module();
+m2.setModId(102);
+m2.setModName("B");
+//m2.setModCost(2.3);
+Product p=new Product();
+p.setProdId(10);
+p.setProdName("A");
+//p.setCost(2.2);
+p.getMob().add(m1);
+p.getMob().add(m2);
+// p.getMob().add(m3);
+ses.save(m1);
+ses.save(m2);
+//ses.save(m3);
+ses.save(p);
+tx.commit();
+}
+}
+}
+
+
+Many-To-Many:-
+------------
+In two model classes are connected using HAS-A relation and both sides executing one-to-many 
+relation, then it is consider as many to many.
+
+Ex:- Ones student can learn multiple courses (1 student =* course) in same way one course can 
+be taken by multiple students(1 c)That is both sides many to many can shows an *…*
+
+ Student ---------------------<>Course
+ 		HAS-A
+
+
+Model or Entity Classes:
+------------------------
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+@Entity
+@Table(name="courstab")
+publicclass Course {
+@Id
+@Column(name="cid")
+privateintcrId;
+@Column(name="cname")
+private String crName;
+@Column(name="ccost")
+private double crCost;
+public Course() {
+super();
+}
+publicint getCrId() {
+returncrId;
+}
+publicvoid setCrId(intcrId) {
+this.crId = crId;
+}
+public String getCrName() {
+returncrName;
+}
+publicvoid setCrName(String crName) {
+this.crName = crName;
+}
+publicdouble getCrCost() {
+returncrCost;
+}
+publicvoid setCrCost(doublecrCost) {
+this.crCost = crCost;
+}
+@Override
+public String toString() {
+return"Course [crId=" + crId + ", crName=" + crName + ", crCost=" + crCost + "]";
+}
+}
+
+
+
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+@Entity
+@Table(name="stdtab2")
+publicclass Student {
+@Id
+@Column(name="sid")
+private int stdId;
+@Column(name="sname")
+private String stdName;
+@Column(name="smarks")
+private double stdMarsk;
+
+@ManyToMany
+@JoinTable(name="stdcrstab",joinColumns=@JoinColumn(name="sidFk"), 
+inverseJoinColumns=@JoinColumn(name="cidFk")
+)
+private Set<Course>cobs=new HashSet<Course>(0);///HAS-A
+
+public Student() {
+super();
+}
+publicint getStdId() {
+returnstdId;
+}
+publicvoid setStdId(intstdId) {
+this.stdId = stdId;
+}
+public String getStdName() {
+returnstdName;
+}
+publicvoid setStdName(String stdName) {
+this.stdName = stdName;
+}
+publicdouble getStdMarsk() {
+returnstdMarsk;
+}
+publicvoid setStdMarsk(doublestdMarsk) {
+this.stdMarsk = stdMarsk;
+}
+public Set<Course> getCobs() {
+returncobs;
+}
+publicvoid setCobs(Set<Course>cobs) {
+this.cobs = cobs;
+}
+@Override
+public String toString() {
+return"Student [stdId=" + stdId + ", stdName=" + stdName + ", stdMarsk=" + stdMarsk + 
+", cobs=" + cobs + "]";
+}
+}
+
+TestCode:
+---------
+import com.app.model.Course;
+import com.app.model.Student;
+import com.app.util.HibernateUtil;
+publicclass Test {
+publicstaticvoid main(String[] args) {
+Transaction tx=null;
+try(Session ses=HibernateUtil.getSf().openSession())
+{
+tx=ses.beginTransaction();
+Course c1=new Course();
+c1.setCrId(1);
+c1.setCrName("CJ");
+c1.setCrCost(2.2);
+Course c2=new Course();
+c2.setCrId(2);
+c2.setCrName("AJ");
+c2.setCrCost(5.5);
+Course c3=new Course();
+c3.setCrId(3);
+c3.setCrName("HI");
+c3.setCrCost(5.5);
+
+Student s1=new Student();
+s1.setStdId(88);
+s1.setStdName("AJ");
+s1.setStdMarsk(3.36);
+s1.getCobs().add(c1);
+s1.getCobs().add(c2);
+
+Student s2=new Student();
+s2.setStdId(89);
+s2.setStdName("VJ");
+s2.setStdMarsk(8.98);
+s2.getCobs().add(c2);
+s2.getCobs().add(c3);
+
+Student s3=new Student();
+s3.setStdId(90);
+s3.setStdName("UJ");
+s3.setStdMarsk(7.88);
+s3.getCobs().add(c1);
+
+ses.save(c1);
+ses.save(c2);
+ses.save(c3);
+ses.save(s1);
+ses.save(s2);
+ses.save(s3);
+tx.commit();
+
+}
+
+}
+
+
+
+Multiplicity supported 3 child concepts (all are optional and provided Default types also).
+1). Direction
+2). Fetch Type
+3). Cascading
+
+1. Direction:
+-------------
+a. Uni-Direction:- if we know parent details, we can get child details methods 
+[select operation]. But using child details we cannot get parent details.
+
+b. bi-direction:- Using parent details we can get child details even using child details we can get 
+parent details.
+
+Table for reverse Multiplicity
+==============================
+Direction 						Bi-Direction
+---------						----------
+OneToMany 						OneToOne
+ManyToMany 						ManyToMany
+ManyToOne 						OneToMany
+ManyToOne(unique) 					OneToOne
+
+Ex:- 
+Employee--------------------------<>Address
+
+1..*  -> one to many
+Uni-Directional code:
+=====================
+
+Class Employee {                                           class Address {
+@OneToMany
+Set<Address>addr;                                           }
+}
+
+Bi-Directional code:
+====================
+Class Emplolyee { 					class Address {
+@OneToMany
+Set<Address>addr; 				        @OneToOne(mappedBy=”addr”)
+							Employee emp;
+} 								}
+
+• Here mappedBy=” ” indicates “bi-direction” concept to Hibernate. It says “it not 
+multiplicity, it is just reverse link”
+
+Ex#2: many-to-one
+--------------------
+Product          -------------------------------------<>Licence
+ *…1
+
+Class Product { 					class Licence {
+@ManyToOne 						@OneToMany(mappedBy=”lob”)
+Licence lob; 							Set<Product>probs;
+								
+} 							}
+
+Ex#3 :- many-to-many 
+---------------------
+*…*
+Student 		----------<> 			Course
+
+Class Student { 					class Course {
+@ManytoMany 							@ManyToMany(mappedBy=”cobs”)
+Course cobs;								List<Student>sobs;
+} 							}
+
+
+Ex#4:- One to one:
+------------------
+1…1
+
+Person    --------<>  IdCard
+
+Class Person {
+@ManyToOne
+@JoinColumn(unique=true)
+IdCard cob;
+}
+
+Class IdCard {
+@OneToOne(mappedBy=”cob”)
+Person pob;
+}
+
+
+
+FetchType(Loading type):
+-----------------------
+FetchType is a enum in hibernate/JPA which has possible values 
+
+a)EAGER 
+b)LAZY
+
+EAGER OR EAGER LOADING:- In multiplicity on loading parent data also load child data at same 
+time, this is classed as EAGER loading.
+
+LAZY OR LAZY LOADING:- In multiplicity on loading parent data do not load child data until child 
+object related methods are called.
+
+Multiplicity 			DefaultType
+-----------			-----------
+OneToOne 			EAGER
+ManyToOne 			EAGER
+OneToMany 			LAZY
+ManyToMany 			LAZY
+
+• If child in only one Object then default is choosen as EAGER and if child is multiple 
+objects then default is choosen as LAZY by Hibernate.
+
+• To Specify our-own FetchType, code is ….(Fetch=FetchType.<VALUE>)
+
+
+
+Ex:- Employee--------<> Address(1…*)
+
+Req: Select all address objects on loading employee object at same time 
+Code:-
+
+Class Address{ }
+
+Class Employee { 
+
+@OneToMany(Fetch=FetchType.EAGER)
+@JoinColumn(name=”eidFk”)
+Set<Address> addr;
+
+}
+
+Ex#2:- Product ---------------<> Model (*…1)
+
+Req:- On selecting product , do not load model at same time.
+
+Code:-
+Class Model { 
+
+}
+
+Class product {
+@ManyToOne(fetch=FetchType.LAZY)
+Model mob;
+}
+
+
+
+
+MAVEN: 
+-------
+It is project build Tool ..
+
+Here we need not to download any jars and we need not to add the jars explicitly(buildpath-->configure buildpath...).
+
+Instead of the we need to configure project required jars in mavenproject under pom.xml
+pom.xml(project object model) using <dependencey> tag under <dependenecies>
+
+If we want to create core java project using maven  -->archetypes -->quickstart
+
+to create webproject using maven -->archetypes--->webapp
+
+Note:
+-----
+In mavenproject artifactid will act as your projectname
+
+
+Assignments:
+---------------
+
+@ONETOONE
+@MANYTOMANY
+@ONETO MANY
+
+Generators:
+------------
+@GeneratedValue (INcrement,AUTO...Sequence)for @Id columne
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+New JPA : Jakarata Persistence API
+---------------------------------
+6.x.x.Final :
+-------------
+
+public class HibernateUtil {
+	private static StandardServiceRegistry registry;
+	private static SessionFactory sessionFactory;
+
+	public static SessionFactory getSessionFactory() {
+		if (sessionFactory == null) {
+			try {
+				// Create registry
+				registry = new StandardServiceRegistryBuilder().configure().build();
+
+				// Create MetadataSources
+				MetadataSources sources = new MetadataSources(registry);
+
+				// Create Metadata
+				Metadata metadata = sources.getMetadataBuilder().build();
+
+				// Create SessionFactory
+				sessionFactory = metadata.getSessionFactoryBuilder().build();
+
+			} catch (Exception e) {
+				e.printStackTrace();
+				if (registry != null) {
+					StandardServiceRegistryBuilder.destroy(registry);
+				}
+			}
+		}
+		return sessionFactory;
+	}
+
+	public static void shutdown() {
+		if (registry != null) {
+			StandardServiceRegistryBuilder.destroy(registry);
+		}
+	}
+}

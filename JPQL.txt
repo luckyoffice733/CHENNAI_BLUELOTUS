@@ -1,0 +1,146 @@
+JPA JPQL Introduction:
+========================
+The JPQL (Java Persistence Query Language) is an object-oriented query language which is used to perform database operations on persistent entities. 
+
+Instead of database table, JPQL uses entity object model(pojo) to operate the SQL queries. 
+
+Here, the role of JPA is to transform JPQL into SQL. Thus, it provides an easy platform for developers to handle SQL tasks.
+
+
+Creating Queries in JPQL
+=========================
+JPQL provides two methods that can be used to access database records. 
+
+These methods are: -
+
+Query createQuery(String name) 
+===============================
+The createQuery() method of EntityManager interface is used to create an instance of Query interface for executing JPQL statement.
+
+Query query = em.createQuery("Select s from Student s"); 
+
+This method creates dynamic queries that can be defined within business logic.
+
+ 
+Query createNamedQuery(String name)
+====================================
+The createNamedQuery() method of EntityManager interface is used to create an instance of Query interface for executing named queries.
+
+@NamedQuery(name = "find name" , query = "Select s from Student s")  
+
+This method is used to create static queries that can be defined in entity class or model class .
+
+
+The following Query interface methods: -
+======================================
+int executeUpdate() - This method executes the update and delete operation.
+
+int getFirstResult() - This method returns the first positioned result the query object was set to retrieve.
+
+int getMaxResults() - This method returns the maximum number of results the query object was set to retrieve.
+
+java.util.List getResultList() - This method returns the list of results as an untyped list.
+
+Query setFirstResult(int startPosition) - This method assigns the position of first result to retrieve.
+
+Query setMaxResults(int maxResult) - This method assigns the maximum numbers of result to retrieve.
+
+
+JPQL SELECT: 
+-----------
+we can use select queries to fetch data DB tables (Multiple rows). 
+Final output is given by 
+
+java.util.List(no.of rows=no.of objects>> stored in List Collection only)
+
+FULL LOADING :
+--------------
+select all columns using Query(JPQL/SQL) is known as Full loading (One Full row = one complete Model class Object). 
+So final output will be List<T>, T=Type/Model class Name
+
+PARTIAL LOADING : 
+==================
+selecting one column (=1 column) or more then one columns (>1 column) is known as Partial loading.
+
+final output will be
+
+List<DT> 
+DT=DataType of varivales/column 
+>1 column :List<Object[]>
+
+
+JPQL CODING:
+-----------
+1. Define one JPQL String 
+Ex: String JPQL=”….”;
+
+2. Create Query object using session object
+Query q=ses.createQuery(JPQL);
+
+3. Execute query object using list() method
+List<__> data=q.getResultList();
+
+
+
+PARAMETER IN JPQL:- 
+-------------------
+it is used to pass data to query at runtime. 
+
+A parameter in simple called as input to JPQL/SQL query at runtime.
+
+Hibernate supports two types of parameters concepts.
+1. Positional Parameters(?)
+2. Named Parameters (:name)
+
+1. Positional Parameters:- 
+---------------------------
+It indicates position numbers of ? Symbols.
+• Starts from 1 in JDBC. 
+
+• One JPQL Query can have multiple “?” symbols which indicates data comes at 
+runtime.
+
+• Index number starts from zero, to set data based on position used method 
+“setParameter(index,data)”
+
+Example:-
+Select eid from emptab 
+Where eid> ?-------1
+Or ename= ?--------2
+And esal < ? ---------3
+Select eid from emptab
+Where eid< ? -----------------4
+And eid > ?----------------------5 ---0
+Or ename =?--------------------1
+• Position number may get changed if query gets changes
+
+Ex:
+----
+String JPQL="from com.app.model.Manager where mngId=? or mngName=?";
+Query q=ses.createQuery(JPQL);
+q.setParameter(0, 102);
+q.setParameter(1, "AA");
+
+
+2) Named Parameters:- 
+--------------------
+it is used to provide a name in place of ? symbole, to indicate data 
+comes at runtime.
+
+* This is new concept in Hibernate, not exist in JDBC 
+
+* Name should be unique in JPQL (duplicates not allowed )
+
+**** We can use variableName as parameter name also. 
+
+• Name never gets changed if query is changed. 
+• To pass data at runtime code is : setParameter(name,data)
+• Syntax is : name (colon name)
+
+ex:
+--
+String JPQL="from com.app.model.Manager where mngId=:a or mngName=:b";
+Query q=ses.createQuery(JPQL);
+q.setParameter("a", 101);
+q.setParameter("b", "aa");
+
