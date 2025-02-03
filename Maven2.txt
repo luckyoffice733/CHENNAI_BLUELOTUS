@@ -1,0 +1,309 @@
+MAVEN:
+=======
+Introduction
+POM(Project object model)
+Arche Types in maven
+Steps to user Maven for application
+Jdbc Application with maven
+A simple web application with maven
+Spring Application With Maven
+
+Introduction:
+===========
+Maven of the application building tool
+
+Maven is a "yiddish" [Germal Language],
+its meaning is accumelator of knowledge
+
+
+Maven is build tools,It will perform 
+
+1)It will provide directory structures to the application
+2)Downloads the required dependencies(jars)
+3)Compile the source code.
+4)Compile Test code.
+5)Packaging the applications
+6)Run the Application
+7)Starts the server
+8)Deploying the Applications.
+9)Perfrom Unit Testing
+10)Prepare Reports and Documents.
+11)Undeployment of our application
+12)Stop the server.
+.......
+...............................etc
+
+
+
+
+2)POM:
+=====
+Project Configuration Details are
+existed here like dependencies,respositories,
+plugins,resources.....
+
+--> it is heart  of the maven.
+-->It will provide all the project Build
+    configuration which are required by the 
+maven
+
+-->It is an xml file ,in the initial versions of maven,
+   pom file name is project.xml later on
+   pom.xml
+-->When we create MAVEN project then pom.xml
+    file be created automatically.
+--> In Maven projects, pom.xml file is able to
+provide no of responsibilites.
+
+1.Project Description
+2.Repository
+3.Dependency Management.
+4.Project Inheritance
+5.Build Configurations
+6.Build profiles.
+1>Project Description
+===================
+--> it will provide some details about project
+like ProjectName,Version number,packaging type.....
+
+pom.xml:
+=======
+<project>
+<!--project Description-->
+<modelVersion>4.0.0</modelVersion>
+<groupId>com.pdw</groupId>--> is an unique id for our company  based on package name in our application
+<artifactId>projectName</artifactId>
+<description>some description about project</description>
+<packaging>jar/war/ear</packaging>
+
+</project>
+
+2>Respository
+=============
+Repository the is a place [local system,in internet, a system is our company] which will provide all the dependent jar files to our
+application.
+Respositories are able to manage all the jar files which are required
+by our application
+
+
+there are three types of Respostiores are existed in maven.
+
+1)local
+2)central
+3)Remote respositores
+
+
+Local:
+--------
+-->It is a location in our system ,which will be created by any mvn
+command initially .
+-->In our system local repository is existed at "C:\Users\LENOVO
+\.m2\respository.
+
+-->When we required jar files in our application then maven will
+search for the dependencies first in local repository.
+
+Central Repository:
+================
+-->it is a default repository in maven ,it is existed in internet at
+particular url.
+
+-->Apache Software foundations has provided a separate central
+Repository in the form of
+"https://repo.maven.apache.org/maven2/".
+
+--> We are able to use third party provided central repostires  in mave
+ 1.https://mvnrepository.com
+ 2.https://repository.jboss.org/nexus/content/groups/public
+  
+if we want to use third party repositores in our application
+then we must configure it in pom.xml
+
+<project>
+..........
+
+<repositories>
+   <repository>   
+     <id>jboss</id>
+     <name>jboss repo</name>
+     <url></url>
+    </repository>  
+</repositories>
+</project>
+    
+
+Remote Repositories:
+=================
+-->if the dependencies are not existed in local,Central,then
+maven will search for them in Remote Repository.
+
+3)
+-----
+Dependency Management:
+====================
+--> In maven Projects, dependency means that a dependent jar file
+     which required for  our application.
+-->Maven is not giving any option to the developers to download the 
+     required jar files explicitly ,maven will download  the
+     required jar files implicitly and maven will keep that jar
+     files in our application, but we must specify which dependencies
+   we need in our application.
+
+<project>
+.....
+....
+<dependencies>
+    <dependency>
+       <groupId>packagename</groupId>
+       <artifactId>jar-name</artifactId>
+       <version>version no</version>
+       <scope>provided</scope> 
+   </dependency>
+
+....any no of...dependency
+</dependencies>
+
+
+Transitive dependencies:
+===================
+A-->B-->c-->D
+
+Scopes in Maven:
+==============
+1)compile   --
+2)provided  --upto compilation ,testing  but not runtime .
+3)runtime   -- runtime and testcases.
+4)test          --
+5)system    --
+6)import    --
+
+4)Project Inheritance:
+===============
+Super Pom
+=========
+<project>
+   <modelVersion></modelversion>
+  <groupId>com.pdw</groupId>
+  <artifactId>my-parent</artifactId>
+   <version></version>
+   <packaging>pom</packageing>
+</project>
+
+child:
+=====
+<project>
+    <parent>
+    <groupId>com.pdw</groupId>
+     <artifactId>my-parent</artifactId>
+     <version>1.0.0</version> 
+   </parent>
+</project>
+
+Effective POM = Super POM + Present App1 POM
+
+command:
+========
+mvn help:effective-pom
+
+5 Build Configurations:
+===================
+plugin Configuration
+---------------------------------
+-->There are two types of plugin .
+    1. Build Plugins
+    2.Reporting Plugins
+
+Build Plugins:
+  1)clean :
+  2) compiler
+  3)deploy
+  4) install 
+  5)resources : 
+   6)ear : 
+    7)jar 
+     8)war
+
+Reporting Plugins:
+===============
+1) javadoc :
+2) project-info-reports 
+3) surfire-reports
+-----
+------
+<project>
+    <build>
+        <plugins>
+          <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+               <artifactId>maven-compiler-plugin</artifactId>
+               <configuration>
+                     <source>1.8</source>
+                     <target>1.8</target>
+               </configuration>
+           </plugin>
+        </plugins>
+</build>
+</project>  
+
+Resources Configuration:
+====================
+<project>
+---
+----
+<build>
+    <resources>
+     <resource>
+         <directiory>src/main/resources</directory>
+      </resource>
+     </resources>
+</build>
+</project>
+
+Build profiles:
+============
+Development Mode
+Testing Mode
+Production Mode
+
+db.properties:
+===========
+jdbc.connection.url = ${jdbc.connect.url}
+
+<project>
+
+----
+<profiles>
+   <profile>
+      <id>development</id>
+      <activation>
+           <activeByDefault>true</activeByDefault>
+      </activation>
+      <properties>
+           <jdbc.connection.url>oracleUrl</jdbc.connection.url>
+     </properties>
+   </profile>
+
+   <profile>
+      <id>test</id>
+      <properties>
+           <jdbc.connection.url>MysqlUrl</jdbc.connection.url>
+     </properties>
+   </profile>
+</profiles>
+
+
+Using command to create Project :
+============================
+mvn archetype:generate
+
+
+mvn compile   
+
+
+mvn test  --junit test case 
+
+mvn package  --to convert into jar --
+   copy the jar file location
+set classpath=specify the javaclass jar location
+
+
