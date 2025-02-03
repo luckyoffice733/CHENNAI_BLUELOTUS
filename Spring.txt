@@ -1,0 +1,2807 @@
+Spring is a framework which is used to develop application in less line and 
+faster way(RAD) , by using it’s in built technologies and Design Pattern.
+
+1. Spring is a framework.
+
+2. Compare to other technology and framework , Spring is faster in coding and execution.
+
+3. Spring has in-built Design Pattern like Template , Factory , Proxy , MVC , Front Controller etc.
+
+4. Spring supports end-to-end application development.
+
+5. It support 4 layer coding 
+
+a. Presentation Layer (PL): Contain view logic , which is shown to end user.
+
+b. Service Layer(SL): Contain business logic , like calculation , validation.
+    Ex. Balance = balance – withDrawAmt
+
+c. Data Access Layer (DAL): It is used to perform database operation 
+   like , save , update , delete and select
+
+d. Integration Layer (IL): Used to link different application 
+   Ex: Webservices , email , JMS etc.
+
+Spring is the most popular application development framework for enterprise Java. 
+Millions of developers around the world use Spring Framework to create high performing, easily 
+testable, and reusable code.
+
+Spring framework is an open source Java platform. It was initially written by Rod Johnson 
+and was first released under the Apache 2.0 license in June 2003.
+
+The core features of the Spring Framework can be used in developing any Java application, 
+but there are extensions for building web applications on top of the Java EE platform. 
+Spring framework targets to make J2EE development easier to use and promotes good 
+programming practices by enabling a POJO-based programming model.
+
+
+Spring Core:
+-----------
+Dependency Injection (DI):
+--------------------------
+
+The technology that Spring is most identified with is the Dependency Injection 
+(DI) flavor of Inversion of Control. The Inversion of Control (IoC) is a general concept, 
+and it can be expressed in many different ways. Dependency Injection is merely one 
+concrete example of Inversion of Control.
+
+What is dependency injection exactly? Let's look at these two words separately. Here the 
+dependency part translates into an association between two classes. For example, class A 
+is dependent of class B. Now, let's look at the second part, injection. All this means is,
+class B will get injected into class A by the IoC.
+
+Dependency injection can happen in the way of passing parameters to the constructor or 
+by post-construction using setter methods. As Dependency Injection is the heart of Spring 
+Framework
+
+Note:
+-----
+we can spring core module we need to add configure two jar files in pom.xml.
+
+spring-core      --5.3.8
+spring-context   --5.3.8
+
+
+
+
+Injection (I) / Dependency Injection(DI) :
+Injection means “Provide data to variable (dependency) “ 
+
+1. Setter Injection
+2. Constructor Injection
+
+
+1. Injection(I) / Dependency Injection (DI) :
+-----------------------------------
+Setter dependency injection (SDI) by using set method of variable 
+container provides data. It uses default constructor and set 
+method.
+Ex: (Overview code)
+Class A { int sid ;}
+A a = new A();
+a.setSid(25);
+
+2. Constructor Injection(CI) or Constructor Dependency(DDI) : 
+--------------------------------------------------------------
+Container provides data while creating object using “Parameter 
+Constructor” It is called as (CI) / (CDI)
+
+class A{int sid;}
+A a1 = new A(55);
+
+Spring Core Programming:
+-----------------------
+Spring Container takes 2 inputs form programming those are:
+1. Spring Bean (class + rules by container)
+2. Spring config file (XML / Java / Annotation)
+
+XML Configuration (Basic Syntax):
+-----------------------------------
+<bean class = “_____” name = “_______”>
+<property name = “_________”>
+<value> ________ </value>
+<property>
+</bean>
+
+Spring Dependency Injection XML Based Configuration
+----------------------------------------------------
+We will create Spring configuration file with below data, file name can be anything. 
+applicationContext.xml code:
+
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+<bean id="emp" class="com.training.bean.Employee">
+<property name="value" value="">
+</bean>
+
+</beans>
+
+
+
+Note:
+-----
+1. <bean> :: Indicate object , which will be created in Spring container.
+2. <property> :: It will call set method of given variable to provide data.
+3. <value> :: It indicates data to variable.
+4. All above tags are case-sensetive must be written in lower-case only
+
+
+
+
+Collection Configuration Using Spring Java Config Code:
+=======================================================
+
+Jave Bean:
+----------
+Product.java
+
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+import java.util.Set;
+public class Product {
+
+private List<String> data;
+private Set<String> models;
+private Map<Integer , String> modes;
+private Properties context;
+
+public Product() {
+super();
+}
+public List<String> getData() {
+returndata;
+}
+public void setData(List<String>data) {
+this.data = data;
+}
+public Set<String> getModels() {
+return models;
+}
+publicvoid setModels(Set<String>models) {
+this.models = models;
+}
+public Map<Integer, String> getModes() {
+return modes;
+}
+publicvoid setModes(Map<Integer, String>modes) {
+this.modes = modes;
+}
+public Properties getContext() {
+return context;
+}
+publicvoid setContext(Properties context) {
+this.context = context;
+}
+@Override
+public String toString() {
+return"Product [data=" + data + ", models=" + 
+models + ", modes=" + modes + ", context=" + context + 
+"]";
+}
+}
+
+
+java Configuration class:
+-------------------------
+
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+import java.util.Set;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+
+@Configuration
+publicclass AppConfig {
+@Bean
+public Product pdtObj() {
+Product p = new Product();
+p.setData(lstData());
+p.setModels(setData());
+p.setModes(mapData());
+p.setContext(propsData());
+returnp;
+}
+public List<String> lstData(){
+List<String>lst = new LinkedList<>();
+lst.add("PEN");
+lst.add("PENCIL");
+returnlst;
+}
+public Set<String> setData(){
+Set<String>set = new HashSet<>();
+set.add("CAR");
+set.add("BYKE");
+returnset;
+}
+public Map<Integer , String> mapData(){
+Map<Integer , String>map = new LinkedHashMap<>();
+map.put(10, "TV");
+map.put(20, "LACTOP");
+map.put(30, "MOBILE");
+returnmap;
+}
+
+public Properties propsData() {
+Properties p = new Properties();
+p.put(1 , "AC");
+p.put(2, "COOLER");
+returnp;
+}
+}
+
+
+App.java:
+==========
+import org.springframework.context.ApplicationContext;
+import
+org.springframework.context.annotation.AnnotationConfigApp
+licationContext;
+import com.app.bean.Product;
+import com.app.config.AppConfig;
+public class Test {
+public staticvoid main(String[] args) {
+ApplicationContext ac =new AnnotationConfigApplicationContext(AppConfig.class);
+Product p = ac.getBean("pdtObj" , Product.class);
+System.out.println(p);
+}
+}
+
+
+Reference Type Dependency Configuration using Spring java Config 
+------------------------------------------------------------------
+code:
+Syntax:
+parentObj.setVariable(childObj())
+To link child object with parent object follow above syntax, if not used value will be null.
+**Configure child first and parent next.
+
+
+EMployee has-a  Address (ref - spring xml configuration):
+----------------------
+Code example: demoOnHasARelation(EMployee -has a - Address)
+
+
+
+
+
+Annotation configuration in Spring :
+-------------------------------------
+Compared with other configurations this is very faster in coding and execution 
+also. But not applicable for pre-defined classes configuration. We can configure 
+only programmer defined (having .java code) classes only.
+
+Types of Annotations for configuration:
+
+1. StereoType Annotations (Bean creation)
+2. Data Annotations (Injection)
+
+1. StereoType Annotation:
+
+There are 5 types , list given as:
+@Component 
+@Controller
+@Service
+@Repository
+@RestController
+
+
+2. Data Annotation
+@Value //internally it will act as setter injection
+@Autowired (for scope concept : @Scope)
+
+
+1. StereoType Annotations :
+
+An annotation which detects the class and creates the object is 
+known as StereoType Annotation.
+a) Activate Annotation with base-package.
+b) Provide @Component on top of the class.
+
+*** code to activate Annotations:
+<context :component-scan base-package=”----“/>
+
+What is base-package.
+
+Ans. It is a package name given by programmer to search and its sub packages.
+
+Ex: if base-package=”com.app” then meaning is “app” package classes and all 
+its sub package classes are selected for object creation.
+
+Example:
+<context:component-scan base-package=”com.app”/> classes detected (scan)
+
+
+2. @Component:
+---------------
+It must be applied on class (not applicable for interface and abstract class). It 
+will inform Container to create object of current class.
+
+If no object name is provided then class name (first letter small) is 
+taken as object name (camel-case-conversion).
+
+Ex: package com.app;
+
+@Component 
+public class Employee{ }
+
+/ Here object name is :employee
+
+package com.app;
+@Component (“empObj”) 
+public class Employee{ }
+//Here object name is :empObj
+
+1. @Component : Create Object
+2. @Controller : Create object +Http Req
+3. @Service : Create Object +Transaction Management +Link Layers 
+(Integration).
+4. @Repository : Create Object +DB Operations.
+5. @RestController:Create object +RestFul WebServices
+
+
+Example:
+--------
+Employee.java
+
+import org.springframework.stereotype.Component;
+@Component("empObj")
+publicclass Employee {
+rivate int empId;
+private String empName;
+
+public Employee() {
+super();
+}
+publicint getEmpId() {
+returnempId;
+}
+publicvoid setEmpId(intempId) {
+this.empId = empId;
+}
+public String getEmpName() {
+returnempName;
+}
+publicvoid setEmpName(String empName) {
+this.empName = empName;
+}
+@Override
+public String toString() {
+return"Employee [empId=" +empId+",empName="+ empName + 
+"]";
+}
+}
+
+xml configuration:
+-------------------
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:p="http://www.springframework.org/schema/p"
+xmlns:context="http://www.springframework.org/schema/context"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="
+ http://www.springframework.org/schema/beans 
+ 
+http://www.springframework.org/schema/beans/spring-beans.xsd
+ http://www.springframework.org/schema/context 
+http://www.springframework.org/schema/context/spring-context.xsd
+">
+
+<context:annotation-config/>
+<context:component-scan base-package="com.training"/>
+
+</beans>
+
+
+App.java:
+---------
+import org.springframework.context.ApplicationContext;
+import
+org.springframework.context.support.ClassPathXmlApplicatio
+nContext;
+import com.app.bean.Employee;
+public class Test {
+public static void main(String[] args) {
+ApplicationContext ac = new
+ClassPathXmlApplicationContext("config.xml");
+Employee e = ac.getBean("empObj" , Employee.class);
+e.setEmpId(10);
+e.setEmpName("Vicky Raj");
+System.out.println(e);
+}
+}
+
+b.Using Java Config Process. (no Xml file)
+-------------------------------------------
+@Component("empObj")
+publicclass Employee {
+privateintempId;
+private String empName;
+public Employee() {
+super();
+}
+publicint getEmpId() {
+returnempId;
+}
+publicvoid setEmpId(intempId) {
+this.empId = empId;
+}
+public String getEmpName() {
+returnempName;
+}
+publicvoid setEmpName(String empName) {
+this.empName = empName;
+}
+@Override
+public String toString() {
+return"Employee [empId=" + empId+",empName="+empName+ "]";
+}
+}
+
+2. AppConfig.java
+
+importorg.springframework.context.annotation.Bean;
+import
+org.springframework.context.annotation.ComponentScan;
+import
+org.springframework.context.annotation.Configuration;
+importcom.app.bean.Employee;
+
+@Configuration
+@ComponentScan(basePackages = "com.app")
+publicclass AppConfig { } 
+
+
+App.java
+--------
+import org.springframework.context.ApplicationContext;
+import
+org.springframework.context.annotation.AnnotationConfigApp
+licationContext;
+import com.app.bean.Employee;
+public class Test {
+public staticvoid main(String[] args) {
+ApplicationContext ac = new
+AnnotationConfigApplicationContext(AppConfig.class);
+Employee emp = ac.getBean("empObj" , Employee.class);
+System.out.println(emp);
+}
+}
+
+Providing scope in Annotation Configuration:
+--------------------------------------------
+use @Scope in annotation Config to define bean scope.
+Ex:
+Package com.app;
+
+@Component
+@Scope(“prototype”)
+Public class Employee { }
+
+** Test class :same as before
+
+** @Scope can be written along with even @Controller, @Service, 
+@Repository and @RestController also.
+
+
+@Value (Basic data Annotation):
+--------------------------------
+This annotation is used to inject data to bean (object) in case of 
+Annotation configuration (used along with stereo type Annotation 
+Configuration).
+
+It is applicable for Primitive Type, Collection and Reference Type.
+
+Data can be injected using simple value, expression, standalone Collection, Object reference, Object reference data.
+
+Supports Data reading from properties file also.
+
+Here # indicates object-id (obj ref) $ indicates property key.
+
+Annotation : Dependency
+------------------------
+@Value : Primitive Type
+@Value + SAC : Collection Type
+@Value + Child obj-id : Reference Type
+
+  Or
+
+**@Autowired
+
+--------------
+Example for primitive and collection configuration using annotation config in 
+spring framework:
+
+Bean class:
+-----------
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
+@Component("empObj")
+publicclass Employee {
+
+@Value("100")
+private int empId;
+
+@Value("Vicky raj")
+private String empName;
+
+@Value("5.5")
+privatedoubleempSal;
+
+@Value("#{lstObj}")
+private List<String>cords;
+
+@Value("#{mapObj}")
+private Map<Integer , String>stands;
+
+@Value("#{propObj}")
+private Properties props;
+
+public Employee() {
+super();
+}
+
+publicint getEmpId() {
+returnempId;
+}
+publicvoid setEmpId(intempId) {
+this.empId = empId;
+}
+public String getEmpName() {
+returnempName;
+}
+publicvoid setEmpName(String empName) {
+this.empName = empName;
+}
+publicdouble getEmpSal() {
+returnempSal;
+}
+publicvoid setEmpSal(doubleempSal) {
+this.empSal = empSal;
+}
+public List<String> getCords() {
+returncords;
+}
+publicvoid setCords(List<String>cords) {
+this.cords = cords;
+}
+public Map<Integer, String> getStands() {
+returnstands;
+}
+publicvoid setStands(Map<Integer, String>stands) {
+this.stands = stands;
+}
+public Properties getProps() {
+returnprops;
+}
+publicvoid setProps(Properties props) {
+this.props = props;
+}
+
+@Override
+public String toString() {
+return"Employee [empId=" + empId + ", empName=" + 
+empName + ", empSal=" + empSal + ", cords=" + cords
++ ", stands=" + stands + ", props=" + props + "]";
+}
+}
+
+
+
+
+
+==============================================================================
+LOADING PROPERTIES FILE INTO JAVA CONFIG
+
+1. Create .properties files(one or more).
+2. Load into spring container using @PropertySource ({..,..,..}).
+3. Spring container create object to store all key and value object type is 
+Environment(I).
+	For stand alone application implementation class is 
+	MorkEnvironment(C).
+	For Web application implementation class is 
+	StanderdServletEnvironment(C) 
+	These object are created and data loaded by Spring Container.
+4. Link Environment object with save config class using @Autowired.
+5. Read data using env.getProperty(“key”) or env.getProperty(“key” , 
+T.class).
+getProperty(String key) : String
+getProperty(String key , T.class)
+
+
+bean class:
+-----------
+package com.app.bean;
+public class Product {
+private int pId;
+private String pname;
+
+public Product() {
+super();
+}
+publicint getpId() {
+returnpId;
+}
+public void setpId(intpId) {
+this.pId = pId;
+}
+public String getPname() {
+returnpname;
+}
+public void setPname(String pname) {
+this.pname = pname;
+}
+@Override
+public String toString() {
+return"Product [pId=" + pId + ", pname=" + pname + "]";
+}
+}
+
+MyProp.propeties
+-----------------
+#This is properteis file 
+id = 10
+name = mouse
+
+Java configuration Class:
+-------------------------
+AppConfig.java
+
+@Configuration
+@PropertySource({"MyProp.properties"})
+public class AppConfig {
+
+@Autowired
+private Environment env;
+
+@Bean
+public Product pdtObj() {
+
+Product p = new Product();
+p.setpId(env.getProperty("id" , Integer.class));
+p.setPname(env.getProperty("name"));
+
+return p;
+}
+}
+
+App.java:
+----------
+publicclass Test {
+public static void main(String[] args) {
+
+Application Context ac = new AnnotationConfigApplicationContext(AppConfig.class);
+Product p = (Product)ac.getBean("pdtObj");
+System.out.println(p);
+
+}
+}
+
+
+
+Dependency Check In Spring:
+----------------------------
+In spring injection (providing data to variable ) is optional , to make it 
+required use annotation @Required over set method of that variable.
+
+** Making one dependency injection is required is called dependency check.
+**Activate annotation using <context:annotation-config/>
+
+Ex:
+---
+public class Product 
+{
+Private int productId;
+Private String productName;
+//constructor
+@Required
+public void setProductId(int productId)
+{
+This.productId=productId;
+}
+//setters & getters, toString
+
+}
+
+1. Spring configuration file:--
+------------------------------------
+<beans xmlns----------------------------->
+<context:annotation-config/>
+<bean class=”com.training.bean.Product” name=”p”>
+</bean>
+
+2. Test class
+----------------
+read and print “p” object expected output:--
+Exception: BeanCreationException…….
+BeanInitializationException : Property “productId” is required for bean ‘p’.
+
+Solution
+---------
+write below code in <bean>
+<property name=”productId” value=”66”/>
+(set product id data to avoid exception)
+
+Collection Injection:
+---------------------
+public class Employee {
+private List<String>models;
+private Map<Integer , String>codes;
+private Properties data;
+
+public Employee() {
+super();
+}
+public List<String> getModels() {
+returnmodels;
+}
+publicvoid setModels(List<String>models) {
+this.models = models;
+}
+public Map<Integer, String> getCodes() {
+returncodes;
+}
+publicvoid setCodes(Map<Integer, String>codes) {
+this.codes = codes;
+}
+public Properties getData() {
+returndata;
+}
+publicvoid setData(Properties data) {
+this.data = data;
+}
+@Override
+public String toString() {
+return"Employee [models=" + models + ", codes=" + 
+codes + ", data=" + data + "]";
+}
+}
+
+
+
+Bean Scope In Spring
+----------------------
+It indicates “how long bean (Object) should be in Spring Container”.
+
+Possible Bean Scope Are Given as:
+
+1. Singleton (default scope)
+2. Prototype
+3. Request (Spring WEB-MVC servlets)
+4. Session (Spring WEB-MVC servlets)
+5. Global context(String WEB-MVC portlets)
+
+1. Singleton:
+------------
+It is only default scope given to every <bean> in Spring Container. 
+It indicates one object is created by container when it is started. 
+Maintains same object end container is destroyed.
+
+** One object per one configuration.
+
+2. Prototype 
+-------------
+It create new object in Spring container on every access by Application / 
+Programmer.
+
+3. Request 
+----------
+Container creates new object for every request , same maintained until 
+response is commited. Works only in web application (using servlet) in 
+spring.
+
+4. Session
+-----------
+Container creates new object for every new session it is maintained until 
+session invalidated. Work only in web application (using servlet) in 
+spring.
+
+5. Global context/session
+--------------------------
+It works in portlets based web application. It creates one object for all 
+portlet access.
+
+
+Note:
+-----
+Read one bean using getBean() method in test class multiple time.
+If same hashcode is returned every time means scope is singleton , else if every 
+time new hashcode scope is prototype.
+
+Demo Project: demoOnSpringBeanScopesXml
+---------------------------------
+
+publicclass Employee {
+private int empId;
+public Employee() {
+super();
+}
+publicint getEmpId() {
+returnempId;
+}
+publicvoid setEmpId(intempId) {
+this.empId = empId;
+}
+@Override
+public String toString() {
+return"Employee [empId=" + empId + "]";
+}
+}
+
+springconfiguration file:
+-------------------------
+<beanclass="com.app.core.Employee"name="empObj" scope 
+= “singleton”
+p:empId="10"
+/>
+</beans>
+
+testcode:
+----------
+import org.springframework.context.ApplicationContext;
+import
+org.springframework.context.support.ClassPathXmlApplicatio
+nContext;
+publicclass Test {
+publicstaticvoid main(String[] args) {
+ApplicationContext ac = new
+ClassPathXmlApplicationContext("config.xml");
+Employee e1 = ac.getBean("empObj" , 
+Employee.class);
+System.out.println(e1.hashCode());
+Employee e2 = ac.getBean("empObj" , 
+Employee.class);
+System.out.println(e2.hashCode());
+Employee e3 = ac.getBean("empObj" , 
+Employee.class);
+System.out.println(e3.hashCode());
+}
+}
+
+Note:
+-----
+If two classs are connected with HAS-A relation then possible combinations fro Bean score are given as.
+SNO. 	PARENT 		CHILD 		STATUS
+1. 	Singlton 	Singlton 	Working Fine
+2. 	Singlton 	Prototype 	Working Fine
+3. 	Prototype 	Singlton 	Working Fine
+4. 	Prototype 	Prototype 	Not Working 
+
+Here if parent bean having scope “Singlton” and child bean having 
+scope “Prototype” in spring container.
+
+Container creating parent and child objects and linked then(Injected) 
+first time, but second time onwards new child object is created but link 
+Is not updated, so expected output not matched with actual output.
+
+
+Lookup method Injection (LMI):
+-----------------------------
+Spring container provides a logic to method which will check “is new 
+child created or not?” if it is created then this method will update the 
+links it means new child object is injected to parent object on every 
+access.
+
+Steps to modify code in Parent class and Parent config (no code change child 
+class or child)
+
+Parent class:
+1. remove set method of child type.
+2. write one abstract method that must return child type with any methodName.
+   public abstract ChildType methodName()
+3. Make Parent class also abstract.
+4. call abstract method in getChild(…)
+
+(Parent bean code change)
+1. Remove <property> tag for ref injection.
+2. write new tag <lookup-method/>
+Having method =” “ (abstract method name) 
+
+
+
+code:
+-----
+
+publicclass Address {
+privateintaddrId;
+private String loc;
+Address() {
+super();
+}
+publicint getAddrId() {
+returnaddrId;
+}
+publicvoid setAddrId(intaddrId) {
+this.addrId = addrId;
+}
+public String getLoc() {
+returnloc;
+}
+publicvoid setLoc(String loc) {
+this.loc = loc;
+}
+@Override
+public String toString() {
+
+return"Address [addrId=" + addrId + ", loc=" + loc + "]";
+}
+}
+
+
+
+Spring Bean (Employee.java)
+-----------------------------
+
+public class Employee {
+private int empId;
+private String empName;
+private double empSal;
+private Address addr;
+
+Employee() {
+super();
+}
+publicint getEmpId() {
+returnempId;
+}
+publicvoid setEmpId(intempId) {
+this.empId = empId;
+}
+public String getEmpName() {
+returnempName;
+}
+publicvoid setEmpName(String empName) {
+this.empName = empName;
+}
+publicdouble getEmpSal() {
+returnempSal;
+}
+publicvoid setEmpSal(doubleempSal) {
+this.empSal = empSal;
+}
+public Address getAddr() {
+return getAddress();
+}
+publicabstract Address getAddress();
+@Override
+public String toString() {
+return"Employee [empId=" + empId + ", 
+empName=" + empName + ", empSal=" + empSal + ", addr=" + 
+addr + "]";
+}
+}
+
+spring xml file:
+----------------
+<beanclass="com.vicky.Address"name="addrObj"scope="prototy
+pe">
+<propertyname="addrId"value="10"/>
+<propertyname="loc"value="Patna"
+/>
+</bean>
+<beanclass="com.vicky.Employee"name="empObj"scope="singlet
+on"
+p:empId="101"
+p:empName="Vicky Raj"
+>
+<lookup-methodname="getAddr"bean="addrObj"/>
+</bean>
+</beans>
+
+
+publicclass Test {
+publicstaticvoid main(String[] args) {
+ApplicationContext ac = new
+ClassPathXmlApplicationContext("config.xml");
+Employee e1 = (Employee)ac.getBean("empObj");
+System.out.println(e1.hashCode());
+System.out.println(e1.getAddr().hashCode());
+Employee e2 = (Employee)ac.getBean("empObj");
+
+System.out.println(e2.hashCode());
+System.out.println(e2.getAddr().hashCode());
+Employee e3 = (Employee)ac.getBean("empObj");
+System.out.println(e3.hashCode());
+System.out.println(e1.getAddr().hashCode());
+}
+}
+
+}
+
+Execution of LMI:
+------------------
+Spring container provides logic to abstract method I below format.
+
+1. Create one List of child type.
+2. If new object is created then add new child to List.
+3. Parent should be linked to last index child object of above list using 
+setChild(list.get(size-1)) logic internally.
+
+
+
+Wiring:
+--------
+It is a process of linking parent object with child object. 
+By writing<ref> tag  code written by programmer.
+
+Autowiring:
+Parent-child object are linked by Spring Container only. 
+Programmer not required to write <property with <ref (SI code) or <constructor-arg with <ref (CI code).
+
+Autowiring is applicable for Reference Type Dependency Only.
+Autowiring can be done in two ways.
+1. XML 2. Annotation
+
+byType autowiring example:
+------------------------
+This one compares <bean class=”” in XML with DataType of HAS-A variable in parent class.
+
+If matched then spring container will inject child into parent object.
+
+Syntax: at parent <bean> tag level
+
+<bean class=”” name=”” autowired="byType">
+
+byType uses setter Injection.
+
+byType means DataType
+
+byType case container generates code like: <property… with <ref..
+
+
+byName Autowiring:
+------------------
+
+At parent <bean> tag level provide autowire=”byname” then Spring Container 
+compares HAS-A “variable name” with <bean name=” “ in XML.
+
+If both are matched then spring container injects child with parent.
+
+Constructor Autowiring:
+-----------------------
+If we provide autowire=”constructor” at parent bean tag level then Spring 
+container links child and parent objects using const. Dependency Injection 
+(CDI) (It will call param. const.)
+
+
+
+
+@Autowired :
+------------
+This is used to do autowiring using Annotation concept, Which works faster 
+(and better) compared with XML config.
+
+1. It must be activated before using it with <context:annotation-config/>
+or <context:component-scan  base-package=”com.app”/>
+
+2. It internally follows required annotation by default. So, Injecting child is 
+not optional.
+
+3. To make injection optional use @Autowired(required=false). By default 
+it is true.
+
+4. If zero matchings found then Spring container throws
+NoSuchBeanDefenationException. (=0 and @Qualifier with zero 
+matchings).
+
+5. If multiple matching found but even name is not matching then 
+NoUniqueBeanException (for >1 matchings &<bean name not matched)
+
+
+
+SPRING JDBC:
+------------
+spring-core
+spring-context
+spring-jdbc
+mysql-connector-java.jar..
+
+
+This is used to perform database operations in less lines by removing common 
+lines of code (redundant code/boilerplate) .
+
+That is, if we consider two (2) JDBC programs common lines are connection, 
+Driver class loading, statement etc… known as duplicate code.
+
+These lines can be written one time and used multiple time done 
+using Template Design Pattern.
+
+Jdbc       + Template          = JdbcTemplate
+Technology     Design Pattern    (class)
+
+JdbcTemplate (c) created by Spring Framework reduces common lines of 
+code, by writing then only one time and use multiple times.
+
+Here Spring Container performs common operation steps, Programmer 
+should write SQL, set data, get result and print code
+
+JdbcTemplate (c) :- (org.springframework.jdbc.core)
+-----------------
+
+This class is given by Spring Framework, to perform database operations 
+(CURD).
+
+For this we need to provide DataSource (I) (javax.sql) object. 
+Here DataSource is an interface. So,we have to pass it’s any one 
+implementation class object.
+
+Ex: DriverManagerDataSource, BasicDataSource etc…
+
+JdbcTemplate provide method “update” which is used to perform insert, 
+update and delete operations.
+
+Spring JDBC Using XML Configuration:
+------------------------------------
+JdbcTemplate class having update() method which perform “insert, 
+update and delete” operation by taking two inputs.
+String -- SQL Query
+Object… -- inputs to SQL Query
+
+
+appConfig.xml:
+--------------
+
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:context="http://www.springframework.org/schema/context"
+xmlns:util="http://www.springframework.org/schema/util"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:p="http://www.springframework.org/schema/p"
+xsi:schemaLocation="http://www.springframework.org/schema/beans 
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/context 
+http://www.springframework.org/schema/context/spring-context.xsd
+http://www.springframework.org/schema/util
+http://www.springframework.org/schema/util/spring-util.xsd ">
+
+
+<bean class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+name="dmdsObj"
+p:driverClassName="com.mysql.cj.jdbc.Driver"
+p:url="jdbc:mysql://localhost:3306/training"
+p:username="root"
+p:password="root"
+/>
+<bean class="org.springframework.jdbc.core.JdbcTemplate"
+name="jtObj"
+p:dataSource-ref="dmdsObj"
+/>
+</beans>
+
+
+Spring Bean Code:
+------------------
+public class Student {
+private int stdId;
+private String stdName;
+private String course;
+private double stdFee;
+
+public Student() {
+super();
+}
+publicint getStdId() {
+return stdId;
+}
+publicvoid setStdId(intstdId) {
+this.stdId = stdId;
+}
+public String getStdName() {
+return stdName;
+}
+publicvoid setStdName(String stdName) {
+this.stdName = stdName;
+}
+public String getCourse() {
+return course;
+}
+publicvoid setCourse(String course) {
+this.course = course;
+}
+publicdouble getStdFee() {
+return stdFee;
+}
+publicvoid setStdFee(doublestdFee) {
+this.stdFee = stdFee;
+}
+@Override
+public String toString() {
+return"Student [stdId=" + stdId + ", stdName=" + 
+stdName + ", course=" + course + ", stdFee=" + stdFee + 
+"]";
+}
+}
+
+Create the Student Table:
+-------------------------
+create table student1(stdid int,stdname varchar(10),course varchar(10),stdFee float);
+
+
+TestCode:
+----------
+
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.jdbc.core.JdbcTemplate;
+
+public class InsertTest {
+public  static void main(String[] args) {
+ApplicationContext c = new
+ClassPathXmlApplicationContext("config.xml");
+
+JdbcTemplate jt = (JdbcTemplate) c.getBean("jtObj");
+String sql = "insert into student1 values(?,?,?,?)";
+int count = jt.update(sql, 1005,"Ashutosh","Spring",49999);
+
+System.out.println("Student saved successfully :: "+count);
+}
+}
+
+
+Spring JDBC Using Java Configuration and Maven Tool:
+-----------------------------------------------------
+open pom.xml:
+-------------
+add the below dependencies
+--------------------------
+<dependency>
+<groupId>org.springframework</groupId>
+<artifactId>spring-jdbc</artifactId>
+<version>5.0.6.RELEASE</version>
+</dependency>
+<dependency>
+<groupId>org.springframework</groupId>
+<artifactId>spring-context</artifactId>
+<version>5.0.6.RELEASE</version>
+</dependency>
+<dependency>
+<groupId>mysql</groupId>
+<artifactId>mysql-connector-java</artifactId>
+<version>5.1.6</version>
+</dependency
+
+
+
+jdbc.properties:
+----------------
+dc=com.mysql.jdbc.Driver
+url=jdbc:mysql://localhost:3306/training
+un=root
+pwd=root
+
+
+javaConfigurationCLass:
+-----------------------
+
+@PropertySource("jdbc.properties")
+@Configuration
+public class AppConfig {
+
+@Autowired
+private Environment env;
+
+@Bean
+public DriverManagerDataSource dsObj() {
+DriverManagerDataSource ds = new
+DriverManagerDataSource();
+ds.setDriverClassName(env.getProperty("dc"));
+ds.setUrl(env.getProperty("url"));
+ds.setUsername(env.getProperty("un"));
+ds.setPassword(env.getProperty("pwd"));
+returnds;
+}
+
+@Bean
+public JdbcTemplate jtObj() {
+JdbcTemplate jt = new JdbcTemplate();
+jt.setDataSource(dsObj());
+returnjt;
+}
+}
+
+
+Spring Bean code:
+------------------
+package com.app.bean;
+public class Employee {
+private int empId;
+private String empName;
+private String desig;
+private double empSal;
+public Employee() {
+super();
+}
+publicint getEmpId() {
+return empId;
+}
+public void setEmpId(intempId) {
+this.empId = empId;
+}
+public String getEmpName() {
+returnempName;
+}
+publicvoid setEmpName(String empName) {
+this.empName = empName;
+}
+public String getDesig() {
+returndesig;
+}
+publicvoid setDesig(String desig) {
+this.desig = desig;
+}
+publicdouble getEmpSal() {
+returnempSal;
+}
+publicvoid setEmpSal(doubleempSal) {
+this.empSal = empSal;
+}
+@Override
+public String toString() {
+return"Employee [empId=" + empId + ", empName=" + 
+empName + ", desig=" + desig + ", empSal=" + empSal + "]";
+}
+}
+
+Test class code:
+-----------------
+
+publicclass InsertTest {
+public staticvoid main(String[] args) {
+ApplicationContext ac = new
+AnnotationConfigApplicationContext(AppConfig.class);
+JdbcTemplate jt = (JdbcTemplate) ac.getBean("jtObj");
+String sql = "insert into emptab2 values(?,?,?,?)";
+int count = jt.update(sql, 11,"Ashu","JS",999);
+System.out.println("Data Inserted :: "+count);
+}
+}
+
+RowMapperin Spring JDBC:
+------------------------
+To fetch data from database using select query, JdbcTemplate has 
+provided special method like:
+a) queryForObject(Single row)
+b) query(Multiple row)
+
+both methods perform select operations
+But these methods will fetch data from database table in 
+ResultSet format (having rows) after excuting SQL query.
+
+This ResultSet data cab be converted to Objects format using 
+RowMapper(I).
+
+RowMapper will not get data form database. If only converts ResultSet 
+rows to model class Objects.
+
+It is having MapRow() method which contains conversion logic (row -> 
+object).
+
+RowMapper Code:
+---------------
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import org.springframework.jdbc.core.RowMapper;
+publicclass StudentRowMapper implements RowMapper<Student> 
+{
+public Student mapRow(ResultSet rs, intcount) throws
+SQLException {
+Student s = new Student();
+s.setStdId(rs.getInt(1));
+s.setStdName(rs.getString(2));
+s.setCourse(rs.getString(3))
+s.setStdFee(rs.getDouble(4));
+returns;
+}
+}
+
+Test Class:
+-----------
+public class Test {
+publicstaticvoid main(String[] args) {
+ApplicationContext c = new
+ClassPathXmlApplicationContext("config.xml");
+JdbcTemplate jt = (JdbcTemplate) 
+c.getBean("jtObj");
+String sql = "select * from student1 where sid=?";
+StudentRowMapper srm = new StudentRowMapper();
+Student s = jt.queryForObject(sql, srm, 1);
+System.out.println(s);
+}
+}
+
+
+# query() method:-
+
+This method is used to get multiple rows from database table using SQL 
+and RowMapper(I).
+API: query(String sql,RowMapper<T> rm) : List<T>
+Final data is returned in List format.
+# queryForObject() method:-
+
+This method is used to get one row data from database table using SQl 
+and RowMapper(I).
+API:
+queryForObject(String sql, RowMapper<T> rm, Object… inputs) : T
+
+
+##RowMapper<T> (I) is a functional interface, so we can write above code 
+without writing StudentRowMapper class, directly using lambda expression.
+
+EX#1. (Test class code)
+String sql = “select * from student where sid=?”;
+RowMapper<Student> rm = (rs, count)-> {
+Student s = new Student();
+s.setStdId(rs.getInt(“sid”))
+s.setStdName(rs.getString(“sname”))
+s.setStdFee(rs.getDouble(“sfee”))
+return s;
+};
+Student s = jt.queryForObject(sql, rm, 45);
+Sysout(s);
+
+EX#2: Generate 3 param constructor in Student Then lambda expression is:
+RowMapper<Student> rm = (rs, count) ->
+new Student (rs.getInt(1),rs.getString(2),rs.getDouble(3));
+
+
+SPRING ORM:
+-----------
+Mapping can be done using
+a. XML coding (old style)
+b. Annotation coding (new style) 
+(Also called as JPA = java persistency API annotation)
+
+If we follow mapping , then ORM converts objects to row and row to 
+object without SQL written to programmer.
+
+Above java class is also called as model class/Entity class/POJO class etc.
+Table must have one primary key (behaves as unique + not null
+
+ORM USING SPRING 
+----------------
+Here setup code is provided for DataSource ,SessionFactory and 
+TransactionManager object and Module-Wise code is provided for Model class
+
+
+Model-class
+-----------
+IDao ------DaoImpl (POJI – POJO) : in Data Access Layer.
+IService ------ ServiceImpl (POJI – POJO) : in Service Layer.
+
+POJI – POJO design pattern is used to link layer in loosely-coupled 
+manner.
+
+Service Layer Contains : 
+Application logic and Transaction (tx) management code.
+
+Data Access Layer Contains:
+DataBase Operation code
+
+Required Dependencies are:
+==========================
+spring-core
+spring-context
+spring-jdbc
+spring-orm
+hibernate-core
+mysql-connector-java.jar
+
+
+
+
+
+
+SPRING ORM Example:
+-------------------
+required jars:
+-------------
+spring-webmvc
+javax.servlet(jstl(version 1.2))
+
+
+Entity class:
+-------------
+importjavax.persistence.Column;
+importjavax.persistence.Entity;
+importjavax.persistence.Id;
+importjavax.persistence.Table;
+
+@Entity
+@Table(name = "user_tab1")
+public class User {
+@Id
+@Column(name = "u_id")
+private int userId;
+@Column(name = "uname")
+private String userName;
+@Column(name = "ucode")
+private String userCode;
+public User() {
+super();
+}
+public User(intuserId, String userName, String userCode) {
+super();
+this.userId = userId;
+this.userName = userName;
+this.userCode = userCode;
+}
+public int getUserId() {
+return userId;
+}
+public void setUserId(int userId) {
+this.userId = userId;
+}
+public String getUserName() {
+return userName;
+}
+public void setUserName(String userName) {
+this.userName = userName;
+}
+public String getUserCode() {
+return userCode;
+}
+public void setUserCode(String userCode) {
+this.userCode = userCode;
+}
+@Override
+public String toString() {
+return"User [userId=" + userId + ", userName=" + 
+userName + ", userCode=" + userCode + "]";
+}
+}
+
+DAO PACKAGE:
+------------
+Interface:
+-----------
+IUserDao.java
+
+public interface IUserDao {
+publicabstractint save(User user);
+publicabstractvoid update(User user);
+publicabstractvoid delete(intuserId);
+publicabstract User getUserById(intuserId);
+publicabstract List<User>getAllUsers();
+}
+
+UserDaoImpl.java
+-----------------
+importjava.util.List;
+importorg.springframework.beans.factory.annotation.Autowir
+ed;
+import
+org.springframework.orm.hibernate5.HibernateTemplate;
+importorg.springframework.stereotype.Repository;
+importcom.app.dao.IUserDao;
+importcom.app.model.User;
+@Repository
+public class UserDaoImpl implements IUserDao{
+@Autowired
+privateHibernateTemplate ht;
+@Override
+publicint save(User user) {
+return (Integer)ht.save(user);
+}
+@Override
+publicvoid update(User user) {
+ht.update(user);
+}
+@Override
+publicvoid delete(intuserId) {
+User user = newUser();
+user.setUserId(userId);
+ht.delete(user);
+}
+@Override
+public User getUserById(intuserId) {
+User user = ht.get(User.class, userId);
+returnuser;
+}
+@Override
+public List<User>getAllUsers() {
+List<User>user = ht.loadAll(User.class);
+returnuser;
+}
+}
+
+ServiceLayer:
+-------------
+IUserService.java
+-------------------
+import java.util.List;
+
+public interface IUserService {
+public abstract int save(User user);
+public abstract void update(User user);
+public abstract void delete(int userId);
+public abstract User getUserById(int userId);
+public abstract List<User> getAllUsers();
+}
+
+ServiceUserImpl.java
+---------------------
+@Service
+public class ServiceUserImpl implements IUserService{
+@Autowired
+privateIUserDaodao;
+@Transactional
+publicint save(User user) {
+returndao.save(user);
+}
+publicvoid update(User user) {
+dao.update(user);
+}
+@Transactional
+publicvoid delete(intuserId) {
+dao.delete(userId);
+}
+@Transactional(readOnly = true)
+public User getUserById(intuserId) {
+returndao.getUserById(userId);
+}
+@Transactional(readOnly = true)
+public List<User>getAllUsers() {
+returndao.getAllUsers();
+}
+}
+
+Test.java
+----------
+public class Test {
+
+publicstaticvoid main(String[] args) {
+ApplicationContextac = 
+newClassPathXmlApplicationContext("config.xml");
+IUserServiceu = 
+(IUserService)ac.getBean("serviceUserImpl");
+
+/* User user = new User();
+user.setUserId(3);
+user.setUserName("RAVI SAM Sharma");
+user.setUserCode("Uss5");
+u.save(user);
+System.out.println("Saved data successful");
+*/
+/*
+user.setUserId(3);
+user.setUserName("VickyRajkumar");
+user.setUserCode("psdf");
+u.update(user);
+System.out.println("update succesfull");
+*/
+/*
+//Delete operation
+User user = new User();
+user.setUserId(3);
+u.delete(3);
+System.out.println(3+" user deleted");
+*/
+//retrive data in list<User>
+List<User>list = u.getAllUsers();
+for(User user:list)
+System.out.println(user);
+
+//retrive only one user data` /
+/*User user = u.getUserById(2);
+System.out.println(user);*/
+//HibernateTransactionManagerhh;
+// hh.setSessionFactory(sessionFactory);
+}
+}
+
+Config.xml
+-----------
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:p="http://www.springframework.org/schema/p"
+xmlns:tx="http://www.springframework.org/schema/tx"
+xmlns:aop="http://www.springframework.org/schema/aop"
+xmlns:context="http://www.springframework.org/schema/context"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="
+ http://www.springframework.org/schema/beans 
+ 
+http://www.springframework.org/schema/beans/spring-beans.xsd
+ http://www.springframework.org/schema/context 
+http://www.springframework.org/schema/context/spring-context.xsd
+ http://www.springframework.org/schema/tx 
+ http://www.springframework.org/schema/tx/spring-tx.xsd
+ http://www.springframework.org/schema/aop 
+ http://www.springframework.org/schema/aop/spring-aop.xsd">
+ 
+ <!-- Activation of streotype annotation -->
+<context:component-scan base-package="com.training"/>
+
+<!-- Activation transection manager -->
+<tx:annotation-driven/>
+
+<!-- Link properties file -->
+<context:property-placeholder location="MyData.properties"/>
+
+<!-- 1.DataSource object -->
+<bean class="org.springframework.jdbc.datasource.DriverManagerDataSource" name="dsObj"
+p:driverClassName="${dcn}"
+p:url="${url}"
+p:username="${un}"
+p:password="${pwd}"
+/>
+
+<!-- 2.LocalSessionFactoryBean object -->
+
+<bean class="org.springframework.orm.hibernate5.LocalSessionFactoryBean" name="lsbObj">
+<property name="dataSource" ref="dsObj"/>
+<property name="hibernateProperties">
+<props>
+<prop key="hibernate.dialect">${dialects}</prop>
+<prop key="hibernate.show_sql">${showsql}</prop>
+<prop key="hibernate.format_sql">${formatsql}</prop>
+<prop key="hibernate.hbm2ddl.auto">${hbmauto}</prop>
+</props>
+</property>
+
+<property name="annotatedClasses">
+<list>
+<value>com.training.entity.User</value>
+</list>
+</property>
+</bean>
+
+<bean class="org.springframework.orm.hibernate5.HibernateTemplate" name="htObj">
+<property name="sessionFactory" ref="lsbObj"/>
+
+</bean>
+<bean class="org.springframework.orm.hibernate5.HibernateTransactionManager" name="transactionManager">
+<property name="sessionFactory" ref="lsbObj"/>
+</bean>
+
+</beans>
+
+MyData.properties
+-----------------
+#This is properties data
+dcn=com.mysql.cj.jdbc.Driver
+url=jdbc:mysql://localhost:3306/training
+un=root
+pwd=root
+dialects=org.hibernate.dialect.MySQL8Dialect
+showsql=true
+formatsql=true
+hbmauto=update
+
+
+SPRING ORM JAVA CONFIG:
+-----------------------
+REPLACE XML CONFIGURATION  WITH JAVACONFIG
+-------------------------------------------
+@Configuration
+@ComponentScan(basePackages="com.training")
+@PropertySource("MyData.properties")
+@EnableTransactionManagement
+public class AppConfig {
+
+		 @Autowired
+		    private Environment environment;
+
+		    @Bean
+		    public LocalSessionFactoryBean sessionFactory() {
+		        LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
+		        sessionFactory.setDataSource(dataSource());
+		        sessionFactory.setPackagesToScan(new String[] {
+		            "com.training.entity"
+		        });
+		        sessionFactory.setHibernateProperties(hibernateProperties());
+		        return sessionFactory;
+		    }
+
+		    @Bean
+		    public DataSource dataSource() {
+		        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+		        dataSource.setDriverClassName(environment.getRequiredProperty("dcn"));
+		        dataSource.setUrl(environment.getRequiredProperty("url"));
+		        dataSource.setUsername(environment.getRequiredProperty("un"));
+		        dataSource.setPassword(environment.getRequiredProperty("pwd"));
+		        return dataSource;
+		    }
+
+		    private Properties hibernateProperties() {
+		        Properties properties = new Properties();
+		        properties.put("hibernate.dialect", environment.getRequiredProperty("dialects"));
+		        properties.put("hibernate.show_sql", environment.getRequiredProperty("showsql"));
+		        properties.put("hibernate.format_sql", environment.getRequiredProperty("formatsql"));
+		        properties.put("hibernate.hbm2ddl.auto", environment.getRequiredProperty("hbmauto"));
+		        return properties;
+		    }
+
+		    @Bean
+		    public HibernateTransactionManager getTransactionManager() {
+		        HibernateTransactionManager transactionManager = new HibernateTransactionManager();
+		        transactionManager.setSessionFactory(sessionFactory().getObject());
+		        return transactionManager;
+		    }
+		    
+		    @Bean
+		    public HibernateTemplate getHibernateTemplate() {
+		    	HibernateTemplate  hTemplate = new HibernateTemplate ();
+		    	hTemplate.setSessionFactory(sessionFactory().getObject());
+		        return hTemplate;
+		    }
+		    
+		}
+
+
+TransactionManagement in spring ORM:
+------------------------------------
+Before performing any DB operation we should start (begin) Transaction (tx)
+
+If operation is successfully executed then commit (Save changes in DB) 
+else rollback (Cancle changes in database).
+
+To do this tx management spring has provided API (for ORM) as:
+a. TX Management Classes.
+HibernateTransactionManager 
+(org.springframework.orm.hibernate5)
+It does code execution like:
+try{
+begintx ….
+//operation
+Commit(if all done)
+}catch (Exception e){
+rollback…
+}
+b. Enable Tx: @EnableTransactionManagement
+(org.springframework.transaction.annotation)
+It will activate and de-activate txmanagement in spring application. It behaves 
+like switch.
+
+c. Service method annotation.
+in service layer method apply annotation like @Transactional for non-select 
+operation and also for select operation.
+@Transactional (readOnly = true)
+
+Hibernate + Template 
+---------------------
+Hibernate Template framework (ORM) Design pattern class (Spring)
+
+By using this “HibernateTemplate” (C) we can perform operation in one 
+line remaining common line (7 setps) are done by Spring framework.
+
+HibernateTemplate[c] (org.springframework.orm.hibernate5)
+This class is used to perfrom operation in one line code , given example 
+operations are save() , update() , delete() , get() and loadAll().
+
+1. save(obj):
+This method is used to convert model (entity / pojo) class object to 
+database table row.
+EX: consider Employee(empId: int , empName :String , empSal : 
+double)
+As model class mapped with emptab (eid ,ename , esal).
+
+2. update(obj):
+This method updates all columns data based on primary key value in 
+database table.
+Input is model class object and update row data column wise.
+
+3. delete(obj):
+This method takes one model class object having only primary key value 
+(other values not required) based on primary key , row will be deleted 
+from DB table.
+
+FETCH RECORD
+------------
+4. get(T.class , ID) : T Object
+This method is used to fetch one row using select query to 
+application. This row will be converted to model class object.
+Inputs T = Type = Model class name 
+ID = primary key data.
+
+Syntax:
+------
+T obj = ht.get(T.class , ID);
+
+if given id based row not exist in DB table then get() method returns null 
+value.
+
+5. loadAll(T.class): List<T>
+This method will fetch all rows in DB table converts to list of objects 
+(model class objects)
+
+list size is equals to number of rows in table.
+If table has no rows then empty list will be returned.
+
+Here T = model class name
+Syntax:
+List<T>objs = ht.loadAll(T.class);
+Example
+List<Employee>emps = ht.loadAll(Employee.class);
+
+
+SPRING WEB MVC:
+===============
+To write one spring web application using MVC and FC(Front Controller(DispatcherServlet)) pattern files are written 
+in below order
+
+1) XML File
+a. web.xml : To configure FC (Dispatcher Servlet).
+b. Spring Configuration Files : Activate annotation and provide view resolvers.
+2) Java Fies : controller class[c] [String Bean] with request method.
+
+3) UI Files : jsp/Html , css and java script.
+
+a. web.xml
+----------
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee"
+xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"id="WebApp_ID"version="2.5">
+<servlet>
+<servlet-name>sample</servlet-name>
+<servlet-class>
+org.springframework.web.servlet.DispatcherServlet  <!--FC-->
+</servlet-class>
+</servlet>
+<servlet-mapping>
+<servlet-name>sample</servlet-name>
+<url-pattern>/mvc/*</url-pattern>
+</servlet-mapping>
+</web-app>
+
+b. Spring Config files (XML)
+It must be created under WEB-INF location file name should follow naming rule.
+[<servlet-name>]-servlet.xml
+
+Ex: sample-servlet.xml  --spring configuration under WEB-INF
+
+Code for annotation activations
+<context:component-scan base-package = “com.training”/>
+
+ViewResolver
+------------
+Here “InternalResourceViewResolver” is a class which can be used to 
+provide prefix(location) and suffix(extension) of UI files
+
+CODE(XML Configuration)
+
+<beanclass="org.springframework.web.servlet.view.InternalResourceViewResolver"
+p:prefix="/WEB-INF/views/"
+p:suffix=".jsp"/>
+
+
+Request can be made using browser in 3 different ways those are:
+1. Enter URL in address bar(GET)
+2. HTML form submit(GET / POST)
+3. Hiperlink <a> tag (GET)
+
+All internally generate URL only so request means URL only.
+To do request processing in spring define controller class given in below format.
+
+@Controller
+Public clas <class name> {
+//request method can be written an:
+@RequestMapping(“/url”) //GET type 
+Public ModelAndView methodName(){
+//logic
+request mav;
+}
+
+// For post type request method 
+@RequestMapping(value = "/url" ,method = RequestMethod.POST)
+public ModelAndView mehtodName(){
+ //logic
+ return mav;
+ }
+
+Note: 
+1) URL is case-sensitive i.e /abc , /Abc , /ABC all are different.
+2) If request URL is not matched with method URL then FC throws Http 
+status 404 (not found).
+3) If request URL is matched with method URL but type (GET/POST) is not 
+matched then FC throws 
+Http status-405 method not allowed 
+4) If input data like empId , salary data type not matched then FC throws.
+Http status-400 Bad Request
+5) If secured URL is accessed without permission (login) then FC throws.
+Http status-401 UNAuthorized 
+6) If request method executed logic and throws any exception then FC 
+returns .
+Http status-500 InternalServerError
+7) If request processed successfully then FC returns Http status-200 ok.
+8) Here request method is a enum 
+[org.springframework.web.bind.annotation]
+9) Browser to server only supported types are GET , POST.
+10)Server to server all types are supported GET , POST , DELETE , TRACE , 
+OPTIONS , HEAD , PUT.
+11)Http status codes and types are :[https://en.wikipedia.org/wiki/listof 
+http_status].
+
+CODE MESSAGE TYPE 
+________________________________________
+1XX Information
+2XX Success Message
+3XX Redirect Message 
+4XX Client Side Error
+5XX Server Side Error
+
+
+Spring Web MVC
+--------------
+Web application:
+----------------
+It is a collection of web pages which runs in web server (Apache Tomcat) and 
+accessed using web browser (Google Chrome) with the help of Http Request 
+and Http Response.
+
+MVC + FC
+--------
+It is a combination design pattern used in dynamic web application 
+development here Front Controller is a servlet. It will received request 
+(HttpServlet) and dispatched to one controller (class) based on URL.
+
+Controller execute logic and it may communicate to DB and fetch data 
+which will be stored in model memory. 
+
+This model memory will be shared with view (Display Code).
+
+Data will be placed in views file (Data Rendering) and finally view 
+returned back to FrontController.
+
+Front Controller sent this as HttpResponse
+
+
+Execution Flow:
+===============
+1) FrontController is a servlet which behaves like entry and exit gate to application running in servlet.
+
+2) In Spring FC is a pre-define servlet named as DispatcherServlet.
+package : org.springframework.web.servlet
+
+3) FC will read HttpRequest (URL) and identifies one controller method based on HandlerMapper (MAP).
+
+4) HandlerMapper will be created by FC at runtime it is a map holds URL 
+(key) and connected controller method (value).
+
+5) Controller is a class (Spring Bean) which can have multiple methods 
+(known as request method).
+
+6) Controller method returns finally ModelAndView class object. It holds 
+ViewName(required) and Model (data) (optional)
+
+7) FC reads ModelAndView(MAV) object and call ViewResolver class to 
+identify UI(view page).
+
+8) ViewResolver contains prefix (location of view page) and suffix 
+(entension of view page). This is use to make controller independent of 
+
+UI technology.
+ View Page = Prefix + view name + suffix
+= /myfile/ home .jsp
+
+9) ViewResolver finds view page nad view page reads data form model memory if exist using JSTL and EL (Data Rendering).
+
+10)Finally view page as returned to FC and save returned as HttpResponse to client.
+
+
+NOTE:
+-----
+a) FC (Dispatcher Servlet) must be configured in web.xml file using directory match url pattern 
+Ex: /mvc/*
+b) HandlerMapper is auto created object.
+c) Controller class is a spring bean 
+no of modules = no of controller in project
+d) ViewResolver are pre-defined in spring must be configured either using 
+XML or using java configuration.
+e) JSTL (Jsp Standard Tag Library) used to write java code in tag based 
+format to apply CSS/JS easily and for flexible output.
+
+Spring Web MVC and FC:
+=======================
+Require jars:
+------------
+spring-webmvc
+javax.servlet(jstl version(1.2))
+
+<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>5.3.8</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/javax.servlet.jsp.jstl/jstl -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+
+Note:-for spring web mvc we need to a create maven project by selecting arch-type-webapps.
+
+Example:1
+
+1) Configure DispatcherServlet in web.xml.
+
+
+<?xml version="1.0"encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns="http://java.sun.com/xml/ns/javaee" 
+xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"id="WebApp_ID"version="2.5">
+
+<display-name>SpringWebMvc2</display-name>
+<servlet>
+<servlet-name>web</servlet-name>
+<servlet>class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+<servlet-name>web</servlet-name>
+<url-pattern>/mvc/*</url-pattern>
+</servlet-mapping>
+</web-app>
+
+2) Create Spring Configuration file under WEB-INF with name.
+(web-servlet.xml)
+
+<?xml version="1.0"encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:p="http://www.springframework.org/schema/p"
+xmlns:context="http://www.springframework.org/schema/context"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="
+http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/springbeans.xsd
+http://www.springframework.org/schema/context 
+http://www.springframework.org/schema/context/springcontext.xsd"
+>
+
+<!-- Activation of annotation -->
+<context:component-scan base-package="com.training"/>
+
+<!-- View Resolver -->
+<bean class="org.springframework.web.servlet.view.Inte
+rnalResourceViewResolver"
+p:prefix="/WEB-INF/views/"
+p:suffix=".jsp"/>
+
+</beans>
+
+3) Write controller class under src package com.training.controller.(EmployeeController.java)
+
+import org.springframework.stereotype.Controller;
+import
+org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+public class EmployeeController {
+
+@RequestMapping("/show")   //localhost:portno/mvc/show
+public String showMsg() {
+return ("insert");//it will redirect to your jsp --> insert.jsp in views folder;
+}
+}
+
+4) UI (Jsp) Files (Insert.jsp)
+a. Create "views" folder under WEB-INF 
+
+Right Click on WEB-INF 
+New Folder 
+Enter Name : views 
+Finish
+
+b. Create Insert.jsp file under views 
+
+Right click on view folder 
+New Jsp file 
+Enter name :: Insert.jsp 
+
+Finish
+
+insert.jsp
+-----------
+<%@pagelanguage="java"contentType="text/html; charset=ISO8859-1"
+pageEncoding="ISO-8859-1"%>
+<!DOCTYPEhtmlPUBLIC"-//W3C//DTD HTML 4.01 
+Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<metahttp-equiv="Content-Type"content="text/html; 
+charset=ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<h1> This is my first Spring web application....</h1>
+</body>
+</html>
+
+5) Run Application in server
+
+
+Example2:
+===========
+JavaConfiguration
+-----------------
+
+Add this in pom.xml:
+--------------------
+UNDER <build>
+		<plugins>
+		<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>3.3.1</version>
+			</plugin>
+		</plugins>
+     </build>
+2)under dependencies
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>4.0.0</version>
+			<scope>provided</scope>
+		</dependency>
+
+
+EmployeeController.java
+------------------------
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+@Controller
+publicclass EmployeeController {
+@RequestMapping("/show")
+public ModelAndView showPage() {
+ModelAndView mav = new ModelAndView();
+mav.setViewName("Home");
+return mav;
+}
+}
+
+
+
+AppConfig.java(Replace the web-servlet.xml )
+---------------
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
+
+@Configuration
+@EnableWebMvc
+@ComponentScan(basePackages = "com.training")
+publicclass AppConfig {
+@Bean
+public InternalResourceViewResolver ivr() {
+InternalResourceViewResolver ivr = new
+InternalResourceViewResolver();
+
+ivr.setPrefix("/WEB-INF/views/");
+ivr.setSuffix(".jsp");
+return ivr;
+
+}
+}
+
+AppInit.java(Replace the web.xml)
+-------------
+import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
+
+public class AppInit extends
+AbstractAnnotationConfigDispatcherServletInitializer{
+@Override
+protected Class<?>[] getRootConfigClasses() {
+returnnew Class[]{AppConfig.class};
+}
+@Override
+protected Class<?>[] getServletConfigClasses() {
+// TODO Auto-generated method stub
+returnnull;
+}
+@Override
+protected String[] getServletMappings() {
+returnnew String[] { "/mvc/*"};
+}
+}
+
+Home.jsp
+--------
+<%@page language="java"contentType="text/html; charset=ISO8859-1"
+pageEncoding="ISO-8859-1"%>
+<!DOCTYPEhtmlPUBLIC"-//W3C//DTD HTML 4.01 
+Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<metahttp-equiv="Content-Type"content="text/html; 
+charset=ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<h1> This is the example of spring application using 
+java configuration with maven</h1>
+</body>
+</html>
+
+
+
+Controller Examples:
+====================
+Ex1:
+====
+
+@Controller
+public class EmployeeController {
+
+@RequestMapping("/show")
+public ModelAndView showOutput() {
+ModelAndView mav = new ModelAndView();
+mav.setViewName("Home");
+Employee e = new Employee();
+e.setEmpId(10);
+e.setEmpName("Vicky");
+e.setEmpSal(5.5);
+mav.addObject("data" , e);
+return mav;
+}
+}
+
+Home.jsp
+---------
+
+<%@page language="java"contentType="text/html; charset=ISO8859-1"
+pageEncoding="ISO-8859-1"%>
+<%@taglib prefix="c"uri="http://java.sun.com/jsp/jstl/core"
+%>
+<!DOCTYPE htmlPUBLIC"-//W3C//DTD HTML 4.01 
+Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+<metahttp-equiv="Content-Type"content="text/html; 
+charset=ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<h2>Read Object :: ${data}</h2>
+<h2> Read Value From Object:: 
+${data.empId } , ${data.empName } , ${data.empSal }
+</h2>
+</body>
+</html>
+
+Ex2:
+====
+@Controller
+public class EmployeeController {
+
+@RequestMapping("/show")
+public ModelAndView showMsg() {
+
+ModelAndView mav = new ModelAndView();
+mav.setViewName("Home");
+List<Object>list = Arrays.asList(10 , "vicky raj" , 5.5);
+mav.addObject("data" , list);
+return mav;
+}
+}
+
+
+Home.jsp
+--------
+<h1>${data}</h1>
+<c:forEachitems="${data}"var="ob">
+<c:outvalue="${ob}"/><br>
+</c:forEach>
+
+
+Ex3:
+----
+Employee.java
+--------------
+public class Employee {
+private int empId;
+private String empName;
+private String empPwd;
+private String empGen;
+private String empAddr;
+private String empCountry;
+
+public Employee() {
+super();
+}
+publicint getEmpId() {
+return empId;
+}
+publicvoid setEmpId(intempId) {
+this.empId = empId;
+}
+public String getEmpName() {
+return empName;
+}
+publicvoid setEmpName(String empName) {
+this.empName = empName;
+}
+public String getEmpPwd() {
+return empPwd;
+}
+publicvoid setEmpPwd(String empPwd) {
+this.empPwd = empPwd;
+}
+public String getEmpGen() {
+return empGen;
+}
+publicvoid setEmpGen(String empGen) {
+this.empGen = empGen;
+}
+public String getEmpAddr() {
+return empAddr;
+}
+publicvoid setEmpAddr(String empAddr) {
+this.empAddr = empAddr;
+}
+public String getEmpCountry() {
+returnempCountry;
+}
+publicvoid setEmpCountry(String empCountry) {
+this.empCountry = empCountry;
+}
+}
+
+
+EmployeeController.java
+-----------------------
+import org.springframework.stereotype.Controller;
+import
+org.springframework.web.bind.annotation.ModelAttribute;
+import
+org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+@Controller
+public class EmployeeController {
+@RequestMapping("/show")
+public ModelAndView show() {
+ModelAndView mav = new ModelAndView();
+mav.setViewName("Register");
+return mav;
+}
+@RequestMapping("/reg")
+public ModelAndViewRegister(@ModelAttribute("employee") Employee emp) {
+ModelAndView mav = new ModelAndView();
+mav.setViewName("Register");
+mav.addObject("emp" , emp);
+return mav;
+}
+}
+
+Register.jsp
+------------
+<%@page language="java"isELIgnored="false" contentType="text/html; charset=ISO-8859-1"
+pageEncoding="ISO-8859-1"%>
+
+<%@taglibprefix="c"uri="http://java.sun.com/jsp/jstl/core"%>
+
+<!DOCTYPE html PUBLIC"-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<metahttp-equiv="Content-Type"content="text/html; charset=ISO8859-1">
+<title>Insert title here</title>
+<styletype="text/css">
+td{
+color: blue;
+}
+#formDiv{
+width:30%;
+border:2px solid green;
+float:left;
+}
+#data{
+width:30%;
+height:200px;
+float:left;
+margin-left:30px;
+border:2px solid green;
+}
+</style>
+</head>
+<body>
+<divid="formDiv">
+<form action="reg" method="POST"id="form">
+<tableborder="1">
+<tr>
+<td>Employee ID ::</td>
+<td><input type="text"name="empId"></td>
+</tr>
+<tr>
+<td>Employee Name :: </td>
+<td><input type="text"name="empName"/></td>
+</tr>
+<tr>
+<td>Employee Password :: </td>
+<td><inputtype="password"name="empPwd"/></td>
+<tr>
+<td>Employee Gender :: </td>
+<td><inputtype="radio"name="empGen"value="MALE"/> MALE
+FEMALE</td>
+</tr>
+<tr>
+<td>Employee Address :: </td>
+<td><textarearows="3"cols="19"name="empAddr"></textarea></
+td>
+</tr>
+<tr>
+<td>Employee Country :: </td>
+<td><selectname="empCountry">
+<option> INDIA </option>
+<option> RUSIA </option>
+<option>ISRIAL </option>
+<option> AMERICA </option>
+</select></td>
+</tr>
+<tr>
+<td><inputtype="submit"value="Register"/></td>
+</tr>
+</table>
+</form>
+</div>
+<divid="data">
+&nbsp;&nbsp;Employee ID :: ${emp.empId } <br>
+&nbsp;&nbsp;Employee Name :: ${emp.empName }<br>
+&nbsp;&nbsp;Employee Pwd :: <br>
+&nbsp;&nbsp;Employee Gender :: ${emp.empGen }<br>
+&nbsp;&nbsp;Employee Address:: ${emp.empAddr }<br>
+&nbsp;&nbsp;Employee Country:: ${emp.empCountry }<br>
+</div>
+</body>
+</html>
+
+Output
+------
+
+Add this in pom.xml
+-------------------
+
+<plugins>
+		        <plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.7.0</version>
+				<configuration>
+					<source>17</source>
+					<target>17</target>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>3.3.1</version>
+			</plugin>
+
+		</plugins>
+
+
+Spring tag library:
+--------------------
+Tag Library
+------------
+Writing java code in tag format , which makes easy to apply css/javascript/.. 
+any UI Technology 
+
+JSTL (Jsp Standard Tag Library)
+-------------------------------
+Spring tag library provide below concept.
+
+a) Form Binding :
+
+Spring form can be converted to model class object and even model class 
+object can be converted to spring form.
+
+Spring Form <=> Model Object
+HTML Form => Model Object
+
+b) Validation Binding 
+
+STL support server sid validations on Model Object those will be autobound to UI component.
+
+c) Mult-Language Support: (II8n =Internationalization)
+Write application in one display output in multiple language (Hindi , 
+Tamil , Kannada , Telgu…).
+
+d) Dynamic Input Compnent.
+STL support List<java.util> will be converted to dynamic drop dow | 
+radio buttons | checkbox
+
+Spring Form Tags Components and their equal HTML code.
+------------------------------------------------------
+1) Creating form
+HTML
+<form action = “ ” method = “ “></form>
+
+STL
+<form:from action = “ “ method = “ “ modelAttribute = “ “></form>
+
+2) Text Input 
+HTML
+<input type = “text” name = “empId” id = “empId”/>
+
+STL
+<form:input path = “empId”/>
+
+3) Password Input 
+HTML
+<input type = “password” name = “empPwd” id = “empId” />
+
+STL
+<form:password path = “empPwd”/>
+
+4) Radio Button Input 
+HTML 
+<input type = “radio” name = “empGen” id = “empGen”/>
+
+STL
+<form:radioButton path = “empGen”/>
+
+5) Text Area Input 
+Html 
+<textarea name = “addr” id =”addr”></textarea>
+
+STL
+<from: textarea path = “addr”/>
+
+6) Checkbox Input 
+HTML
+<input type = “checkbox” name = “lang” id = “lang” />
+
+STL
+<form: checkbox path = “lang”/>
+
+7) Dropdown Input 
+HTML
+<select name = “country”>
+<option value = “IND”>IND </option>
+<option value = “Aus”>AUS </option>
+</select>
+
+STL
+<form:select name = “country>
+<form:option value = “IN”>IND </form:option>
+<form:option value = “US”>US</form:option>
+</form:select>
+
+8) Hidden Input 
+HTML
+<input type = “hidden” name = “eid” id = “eid”/>
+
+STL
+<from:hidden path = “eid”/>
+
+Submit button are same as HTML Code
+
+
+Pattern API:
+------------
+It is a (core) java API to validate input String (data) matched with given pattern 
+[Regular Expression] or not? If matched true else false.
+
+1) Accept only 3 upper case chars.
+ Expression#1 [A-Z][A-z][A-Z]
+ Expression#2 [A-Z]{3}
+ Expression#3 [A-Z][A-Z]{2}
+
+2) Accepts uppercase chars min = 4 , max = 25.
+Excpression# [A-Z]{4 , 25}
+
+3) Start with uppercase char , letter both case accepted , min 4 and max = 25.
+Expression# [A-Z][A-Z a-z]{3 , 24}
+
+4) Start with uppercase , ends with digit min =4 , max = 10Middle any character or digit 
+Expression# [A-Z][A-Z a-z o-9]{2 , 8}{0-9}
+
+5) Accept exactly 10 digits only.
+Expression# [0-9]{10}
+
+6) Starts with 1 to 9 letter any digit min = max = 10.
+Expression# [1-9][0-9]{9}
+
+
+Locale (Multi-language) Concept in java:
+-----------------------------------------
+It is also called as Internationalization [I18n] i.e. showing java application 
+output in multiple languages
+
+For every symbol in word has been assigned with one unique number is 
+called as Unicode system.
+
+It is a hexa-decimal number example
+\u0905 = aa
+\U0co5 = telgu symbol
+
+Go to google.com 
+Type “hindi Unicode pdf”
+Click on first link
+
+Replace all static message (hard coded message) in jsp , controller and 
+validation using their respected keys which are placed in .properties file 
+in jsp.
+
+<spring : message code = “key”/>
+
+To get this add spring tag library:
+<%@taglib prefix = “spirng” uri = "http://www.springframework.org/tags" %>
+
+In Validator:
+-------------
+Provide key for message read and remove default message 
+a) Errors.rejectValue(“variable” , “key”)
+b) ValidationUtils.rejectIfEmptyOnWhiteSpace(errors , “variable” , “key”)
+
+In Controller:
+--------------
+Make controller class HAS-A with MessageResource(Spring F/W) and use locale 
+as method parameter then code is :
+@Controller
+public class _____Controller{
+
+@Autowired
+Private MessageSource message;
+Public String method (___ , Locale locale){
+String m = message.getMessage(“key” , Object[] , locale);
+
+}
+}
+
+One Time Setup Code is:
+-----------------------
+1) MessageSource obj:
+It indicates properties file details i.e. baseName for all properties file and 
+encoding type (UTF-8 = Unicode)
+
+2) LocaleResolver:
+It is used to store language code is system (browser side : Cookie: server 
+side : Session)
+
+3) HandlerIntercepter:
+On change language code (made by request ) "reloaded new properties file"
+
+4) Adding Interceptor to AppConfig:
+Register interceptor details with java config file
+
+Spring Validation API:
+----------------------
+Spring has provided “form validation API” to validate input modelAttriburte 
+[form data].
+On model validation , Spring returns errors class object with all list of 
+errors. 
+To check errors. 
+----------------
+To check errors are exist or not use method 
+hasError() : boolean type 
+
+Validator class must be defined by programmer and link with controller.
+Controller should provide modelAttribute as input to validate class, here 
+validator class returns error object to controller object.
+
+Spring has provided one predefine interface Validation(I)[ given in 
+package: org.springFramework.validation ]
+
+Programmer should implement this interface and define one 
+implementations class which returns finally Error object.
+
+Create has a between Controller and Validation, given as 
+EmployeeController Has-A EmployeeValidation
+
+Display error at UI using tag 
+<form:error path=”key”/ >
