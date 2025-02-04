@@ -1,0 +1,2238 @@
+SPRING BOOT: 
+----------
+Spring Boot is an open source Java-based framework developed by Pivotal Team.
+--> Spring Boot makes it easy to create stand-alone, production-grade Spring based Applications that you can "just run".
+
+--> Spring Boot provides production-ready features such as metrics, health checks and externalized configuration.
+
+--> It simplifies the bootstrapping and development of Spring Applications.
+
+--> Spring Boot was designed on the top of existed Spring Framework to simplify and speedup the spring based applications.
+
+--> Spring Boot can be used to develop Spring based applications either by using JAVA or by using Groovy.
+
+--> Spring Boot Simplifies application development by having all configurations as defaults.
+
+--> Spring Boot reduces application development time.
+
+--> Spring Boot will improve Productivity.
+
+--> Spring Boot will provide very simple approach to integrate Spring Boot Application with 
+its Spring Ecosystem like Spring JDBC, Spring ORM, Spring Data, Spring Security etc.
+
+--> Spring Boot follows "Defaults Configuration" approach to reduce 
+Developer effort, that is,Spring Boot avoids writing lots of boilerplate Code,Annotations 
+and XML Configuration,...
+
+--> Spring Boot provides Embedded HTTP servers like Tomcat, Jetty etc. to develop and test 
+our web applications very easily.
+
+--> Spring Boot provides CLI (Command Line Interface) tool to develop and test Spring Boot 
+Applications from command prompt very easily and quickly.
+
+--> Spring Boot provides lots of plugins to develop and test Spring Boot Applications very 
+easily using Build Tools like Maven and Gradle
+
+--> It provides lots of plugins to work with embedded and in-memory Databases very easily.
+
+--> Where In-Memory databases are the databases, they will be created when application 
+startup and it will be destroyed when application terminated.
+ EX: H2 Database.
+
+--> In simple words, Spring Boot is the Existed Spring Framework with Embedded Web 
+Servers like Tomcat and Jetty with No XMl configurations and less Annotations.
+
+
+Steps to Prepare Spring Boot Applications:
+------------------------------------------------------------
+Spring Boot Applications are prepared and executed in the following four ways.
+1. Using Simple MAVEN project in Eclipse IDE.
+2. STS IDE
+3. Spring Boot Initializer(start.spring.io)
+4. Spring Boot CLI[Command Line Interface]
+
+
+
+SPRING BOOT CORE
+-----------------
+1. Spring Boot Runners:
+
+=>A Runner is an auto-executable component which is called by container on 
+application startup only once.
+=>In simple this concept is used to execute any logic (code) one time when application is started.
+
+Types of Runners(2):
+
+1.1 CommandLineRunner :-- This is legacy runner (old one) which is provided in Spring boot 1.0 version.
+=>It has only one abstract method “run(String… args) : void”.
+=>It is a Functional Interface (having only one abstract method).
+=>Add one stereotype Annotation over Implementation class level (Ex:-
+@Component). So that container can detect the class and create object to it.
+
+How CommandLineRunner works?
+----------------------------
+CommandLine arguments which are passed to application which will be given to 
+Spring Boot starter main(..) method. 
+Those are stored as “string Array” (String[]).
+
+SpringApplication.run(…) reads this input and internally calls run(..) methods of 
+RunnerImpl classes and pass same data.
+
+1.2 ApplicationRunner(I) :
+---------------------------
+It is new type runner added in Spring boot 1.3 which makes easy to access arguments.
+=>This will separate Option Arguments (as Map<String, List<String>>) and Non-Option Arguments (<List<String>)
+
+Spring Boot Input Data (Using application.properties):
+------------------------------------------------------
+=>application.properties or application.yml is a primary source input to spring boot (Spring Container).
+
+=>Spring Boot F/W writes Configuration code (XML/Java Config) for programmer.
+
+=>Here we are not required to write (@Bean or <bean..>) configuration for common 
+application setup like JDBC Connection, Hibernate Properties, DispatcherServlet Config, Security Beans etc..
+
+=>But Programmer has to provide input to the above beans (Objects) using Properties or YAML File (any one).
+
+
+application.properties:
+-----------------------
+
+1.It holds in key=value format
+
+2.Keys are two types 
+
+ a.Spring Boot defined (Predefined) Reference Link:   https://docs.spring.io/spring-
+ boot/docs/current/reference/html/common-application-properties.html)
+
+ b.Programmer defined
+
+Example:
+--------
+1. Create maven project and provide pom.xml and starter class
+2. application.properties (src/main/resources)
+=>Right click on src/main/resource folder=>new =>other=>search and Select 
+File=>enter name =application.properties => finish
+
+application.properties:
+-----------------------
+my.info.product.id=999A
+my.info.product.code=xyz
+my.info.product.model-version=44.44
+my.info.product.release_dtl_enable=false
+my.info.product.start-key=N
+
+NOTE:
+-----
+a.Allowed special symbol are dot(.), dash(-) and underscore (_).
+
+b.Key=value both are String type, Spring supports both are String type, Spring 
+supports type conversation (ex String->int) automatically.
+
+c.To read one key-value in code use Legacy syntax : @Value("${key}")
+
+
+Possible Locations for Properties or (YAML) file:
+-----------------------------------------------
+Spring Boot supports 4 default and priority order locations, which are loaded by 
+container for key=val data.
+
+1> Under Project:-- Under Config folder:--
+Project/config/application.properties (file:./config/application.properties) 
+
+2> Under Project (Only):--
+Project/application.properties (file: ./application.properties)
+
+3> Under Project (Under resources/config):--
+Project/src/main/resources/config/application.properties 
+(classpath:/config/application.properties)
+
+4> Under Project folder:--
+Project/src/main/resource/application.properties 
+(classpath:/application.properties)
+
+
+
+ForAutoDetectionKeys:
+---------------------
+=>Add one extra dependency for auto detection of keys in properties/yml file.
+<dependency>
+<groupId>org.springframework.boot</groupId>
+<artifactId>spring-boot-configuration-processor</artifactId>
+<optional>true</optional>
+</dependency>
+
+and use @ConfigurationProperties in at class level
+
+4. YAML (YAMlian Language):
+---------------------------
+=>It is representation style of key=val without duplicate levels in keys if they are 
+lengthy and having common levels.
+=>File extension is “.yml”.
+=>It will hold data in below format 
+ key : <space> value
+=>Default name used in Spring boot is application.yml.
+=>At least one space must be used but same should be maintaining under same level.
+=>Spring Boot System converts .yml to .properties using SnakeYaml API.
+=>Snake YAML will
+ a>Check for space and prefix levels
+ b.>Trace keys for data find.
+ c>Convert .yml to .properties internally system is while loading
+
+-=-=- “application.properties” -=-=-
+Ex#1:-
+my.data.id-num=10
+my.data.core_val=AB
+my.data.enabled.costBit=3.6
+my.data.enabled.valid=true
+
+Ex#2:--
+my.code.id=56
+my.code.mdn.type=big
+my.code.str.service=ALL
+my.code.str.service.info=true
+my.code.mdn.obj=CRL
+my.code.cost=3.67
+my.code.mdn.sale=YES
+
+=>Its equal YAML file looks as 
+-=-=- application.yml-=-=-
+my:
+ code:
+  id: 56
+  cost: 3.67
+ mdn: 
+  type: big
+  obj: CRL
+  sale: YES 
+ str:
+  service: ALL
+   info: true
+
+
+=>Key=value format List<DataType>/Set<DataType>/Array(<DataType>[]) Style
+=>In properties file we can use from zero.
+=>In yml file use just dash (-) with <space> value under same level.
+
+Ex:-- application.proeprties---
+
+my.code.version[0]=V1
+my.code.version[1]=V2
+my.code.version[2]=V3
+
+
+---application.yml:---
+my:
+ code:
+  version:
+   -V1
+   -V2
+   -V3
+=>Key=value format Map/Properties Style:
+
+=>Consider below example:
+=>Its equal properties file will be
+
+Ex:-- application.properties
+my.data.model.a1=6.6
+my.data.model.a2=8.6
+my.data.model.a3=9.6
+ename=smith
+
+=>Its equal : application.yml file
+my: 
+ data:
+  model:
+   a1: 6.6
+   a2: 8.6
+   a3: 9.6
+
+ename: smith
+
+
+Spring Boot Profiles:
+---------------------
+
+=>In RealTime, Application is 
+Developed in =>Dev Environment
+Tested in =>Quality Analyst (QA) Environment
+Maintained in =>PROD Environment
+Client tested in =>UAT Environment
+Go live in =>Cloud / prod Environment
+
+Environment is place where our application is running or what is current state of 
+application
+Example:
+ dev= development
+ QA = Quality Analysis,
+ MS = Management Service, 
+ PROD = Production
+ UAT = User acceptance Testing
+ Cloud = Cloud Environment
+
+In this case we should not modify existed properties file, use new one with key=val data. 
+File naming rule is: 
+application-{profile}.properties
+application-{profile}.yml 
+
+
+Profile Code  	Properties File  		Class level Annotation
+------------	-----------------		----------------------
+Default      	application.properties 		@Profile(“default”)
+Prod 		application-prod.properties 	@Profile(“prod”)
+Uat 		application-uat.properties 	@Profile(“uat”)
+Qa 		application-qa.properties 	@Profile(“qa”)
+Cloud 		application-cloud.properties  	@Profile(“cloud”)
+
+
+
+=>We can provide using 3 ways. 
+Those are
+
+a> Command Line Arguments (Option Arguments)
+--spring.profiles.active=prod
+
+b>In application.proeprties
+ Ex:-- spring.profiles.active=prod
+
+c> VM (JVM/System) Argument:--
+Ex:
+-Dspring.profiles.active=prod
+
+=>Right click on Starter class => Run As=>
+Run Config =>Choose Arguments
+=>Enter below format in VM Arguments
+ -Dspring.profiles.active=prod
+=>apply and Run
+
+
+SPRING BOOT DATA JPA
+====================
+Introdution about Data-JPA:
+
+1)
+Data JPA provides @NoRepositoryBean (S) which is auto configured and self logic 
+implemented for basic operations i.e : Programmer not required to write any logic for 
+basic operations (No Implementation class and method).
+
+=>Configuration for DataSource (I), SessionFactory (I), HibernateTemplate (C) 
+Hibernate TransactionManger (C) all are not required.
+
+=>When we add bellow dependency in pom.xml it will download Jars and above Config 
+code given from parent Project.
+
+<dependency>
+ <groupId>org.springframework.boot</groupId>
+<artifactId>Spring-boot-starter-data-jpa</artifactId>
+</dependency>
+
+2)
+Data JPA provides "Embedded Database Support". It means Database provided in 
+application itself.
+
+=>Spring Boot supports 3 Embedded DBs. Those are : H2, HSQLDB, Apache Derby.
+
+=>We can use any one Embedded Database which runs in RAM (Temp memory).
+
+=>It uses hbm2ddl.auto=create-drop i.e Tables created when App starts and deleted 
+before App Stops.
+
+=>These DBs are used in both Development and Testing Environment, but not in 
+Production.
+
+3)Spring Boot also supports Both SQL (MySQL, Oracle) and NoSQL (MongoDB)
+Database etc.. also.
+
+4)Data JPA Supports Special concept “Query Methods an easy way to code and fetch 
+data from DB” (ex : findBy, @Query).
+
+5)Data JPA supports Easy Connection Pooling (Auto Config) concept.
+
+6)Data JPA supports Cache Management (AutoConfig).
+
+Repository Interfaces:
+----------------------
+Data JPA has provided Repository Interfaces in package 
+"org.springframework.data.repository"
+
+Repository (I)
+   |
+   | extends         
+   |
+CrudRepository (I)
+   |
+   |  extends
+   |
+PagingAndSortingRepository(I)
+   |
+   |  extends
+   |
+JpaRepository(I)
+
+Note:
+=====
+Primary key data Type must be Wrapper class or any other classes which implements java.io.Serializable.
+
+Primitive Types are not accepted as PK DataType for model & for Repository Coding
+
+
+For Embedded Database:
+----------------------
+<!-- H2 Database -->
+<dependency>
+ <groupId>com.h2database</groupId>
+ <artifactId>h2</artifactId>
+ <scope>runtime</scope>
+</dependency>
+
+and one more you need to select springdatajpa
+
+methods:
+--------
+Method Descriptions:--
+1>save (obj) :-- Behaves like save or update, If PK exist in DB table then “UPDATE” else 
+“INSERT”.
+
+2>findById(ID): Optional<T> :-- It will return one row as one Object based on Primary 
+key in Optional <T> format.
+=>use methods isPresent() to check record is exist or not? If exist use method get() : T 
+to read object.
+
+3>finadAll () :-- It returns Collection of Objects (=no Of rows in DB Table)
+=>In simple select * from tableName;
+
+4>deleteById(ID) :-- To delete one Row based on PK.
+
+5>deleteAll() :-- To delete all Rows [One by one row]
+
+6>deleteAllInBatch () :-- To delete All rows at a time ex: delete from <tableName>
+
+ 
+
+Add in application.properties:
+-------------------------------
+server.port=2019
+spring.jpa.show-sql=true
+spring.h2.console.enabled=true #embedded database h2
+spring.h2.console.path=/h2
+
+
+or
+server.port=2019
+ spring.h2.console.enabled=true
+ spring.datasource.url=jdbc:h2:mem:testdb
+ spring.datasource.driverClassName=org.h2.Driver
+ spring.datasource.username=sa
+spring.datasource.password=
+
+H2 database:
+------------
+H2 is an Embedded database provided by SpringBoot which uses 
+hbm2ddl.auto="create-drop", which means create table when server/app starts and 
+drop all tables when server/app stopped.
+
+=>H2 console works only if use WebApp and default path is : /h2-console, 
+default port : 8080
+
+How to Show Data in H2 DataBase:--
+Step#1:- Execute Program:
+Step#2:- Type Url in Browser (http://localhost:2019/h2)
+
+For MySql:
+----------
+application.properties:
+=======================
+#server.port=2019 #For embedded tomcat server
+spring.datasource.driverClassName=com.mysql.cj.jdbc.Driver
+spring.datasource.url=jdbc:msyql://localhost:3306/test
+spring.datasource.username=root
+spring.datasource.password=root
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+spring.jpa.database-platform=org.hibernate.dialect.MySQL8Dialect
+
+
+Example:
+--------
+@Entity //Mandatory
+public class Product {
+@Id //Mandatory
+@GeneratedValue
+private Integer prodId;
+private String prodName;
+private double prodCost;
+private String prodColor;
+
+//super constructor
+public Product() {
+super();
+}
+//Id (PK) based constructor
+public Product(Integer prodId) {
+super();
+this.prodId = prodId;
+}
+//Parameterized constructor without Id(PK)
+public Product(String prodName, double prodCost, String prodColor) {
+super();
+this.prodName = prodName;
+this.prodCost = prodCost;
+this.prodColor = prodColor;
+}
+//Parameterized Constructor with Id (PK)
+public Product(Integer prodId, String prodName, double prodCost, String prodColor)
+{
+super();
+this.prodId = prodId;
+this.prodName = prodName;
+this.prodCost = prodCost;
+this.prodColor = prodColor;
+}
+//setters & getters method
+public Integer getProdId() {
+return prodId;
+}
+public void setProdId(Integer prodId) {
+this.prodId = prodId;
+}
+public String getProdName() {
+return prodName;
+}
+public void setProdName(String prodName) {
+this.prodName = prodName;
+}
+public double getProdCost() {
+return prodCost;
+}
+public void setProdCost(double prodCost) {
+this.prodCost = prodCost;
+}
+public String getProdColor() {
+return prodColor;
+}
+public void setProdColor(String prodColor) {
+this.prodColor = prodColor;
+}
+@Override
+public String toString() {
+return "Product [prodId=" + prodId + ", prodName=" + prodName + ", 
+prodCost=" + prodCost + ", prodColor="+ prodColor + "]";
+}
+}
+
+
+RepositoryClass:
+----------------
+@Repository
+public interface ProductRepository extends JpaRepository<Product,Integer>{
+
+}
+
+
+
+2)starterApp class:
+-------------------
+@Component
+public class BasicOperations implements CommandLineRunner{
+  @Autowired
+private ProductRepository repo;
+@Override
+public void run(String... args) throws Exception {
+/*1.*****************Save*******************/
+//1. Method
+repo.save(new Product("PEN", 6.8, "BLUE"));
+repo.save(new Product("PENCIAL", 5.8, "RED"));
+repo.save(new Product("MOBILE", 5000.8, "BLACK"));
+repo.save(new Product("LAPTOP", 2000.8, "GRAY"));
+/*2.*****************Find*******************/
+//2.1 method.
+Optional<Product> p = repo.findById(3);
+if(p.isPresent())
+ {
+System.out.println(p.get());
+} else {
+System.out.println("No Data found");
+}
+//2.2 Method.
+repo.findAll().forEach((System.out::println));
+
+/*3. *****************Delete****************/
+//3.1 Delete by specific Id
+repo.deleteById(3);
+
+//3.2 Delete all Rows one by one in (Sequence order) 
+repo.deleteAll(); //Multiple Query fired No of record = no of Query
+
+//3.3 Delete all rows in Batch (Single Query fired)
+repo.deleteAllInBatch();
+}
+}
+
+
+
+
+
+
+Query Method in Spring Boot Data:
+----------------------------------
+=Spring Data generates a query based on method written in Repository by programmer.
+
+Types of Query Methods (3):--
+1>findBy
+2>@Query (manual Query)
+3>Special Parameters/ReturnTypes
+
+=>These are used to specify our columns (Projections) and rows (restrictions) details.
+
+1>findBy :-- It will generate select query based on abstract method given by 
+programmer. 
+We can provide columns and rows details.
+
+=>It will be converted to equal SQL query based on Database at runtime.
+Syntax:--
+RT findBy______(Parameters …);
+
+Here, RT = ReturnType, ex: List<T>, T, Object, Page<T>, Slice<T>, Object[], Specific Projection etc.
+
+Spring Boot Data JPA findBy methods (where clause):
+----------------------------------------------------
+Keyword 				Sample 						JPQLsnippet
+-------				------------------------	     ----------------------------------	
+And 				findByLastnameAndFirstname           where x.lastname=?1 and x.firstname = ?2
+
+Or 				findByLastnameOrFirstname	     where x.lastname = ?1 or x.firstname = ?2
+
+
+				findByFirstname,findByFirstnameIs,
+Is,Equals			findByFirstnameEquals                where x.firstname = ?1
+
+Between 			findByStartDateBetween  	     where x.startDate between ?1 and ?2
+
+LessThan 			findByAgeLessThan 			… where x.age < ?1
+
+LessThanEqual 			findByAgeLessThanEqual 			… where x.age <= ?1
+
+GreaterThan 			findByAgeGreaterThan 			… where x.age > ?1
+
+GreaterThanEqual 		findByAgeGreaterThanEqual 		… where x.age >= ?1
+
+After 				findByStartDateAfter 			… where x.startDate > ?1
+
+Before 				findByStartDateBefore 			… where x.startDate < ?1
+
+IsNull 				findByAgeIsNull 			… where x.age is null
+
+IsNotNull,NotNull 		findByAge(Is)NotNull 			… where x.age not null
+
+Like 				findByFirstnameLike 			… where x.firstname like ?1
+
+NotLike 			findByFirstnameNotLike 			… where x.firstname not like ?1
+
+StartingWith 			findByFirstnameStartingWith		… where x.firstname like ?1
+									(parameter bound with appended %)
+
+EndingWith 			findByFirstnameEndingWith		… where x.firstname like ?1
+									(parameter bound with preended %)
+
+Containing 			findByFirstnameContaining		… where x.firstname like ?1
+									(parameter bound wrapped in %)
+
+OrderBy 			findByAgeOrderByLastnameDesc		… where x.age = ?1 order by x.lastname 												          desc
+
+Not 				findByLastnameNot 			… where x.lastname <> ?1
+
+In 				findByAgeIn(Collection<Age> ages) 	… where x.age in ?1
+
+NotIn				findByAgeNotIn(Collection<Age> ages) 	… where x.age not in ?1
+
+True 				findByActiveTrue() 			… where x.active = true
+
+False 				findByActiveFalse() 			… where x.active = false
+
+
+IgnoreCase 			findByFirstnameIgnoreCase		… where UPPER(x.firstame) = UPPER(?1)
+
+
+Example:
+--------
+
+application.properties:
+=======================
+server.port=2019
+spring.datasource.driverClassName=com.mysql.cj.jdbc.Driver
+spring.datasource.url=jdbc:msyql://localhost:3306/test
+spring.datasource.username=root
+spring.datasource.password=root
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+spring.jpa.database-platform=org.hibernate.dialect.MySQL8Dialect
+
+
+Model class (Product.class):
+----------------------------
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+
+import javax.persistence.Table;
+@Entity
+@Table(name="product")
+public class Product {
+@Id
+@GeneratedValue
+private Integer prodId;
+private String prodCode;
+private String prodName;
+private double prodCost;
+//super constructor
+public Product() {
+super();
+}
+//Id (PK) based constructor
+public Product(Integer prodId) {
+super();
+this.prodId = prodId;
+}
+//Parameterized constructor
+public Product(String prodName, double prodCost, String prodCode) {
+super();
+this.prodName = prodName;
+this.prodCost = prodCost;
+this.prodCode = prodCode;
+}
+public Product(Integer prodId, String prodName, double prodCost, String prodCode)
+{
+super();
+this.prodId = prodId;
+this.prodName = prodName;
+this.prodCost = prodCost;
+this.prodCode = prodCode;
+}
+//setters & getters method
+public Integer getProdId() {
+return prodId;
+}
+public void setProdId(Integer prodId) {
+this.prodId = prodId;
+}
+public String getProdName() {
+return prodName;
+}
+public void setProdName(String prodName) {
+this.prodName = prodName;
+}
+public double getProdCost() {
+return prodCost;
+}
+public void setProdCost(double prodCost) {
+this.prodCost = prodCost;
+}
+public String getProdCode() {
+return prodCode;
+}
+public void setProdCode(String prodCode) {
+this.prodCode = prodCode;
+}
+@Override
+public String toString() {
+ return "Product [prodId=" + prodId + ", prodCode=" + prodCode + ", 
+prodName=" + prodName + ", prodCost="+ prodCost + "]";
+}
+}
+
+Repository Interface (ProductRepository.class):
+===============================================
+import java.util.Collection;
+import java.util.List;
+mport org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+import com.app.model.Product;
+@Repository
+public interface ProductRepository extends JpaRepository<Product, Integer> {
+//select * from prodtab where prod_code=prodCode;
+Product findByProdCode(String prodCode);
+//select * from prodtab where prod_code like prodCode
+List<Product> findByProdCodeLike (String pc);
+//select * from prodtab where prod_code is null
+List<Product> findByProdCodeIsNull();
+//select * from prodtab where prod_cost=cost
+List<Product> findByProdCostGreaterThan(Double cost);
+//select * from prodtab where prod_cost in (cost)
+List<Product> findByProdCostIn(Collection<Double> costs);
+//select * from prodTab where pid=? Or pcost=?
+List<Product> findByProdIdOrProdCost(Integer pid, Double cost);
+//select * from prodtab where pid between pid1 and pid2
+List<Product> findByProdIdBetween (Integer pid1, Integer pid2);
+//select * from prodtab where p_cost=? Order by prod_code asc 
+List<Product> findByProdCostLessThanOrderByProdCode(Double cost);
+//Select * from prodtab where pid<=? And pcost>=? And vendor is not null order by 
+pcode;
+//List<Product> 
+findByProdIdLessThanAndProdCostGreaterThanAndVendorNotNullOrderByProdCode
+(Integer prodId, Double prodCost);
+}
+
+
+@Component
+public class FindByRunner implements CommandLineRunner
+{
+@Autowired
+private ProductRepository repo;
+
+@Override
+public void run(String... args) throws Exception {
+Product p = repo.findByProdCode("A");
+System.out.println(p);
+repo.findByProdCodeIsNull().forEach((System.out::println));
+ }
+}
+
+
+2>@Query(“hql”):
+
+This is used to perform (Hibernate Query Language) operations,
+works for both select and non-select operations.
+
+=>To pass where clause inputs use positional parameters in style ?1, ?2, ?3….
+ Or
+Named parameters in style [:name]
+:a, :b, :c, :hello, : mydata
+
+=>But variable name must be same as named parameter.
+
+=>Providing package name for Model class in @Query is optional. 
+i.e. select p from com.app.model.Product, select p from Product (are same)
+
+Example:
+========
+application.properties:
+=======================
+server.port=2019
+spring.datasource.driverClassName=com.mysql.cj.jdbc.Driver
+spring.datasource.url=jdbc:msyql://localhost:3306/test
+spring.datasource.username=root
+spring.datasource.password=root
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+spring.jpa.database-platform=org.hibernate.dialect.MySQL8Dialect
+
+
+Model class(Product.java):
+--------------------------
+import javax.persistence.Entity;
+import javax.persistence.Id;
+@Entity
+public class Product {
+@Id
+private Integer prodId;
+private String vendorCode;
+private String prodName;
+private Double prodCost;
+public Product() {
+super();
+}
+public Product(Integer prodId) {
+super();
+this.prodId = prodId;
+}
+public Product(Integer prodId, String vendorCode, String prodName, Double prodCost) 
+{
+super();
+this.prodId = prodId;
+this.vendorCode = vendorCode;
+this.prodName = prodName;
+this.prodCost = prodCost;
+}
+//Setters and Getters method
+public Integer getProdId() {
+return prodId;
+}
+public void setProdId(Integer prodId) {
+this.prodId = prodId;
+}
+public String getVendorCode() {
+return vendorCode;
+}
+public void setVendorCode(String vendorCode) {
+this.vendorCode = vendorCode;
+}
+public String getProdName() {
+return prodName;
+}
+public void setProdName(String prodName) {
+this.prodName = prodName;
+}
+public Double getProdCost() {
+return prodCost;
+}
+public void setProdCost(Double prodCost) {
+this.prodCost = prodCost;
+}
+@Override
+public String toString() {
+return "Product [prodId=" + prodId + ", vendorCode=" + vendorCode + ", 
+prodName=" + prodName + ", prodCost="+ prodCost + "]";
+}
+}
+
+
+ProductRepository:
+------------------
+Add below method in repository:--
+
+import java.util.List;
+import javax.transaction.Transactional;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface ProductRepository extends JpaRepository<Product, Integer> {
+//select * from product where ven_code=?
+//or prodCost>?
+@Query("select p from Product p where p.vendorCode=:a or p.prodCost>:b")
+List<Product> getAllProducts(String a, Double b);
+//select prodCode from product where vendor vendorCode=? or prodCost=?
+@Query("select p.vendorCode from Product p where p.vendorCode=?1 or
+ p.prodCost=?2")
+List<String> getAllProductsCodes(String a, Double b); 
+//select prodCode, prodCost from product
+@Query("select p.vendorCode, p.prodCost from com.app.model.Product p")
+List<Object[]> getAllProductData();
+/***************NON-Select Operation********************/
+@Modifying //non-select operation
+@Transactional //service Layer
+@Query("update Product p set p.vendorCode=:a, p.prodCost=:c where 
+ p.prodId=:b")
+void updateMyData(String a, Double c, Integer b);
+@Modifying //non-select operation
+@Transactional //service Layer
+@Query("delete from Product p where p.prodId=:prodId") 
+void deleteMyData(Integer prodId);
+}
+
+Select Operation Using QueryParam:
+===================================
+@Component
+public class SelectOperationUsingQueryParam implements CommandLineRunner {
+@Autowired
+private ProductRepository repo;
+@Override
+public void run(String... args) throws Exception {
+//Normal Method
+/*repo.save(new Product(10, "A", "PEN", 10.5));
+repo.save(new Product(20, "B", "PENCIAL", 50.5));
+repo.save(new Product(30, "C", "MOBILE", 700.5));
+repo.save(new Product(40, "D", "LAPTOP", 1000.5));
+repo.save(new Product(50, "E", "MOUSE", 500.5));
+List<Product> p = repo.getAllProducts("A", 56.98);
+for(Product p1:p) {
+ System.out.println(p1);
+}
+//JDK 1.5
+List<Object[]> obs=repo.getAllProductData();
+for(Object[] ob:obs) {
+ System.out.println(ob[0]+","+ob[1]);
+}
+ System.out.println("For Each loop");*/
+//JDK 1.8 (Streams + Lambda+Method Reference)
+ repo.getAllProductData().stream().map((ob)-> 
+ob[0]+","+ob[1]).forEach(System.out::println); 
+}
+}
+
+
+@Query(“”) non-select operations:
+---------------------------------
+=>To perform non-select operation define HQL(Query) and apply @Modifying and 
+@Transaction over @Query method.
+
+=>@Transaction can be applied over repository method or in service layer method.
+
+ProductRepository code:
+------------------------
+@Modifying //non-select operation
+
+@Transactional //service Layer
+@Query(“update Product p set p.prodCode=:a, p.prodCost=:c where p.prodId=:b”)
+void updateMyData(String a, Double c, Integer b);
+
+@Modifying //non-select operation
+@Transactional //service Layer
+@Query(“delete from Product p where p.prodId=:prodId) 
+void deleteMyData(Integer prodId);
+
+4.2 Non-Select Operation Using QueryParam:
+-------------------------------------------
+=>Add respected method in controller/CommandLineRunner implemented class class.
+repo.updateMyData("E", 900.0, 80);
+repo.deleteMyData(10);
+
+
+SPRING BOOT WEB-MVC:
+====================
+1. Introduction:--
+=>Spring Boot has provided one starter for web application. 
+=>It is similar to spring WEB MVC execution process but reduces work done by 
+programmer for,
+ a. Maven project creation and setup.
+ b. Pom.xml dependencies and plugins.
+ c. Writing common code (AppInit, AppConfig).
+ d. Handle Runtime Environment and creating JAR/WARs.
+
+
+=>Such process is taken care by spring boot and called as “AutoConfiguration”.
+
+=>Even coming to Handler Mapping is configured by FC.
+
+=>ViewResovler needs not to be configured. But Programmer has to provide (Prefix 
+and Suffix) using properties/yml file.
+
+=>FC (DispatcherServlet) is configured by spring boot and mapped to URL = “/”.
+
+=>FC, ViewResolver, HandlerMapper taken care by Boot, Controller and UI files should 
+be defined by Programmer.
+
+Data Rendering:
+---------------
+Reading data from Model (I) or ModelMap(C) at runtime and send 
+to UI is known as Data Rendering, It is implemented using EL Programming.
+
+=>Programmer should provide inputs like port number view resolver details using 
+Properties or yml file. 
+
+Example files like:
+--------------------
+application.properties:--
+server.port=9898
+spring.mvc.view.prefix=/WEB-INF/views/
+spring.mvc.view.suffix=.jsp
+
+=>Default port no mapped to ‘8080’ by using key ‘server.port’. We can change even.
+
+=>Spring boot has provided 3 embedded servers. [No download and No install]
+Those are : Tomcat (default server), Jetty and Undertow.
+
+=>In General Tomcat container 2 engines Servlet Engine (Catalina) and JSP Engine 
+(JASPER). In Spring boot, tomcat comes with only Servlet engine. 
+That’s why it is also called as light weight engine that works for “DispatcherServlet”, nothing else.
+
+=> Default Static Resource Handler is added to folder static and template which are 
+provided under src/main/resources folder.
+
+=>To work with JSP files in Spring Boot WEB apps, we need to add dependencies in 
+pom.xml.
+
+<dependency>
+ <groupId>org.apache.tomcat.embed</groupId>
+ <artifactId>tomcat-embed-jasper</artifactId>
+ <scope>provided</scope> //Version taken care by Spring boot (and Tomcat)
+</dependency>
+
+=>To avoid/remove tomcat server (default server) from Boot application, we need to 
+add <Exclusion> for Tomcat under web dependency. 
+
+Given as,
+
+<dependency>
+<groupId>org.springframework.boot</groupId>
+<artifactId>spring-boot-starter-web</artifactId>
+ <exclusions>
+ <exclusion>
+ <groupId>org.springframework.boot</groupId>
+ <artifactId>spring-boot-starter-tomcat</artifactId>
+</exclusion>
+ </exclusions>
+</dependency>
+
+=>To use jetty in spring boot, first we need to exclude ‘tomcat’, then add below 
+dependency in pom.xml.
+
+<dependency>
+<groupId>org.springframework.boot</groupId>
+<artifactId>spring-boot-starter-jetty</artifactId>
+</dependency>
+
+=>In case of ‘JBoss Undertow Server’ add below dependency.
+<dependency>
+<groupId>org.springframework.boot</groupId>
+<artifactId>spring-boot-starter-undertow</artifactId>
+</dependency>
+
+=>Tomcat provided by Apache.
+=>Jetty Provided by Eclipse.
+=>Undertow provided by JBoss.
+
+=>Final packing of Spring Boot Application: after coding and unit testing, our project 
+will be converted to JAR/WAR based on <packing> type selected while creating project.
+
+Execute commands:
+
+Step#1:- Do JDK setup.
+
+Step#2:- Clear target folder.
+
+Step#3:- Generate jar/war file.
+
+=>Refresh target folder after message “build success”. 
+
+=>If pom.xml contains <packing>war</packing> then it will be converted to 
+[ProjectName]-[version].war 
+
+=>Else it is considered as jar
+[ProjectName]-[version].jar
+
+=>To indicate Spring container, spring f/w has provided two container interfaces. 
+Those are.
+ a. BeanFactory (I) [Legacy]
+ b. ApplicationContext (I) [new]
+
+=>In Spring boot programming, for stand-alone type application impl class used 
+“AnnotationConfigApplicationContext”.
+
+=>For Spring Boot web and related application impl class used: 
+“AnnotationConfigServletWebServerApplicationContext”.
+
+Note:
+----
+=>Here, basePackage must be provided by programmer. If we are using Spring boot 
+then ‘basePackage’ is set to Spring Boot Starter class package.
+
+=>All our classes which are annotated with StereoType annotation must be under 
+starter class package or its sub package.
+
+=>All our classes which are annotated with stereotype annotations must be under 
+starter class manually. It is not a good approach.
+
+=>We can run Starter class only one time if type is web application with one port 
+number.
+
+=>If we want to run again, then must stop last process which is already running.
+ ->Goto Console option.
+ ->Look at Console Symbol (red square box).
+ ->Click on DropDown (In case of multiple).
+ ->Click on Red Color Box Symbol (Stop Symbol).
+
+
+=>URL gets changed from server to server where as URI remains same.
+
+=>If URL doesn’t contain any PORT number then default mapped to ‘80’ [HTTP Default 
+port number].
+
+Ex:-- http://locahost/MyApp/show
+
+->In above example PORT number is : 80
+***It means if server is running on PORT number: 80, then PORT number not required 
+to write in URL.
+
+Ex#1:--
+
+application.properties:
+-----------------------
+server.port=9898
+server.servlet.context-path=/myapp
+spring.application.name=SAMPLEAPP
+
+=>then sample URL : http://localhost:9898/myapp
+
+Ex#2:--
+
+application.properties:
+-----------------------
+server.port=80
+server.servlet.context-path=/myapp
+=>then sample URL : http://localhost:80/myapp or
+http://localhost:/myapp
+
+Ex#3:
+------
+application.properties:
+-----------------------
+server.servlet.context-path=/myapp
+=>Then Sample URL : http://localhost:8080/myapp
+
+
+Where to place CSS/JS/HTML files in Spring Boot web applications
+----------------------------------------------------------------
+Ex:   
+---
+
+SpringBootWebMvc
+|
+|
+|_______src/main/resources
+|	|
+|	|_____static
+|	|	|
+|	|	|_*.css,*.js,*.html etc
+|	|
+|	|_____templates
+|		|
+|		|_UIFiles(Dynamic pages),Thymeleaf,Velocity,...etc.
+	
+
+Coding Steps:
+--------------
+To Develop SpringWebMvc Application
+
+Step#1:
+
+Create one Spring Boot Starter application and choose dependencies 'Spring Web Starter'.
+
+Spring Boot Web-MVC Dependency:
+
+<dependency>
+ <groupId>org.springframework.boot</groupId>
+ <artifactId>spring-boot-starter-web</artifactId>
+</dependency>
+
+
+Step#2:
+Open pom.xml file and add below dependency to work with JSP pages only.
+
+<dependency>
+ <groupId>org.apache.tomcat.embed</groupId>
+ <artifactId>tomcat-embed-jasper</artifactId>
+ <scope>provided</scope>
+</dependency>
+
+Step#3:
+
+Define application.properties given below
+
+## Server keys ##
+server.port=9898
+
+#it will act as project name
+server.servlet.context-path=/myapp
+
+## View Resolver Keys ##
+spring.mvc.view.prefix=/WEB-INF/views/
+spring.mvc.view.suffix=.jsp
+
+Step#4:
+-------
+Create folders
+
+a. webapp folder under main
+b. WEB-INF under webapp
+c. views under WEB-INF
+
+Step#5:
+-------
+Define Controller class under 'src/main/java'
+
+EmployeeController.java
+------------------------
+@Controller
+@RequestMapping("emp")
+public class EmployeeController {
+
+@RequestMapping("show")
+public String showPages(Model m) {
+m.addAttribute("msg", "Welcome App:" +new Date());
+return "Home";
+}
+}
+
+Step#6:
+--------
+Define JSP Page under 'views' folder
+
+Home.jsp:--
+<html><body><h2>Welcome to Boot!!</h2>
+ ${msg}
+</body></html>
+
+
+** Run Starter class and Enter URL in Browser
+http://localhost:9898/myapp/emp/show
+
+What is the difference between Model (I) and ModelMap (C) ?.
+A> ModelMap:
+It is a shared Memory holds data in key=val which allocates 
+memory based on data added to it In simple onDemand Memory Creation.
+
+B> Model:
+Model also similar to ModelMap, but un-used key=val pairs (at UI) are 
+removed from memory.
+
+NOTE: In above example “AppInt” and AppConfig” are provided by spring Boot.
+Annotation like @EnableWebMvc, @ComponentScan, @PropertySource not required 
+to provide.
+
+
+Example2:
+=========
+Spring Boot Development to Deployment Process (End-to-end Application process)
+
+SpringBoot+WEB MVC +Data JPA + MySQl (or any Embedded Data).
+
+Starters are:
+--------------
+SpringWeb
+SPRINGDATAJPA
+MYSQL
+JSP:
+<dependency>
+ <groupId>org.apache.tomcat.embed</groupId>
+ <artifactId>tomcat-embed-jasper</artifactId>
+ <scope>provided</scope>
+</dependency>
+
+SpringBoot+WEB MVC +Data JPA + MySQl (or any Embedded Data).
+------------------------------------------------------------
+for jstl in jsp add this jar in pom.xml file
+
+		<dependency>
+			<groupId>jakarta.servlet.jsp.jstl</groupId>
+			<artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
+		</dependency>
+	<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>glassfish-jstl</artifactId>
+			<version>11.0.12</version>
+		</dependency>
+
+
+1. application.properties:
+##Server##
+server.port=2024
+server.servlet.context-path=/myapp
+##WEB MVC##
+spring.mvc.view.prefix=/WEB-INF/views/
+spring.mvc.view.suffix=.jsp
+##DataSource##
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+spring.datasource.url=jdbc:mysql://localhost:3306/testDB
+spring.datasource.username=root
+spring.datasource.password=root
+
+
+##JPA##
+spring.jpa.show-sql=true
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
+spring.jpa.properties.hibernate.format_sql=true
+
+or
+
+application.yml:
+----------------
+##Server##
+server:
+ port: 2019
+ servlet:
+  context-path: /myapp
+
+##WEB MVC##
+spring:
+ mvc:
+  view:
+   prefix: /WEB-INF/views/
+   suffix: .jsp
+
+##DataSource##
+spring
+ datasource
+  driver-class-name:com.mysql.cj.jdbc.Driver
+  url:jdbc:mysql://localhost:3306/testDB
+  username:root
+  password:root
+
+spring
+ jpa
+  show-sql:true
+  hibernate
+   ddl-auto:update
+  properties
+   hibernate
+    dialect:org.hibernate.dialect.MySQL8Dialect
+    format_sql=true
+
+Model class (Product.java):
+----------------------------
+package com.training.model
+
+@Entity
+@Table(name="PRODUCTTAB")
+public class Product {
+
+@Id
+@Column(name="id")
+private Integer id;
+
+@Column(name="code")
+private String code;
+
+@Column(name="name")
+private String name;
+
+@Column(name="cost")
+private Double cost;
+
+@Column(name="gst")
+private String gst;
+
+@Column(name="note")
+private String note;
+
+//constructor
+//Getters and Setters
+
+}
+
+
+Repository Interface (ProductRepository.java):
+----------------------------------------------
+package com.training.repo;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+import com.training.model.Product;
+@Repository
+public interface ProductRepository extends JpaRepository <Product, Integer> {
+Product getProductById(Integer id);
+}
+
+
+ Service Interface (ProductService.java):
+-------------------------------------------
+
+package com.training.service;
+
+import java.util.List;
+import com.training.model.Product;
+public interface ProductService {
+public Integer saveProduct(Product p);
+public List<Product> getAllProducts();
+public void deleteProduct(Integer id);
+public Product getProductById(Integer id);
+}
+
+Service Impl class (ProductServiceImpl.java):
+-----------------------------------------------
+package com.training.service;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import com.training.model.Product;
+import com.training.repo.ProductRepository;
+import com.training.service.ProductService;
+
+@Service
+public class ProductServiceImpl implements ProductService {
+
+@Autowired
+private ProductRepository repo;
+
+//1. Save method
+@Transactional
+public Integer saveProduct(Product p) {
+//calculations here..
+//gstAmt= cost*gst/100
+//totalAmt=cost+ gstAmt - disc
+p=repo.save(p);
+return p.getId();
+}
+//2. Get all Product details from Database
+@Transactional(readOnly= true)
+public List<Product> getAllProducts() {
+return repo.findAll();
+}
+//3. Delete Record based on ID
+@Transactional
+public void deleteProduct(Integer id) {
+repo.deleteById(id);
+}
+//4. Get Record based on ID
+@Transactional
+public Product getProductById(Integer id) {
+return repo.getProductById(id);
+}
+}
+
+Controller class (ProductController.java):
+------------------------------------------
+package com.training.controller;
+
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import com.training.model.Product
+
+import com.training.service.ProductService;
+@Controller
+@RequestMapping("/emp")
+public class ProductController {
+@Autowired
+private ProductService service;
+//1. Show Product Form with Backing Object
+@RequestMapping("/reg")
+public String showReg(Model map) {
+//Form Backing Object
+map.addAttribute("product", new Product());
+return "Register";
+}
+//2. Read Form Data on click submit
+@RequestMapping(value="/save",method=RequestMethod.POST)
+public String saveData(@ModelAttribute Product product, Model map)
+{
+//call service layer
+Integer id=service.saveProduct(product);
+map.addAttribute("message", "Product '"+id+"' created!!");
+//clean Form Backing Object
+map.addAttribute("product", new Product());
+return "Register";
+}
+//3. Fetch all Rows from DB to UI
+@RequestMapping("/all")
+public String showAll(Model map) {
+//fetch all rows from DB
+List<Product> obs=service.getAllProducts();
+//send to UI
+map.addAttribute("list", obs);
+return "Data";
+}
+
+
+//4. Delete row based on ID
+@RequestMapping("/delete")
+public String remove(@RequestParam Integer id) {
+//delete row based on ID
+service.deleteProduct(id);
+//response.sendRedirect
+return "redirect:all";
+}
+//5.Show edit Page
+@RequestMapping(value="edit")
+public String showEdit(@RequestParam Integer id, Model map)
+{
+ //Load Objet from DB
+ Product p =service.getProductById(id);
+ //From BACKING OBJECT
+ map.addAttribute("product", p);
+ map.addAttribute("Mode", "EDIT");
+ return "Register";
+}
+}
+
+ Register.jsp:
+------------
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+ pageEncoding="ISO-8859-1" isELIgnored="false"%>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<!DOCTYPE html>
+<html><head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<h3>WELCOME TO PRODUCT REGISTER</h3>
+<form:form action="save" method="POST" modelAttribute="product">
+<pre>
+CODE : <form:input path="code"/><br>
+NAME : <form:input path="name"/><br>
+COST : <form:input path="cost"/><br>
+GST : <form:select path="gst"><br>
+<form:option value="5">5%-SLAB</form:option>
+<form:option value="12">12%-SLAB</form:option>
+<form:option value="18">18%-SLAB</form:option>
+<form:option value="22">22%-SLAB</form:option>
+<form:option value="30">30%-SLAB</form:option>
+</form:select><br>
+NOTE : <form:textarea path="note"/><br>
+<input type="submit" value="CREATE PRODUCT"/>
+</pre>
+</form:form>
+${message}
+</body>
+</html>
+
+ Data.jsp (To Display all records in browser):
+----------------------------------------------
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+ pageEncoding="ISO-8859-1"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<h3>WELCOME TO PRODUCT DATA</h3>
+<table>
+<tr>
+<th>ID</th>
+<th>CODE</th>
+<th>NAME</th>
+<th>COST</th>
+<th>GST</th>
+<th>NOTE</th>
+<th colspan=2>OPERATIONS</th>
+</tr>
+
+<c:forEach items="${list}" var="ob">
+<tr>
+<td><c:out value="${ob.id}"/> </td>
+<td><c:out value="${ob.code}"/> </td>
+<td><c:out value="${ob.name}"/> </td>
+<td><c:out value="${ob.cost}"/> </td>
+<td><c:out value="${ob.gst}"/> </td>
+<td><c:out value="${ob.note}"/> </td>
+<td>
+<a href="delete?id=${ob.id}">DELETE</a>
+<a href="edit?id=${ob.id}">EDIT</a>
+</td>
+</tr>
+</c:forEach>
+</table>
+</body></html>
+
+
+
+=>Run the application and type below URL one by one
+1>http://localhost:2024/myapp/emp/reg
+2>http://localhost:2024/myapp/emp/all
+
+
+
+
+Code: For Edit Operation :
+--------------------------
+Step#1:- Add below Hyperlink in Data.jsp
+<td><a href="edit?id=${ob.id}">EDIT</a></td>
+
+
+Step#2:- Add below method in ProductController
+//5.Show Edit Page
+@RequestMapping("edit")
+public String showEdit(@RequestParam Integer id, Model map)
+ {
+//Load Objet from DB
+Product p =service.getProductById(id);
+//From BACKING OBJECT
+map.addAttribute("product", p);
+map.addAttribute("Mode", "EDIT");
+return "Register";
+ }
+
+
+
+#3:-- Do below modifications in “Register.jsp” Add code:
+
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!--Under <form>after<pre> tag)
+<pre>
+-->
+ID : <form:input path="id" readOnly="true"/>
+<c:if>
+=>In button, at submit button place
+<c:choose>
+ <c:when test="${'EDIT' eq Mode}">
+ <input type="submit" value="UPDATE"/>
+</c:when>
+<c:otherwise>
+ <input type="submit" value="CREATE"/>
+</c:otherwise>
+</c:choose>
+
+
+=>After Adding above code in Register.jsp:
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+pageEncoding="ISO-8859-1" isELIgnored="false" %>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
+<!DOCTYPE html>
+<html><head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head><body>
+<h3>WELCOME TO PRODUCT REGISTER</h3>
+<form:form action="save" method="POST" modelAttribute="product">
+<pre>
+ID : <form:input path="id" readOnly="true"/><br>
+CODE : <form:input path="code"/><br>
+NAME : <form:input path="name"/><br>
+COST : <form:input path="cost"/><br>
+GST : <form:select path="gst"><br>
+<form:option value="5">5%-SLAB</form:option>
+<form:option value="12">12%-SLAB</form:option>
+<form:option value="18">18%-SLAB</form:option>
+<form:option value="22">22%-SLAB</form:option>
+</form:select><br>
+NOTE : <form:textarea path="note"/><br>
+<c:choose>
+ <c:when test="${'EDIT' eq Mode}">
+ <input type="submit" value="UPDATE"/>
+</c:when>
+<c:otherwise>
+ <input type="submit" value="CREATE"/>
+</c:otherwise>
+</c:choose> 
+</pre>
+</form:form>
+${message}
+</body></html>
+
+
+
+SPRING BOOT REST (PROVIDER & CONSUMER)
+--------------------------------------
+1. Introduction:
+
+=>To implement ReSTFul webservices API using simple annotations and Templates 
+Spring boot ReST F/w has been introduced.
+
+=>Even to implement Microservices design Spring boot ReST API is used.
+
+Note:
+-----
+a.Consumer and Provider interchanges the data    Primitive (String format only), Class 
+  Type (Object) and Collections.
+
+b.Data will be converted to either JSON or XML format also known as Global Formats
+c.String data will be converted to any other type directly.
+
+d.ReST Controller supports 5 types of Request Methods Handling. 
+  Those are HTTP Method : GET, POST, PUT, DELETE and PATCH.
+
+e.Controller class level use annotations @RestController (Stereotype),@RequestMapping (for URL).
+
+f.Controller methods level use annotations.
+
+TYPE 	Annotations
+----	-----------
+GET 	@GetMapping
+POST 	@PostMapping
+PUT 	@PutMapping
+DELETE 	@DeleteMapping
+PATCH 	@PatchMapping
+
+g.To provide Inputs to Request Methods in RestController, use annotations.
+
+TYPE 	      Annotation
+----	      ----------
+url?key=val    @RequestParam
+/url/{val}/      @PathVariable
+Http Header    @RequestHeader
+Http Body      @RequestBody
+
+i.DispatcherServlet is autoConfigured in Spring Boot with URL Pattern mapped to /.
+
+j.AutoConfiguration Provided even for @EnableWebMvc, 
+  @ComponentScan(Startsclass), @PropertySource(“ClassPath:application.propery”)
+
+k.Embedded server
+
+
+Spring Boot Rests Provider Example:
+==================================
+Step#1 :
+
+Create Starter Project using web and devtools Dependencies.
+
+Step #2 :
+
+Writer one Controller class with class lever URL different method with HTTP MethodTypes.
+
+
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/admin") //Optional
+public class AdminRestController {
+
+@GetMapping("/show")
+public String helloMsgGet () {
+	return "Hello From GET";
+}
+@PostMapping("/show")
+public String helloMsgPost () {
+return "Hello From POST";
+}
+@PutMapping("/show")
+public String helloMsgPut () {
+return "Hello From PUT";
+}
+@DeleteMapping("/show")
+public String helloMsgDelete () {
+return "Hello From DELETE";
+}
+@PatchMapping("/show")
+public String helloMsgPatch () {
+return "Hello From PATCH";
+}
+}
+
+application.properties:
+-----------------------
+server.port=2024
+server.servlet.context-path=/myApp
+
+Note:
+-----
+PUT :-- It indicates modify complete (full) data, based on Identity (ID-PK).
+PATCH :-- It indicates modify partial (few data, based on Identity (ID-PK).
+
+Download and install postman.
+
+Here postman will act as consumer to consume the services of the provider
+
+
+Different Ways to pass input to RestController
+-----------------------------------------------
+1.Request Header:
+
+It provides data in key=value format (both are String type).
+=>Request header also called as Header Parameters.
+=>These are used to provide instructions to server (application/Controller).
+
+Ex:-- Content-Type, Accept, host, Date, Cookies…
+
+2.Request Body:
+
+To send large/bulk data like objects and collections data in the 
+form of JSON/XML.
+
+=>Even supported large text (Raw data).
+=>Spring boot enables JSON conversion by default, but not XML (no JAXB API).
+
+3>Request Parameter:
+
+To pass primitive data (like id, name, codes … etc) as input, 
+request parameters are used.
+
+=>format looks like url?key=val&key=val…
+=>Both key and value are String type by default.
+
+Request Parameter: Format:
+
+@RequestParam(
+ value="key",
+ required=true/false,
+ defaultValue="-value-") DataType localVariable
+
+Syntax #1:
+
+@RequestParam("key") DataType localVariable
+Ex#1: @RequestParam("sname") String sn
+
+Syntax #2:-
+
+@RequestParam DataType localVar
+
+Ex#2: @RequestParam String sname
+=>If key name and local variable name are same then key is not 
+
+Syntax #3:-
+
+@RequestParam(required=false) DT localVariable
+=>To make key-value is optional @RequestParam (required=false) String sname
+
+Syntax #4:
+@RequestParam (required=false, defaultValue="-DATA-")DT localVariable
+
+=>To change default value from null to any other value.
+@RequestParam(required=false, defaultValue="No DATA") String sname
+
+Example:
+--------
+@RestController
+public class AdminRestController
+{
+ @GetMapping("/show")
+ public String showMsg(@RequestParam (value="sname", required=false,defaultValue="NO DATA") String sid) {
+ return "Hello:" +sid;
+ }
+}
+
+
+
+Path Variable [Path Parameters]:
+---------------------------------
+=>We can send data using URL (path).
+=>It supports only Primitive Data.
+
+Paths are two types:
+a.>Static Path [format:/url]
+b.>Dynamic Path [format:/{key}]
+
+=>Static Path indicates URL, where as Dynamic Path indicates Data at runtime.
+=>While sending data using Dynamic Path key should not be used. Only data
+=>Order must be followed in case of sending multiple Parameters.
+=>To read data at controller method, use annotation : @PathVariable.
+
+Syntax:
+@PathVariable datatype keyName
+
+Example:
+--------
+@RestController
+public class StudentController 
+{
+@GetMapping("/show/{sid}/{sname}/{sfee}")
+public String showMsg(@PathVariable int sid,@PathVariable String sname,@PathVariable double sfee)
+{
+return "Hello :" +sid+","+sname+ ","+sfee;
+}
+}
+
+Example URL :-- http://localhost:2321/show/10/raju/56.8
+
+
+Method ReturnTyp(RestController):
+---------------------------------
+
+=>We can use String (for primitive Data), A classType or Any CollectionType(List, Set, 
+Map…) as Method ReturnType.
+
+=>If return types String then same data will be send to Controller.
+
+=>If return type is non-String (Class or Collection Type) then Data converted to Global 
+Format (ex: JSON/XML).
+
+=>Default conversion Type supported by Boot is JSON (Java Script Object Notation).
+
+=>Even "ResponseEntity<T>" can be used as Return Type which holds Body (T) and status (HttpStatus enum).
+
+Possible Http Status are (5):
+-----------------------------
+Code 	Types
+----	------
+1xx 	Informational
+2xx 	Success
+3xx 	Redirect
+4xx 	Client Side Error
+5xx 	Server Side Error
+
+Note:
+-----
+=>To Convert Object to JSON (and JSON to Object) SpringBoot uses JACKSON API.
+ 
+But for xml processing:
+-----------------------
+Add below dependency in pom.xml for XML (JAXB) supports.
+<dependency>
+ <groupId>com.fasterxml.jackson.dataformat</groupId>
+ <artifactId>jackson-dataformat-xml</artifactId>
+</dependency>
+
+
+Example3:
+---------
+Spring Boot ReST + Data JPA +MySQL CRUD Operations:
+---------------------------------------------------
+=>Here, define ReST Controller which works for JSON and XML Data input/output.
+
+=>For Primitive inputs use PathVariable.
+
+=>ReST Controller must return output type as ResponseEntity<T> which holds Body(T) 
+and HttpStatus 
+
+Ex:-- 500, 404, 200, 400 etc..
+
+Operation Type    	Http Method Annotation
+--------------	  	----------------------
+Save     		@PostMapping
+Update 			@PutMapping
+Delete 			@DeleteMapping
+getOne 			@GetMapping
+getAll 			@GetMapping
+
+
+MediaType Conversion annotations are:
+-------------------------------------
+=>@RequestBody and @ResponseBody are the MediaType annotations.
+
+=>Here, @ResponseBody is applied when we write @RestController annotation over 
+class (**Not handled by programmer). 
+
+It converts Class/Collection type to JSON/XML.
+
+=>@RequestBody should be handled by programmer. It converts JSON/XML Data to 
+Object format.
+
+Coding Order:
+------------
+Step#1:
+Create Project with web, Jpa, devtools, mysql dependencies.
+
+Step#2:
+add jackon-dataformat-xml in pom.xml.
+(import javax.xml.bind.annotation.XmlRootElement;
+@XmlRootElement)
+
+Step#3:
+Define Model class, Repository, IService and ServiceImpl in order.
+=>Employee.java = Model
+=>EmployeeRepository.java = Repository
+=>IEmployeeService.java = IService(interface)
+=>EmployeeServiceImpl.java = Impl
+
+Step#4:
+In application.properties provide keys details server port, datasource and jpa 
+(dialect, show-sql…).
+
+Step#5: Define RestController
+
+1. application.properties:
+--------------------------
+server.port=2019
+
+## DataSource Config ##
+spring.datasource.driverClassName=com.mysq.cj.jdbc.Driver
+spring.datasource.url=jdbc:mysql://localhost:3306/testDB
+spring.datasource.username=root
+spring.datasource.password=root
+
+## Hibernate Config ##
+spring.jpa.show-sql=true
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.database-platform=org.hibernate.dialect.MySQL8Dialect
+spring.jpa.properties.hibernate.format_sql=true
+
+
+
+2.Model class (Employee.java):
+----------------------------
+package com.training.model;
+
+@Entity
+
+@Table(name="emp_tab")
+public class Employee {
+
+@Id
+//@GeneratedValue
+@Column(name="emp_id")
+private Integer empId;
+
+@Column(name="emp_name")
+private String empName;
+
+@Column(name="emp_sal")
+private double empSal;
+
+public Employee() {
+super();
+}
+public Employee(Integer empId, String empName, double empSal) {
+super();
+this.empId = empId;
+this.empName = empName;
+this.empSal = empSal;
+}
+public Integer getEmpId() {
+return empId;
+}
+public void setEmpId(Integer empId) {
+this.empId = empId;
+}
+public String getEmpName() {
+return empName;
+}
+public void setEmpName(String empName) {
+this.empName = empName;
+}
+public double getEmpSal() {
+return empSal;
+}
+public void setEmpSal(double empSal) {
+this.empSal = empSal;
+}
+@Override
+public String toString() {
+return "Employee [empId=" + empId + ", empName=" + empName + ", 
+empSal=" + empSal + "]";
+}
+}
+
+
+3.Repository Interface (EmployeeRepository.java):
+-------------------------------------------------
+package com.training.repo;
+import org.springframework.data.jpa.repository.JpaRepository;
+import com.training.model.Employee;
+
+@Repository
+public interface EmployeeRepository extends JpaRepository<Employee, Integer> { }
+
+
+4.Service Interface (IEmployeeService.java):
+---------------------------------------------
+
+package com.training.service;
+import java.util.List;
+import java.util.Optional;
+import com.training.model.Employee;
+
+public interface IEmployeeService {
+	public Integer saveEmployee(Employee e);
+	public void updateEmployee(Employee e);
+	public void deleteEmployee(Integer id);
+	public Optional<Employee> getOneEmployee(Integer id);
+	public List<Employee> getAllEmployees();
+	public boolean isPresent(Integer id);
+}
+
+
+ServiceImp class(EmployeeServieImpl.java):
+-------------------------------------------
+
+import java.util.List;
+import java.util.Optional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import com.training.model.Employee;
+import com.training.repo.EmployeeRepository;
+import com.training.service.IEmployeeService;
+
+@Service
+public class EmployeeServiceImpl implements IEmployeeService {
+
+@Autowired
+private EmployeeRepository repo;
+
+@Transactional
+public Integer saveEmployee(Employee e) {
+	return repo.save(e).getEmpId();
+}
+
+@Transactional
+public void updateEmployee(Employee e) {
+	repo.save(e);
+}
+
+@Transactional
+public void deleteEmployee(Integer id) {
+	repo.deleteById(id);
+}
+
+@Transactional(readOnly=true)
+public Optional<Employee> getOneEmployee(Integer id) {
+	return repo.findById(id);
+}
+
+@Transactional(readOnly = true)
+public List<Employee> getAllEmployees() {
+	return repo.findAll();
+}
+
+@Transactional(readOnly = true)
+public boolean isPresent(Integer id) {
+	return repo.existsById(id);
+}
+}
+
+6.Controller class (EmployeeController.java):
+
+package com.training.controller;
+
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import com.training.model.Employee;
+import com.training.service.IEmployeeService;
+
+@RestController
+@RequestMapping("/rest/employee")
+public class EmployeeController {
+
+@Autowired
+private IEmployeeService service;
+
+//1. save student data
+@PostMapping("/save")
+public ResponseEntity<String> save(@RequestBody Employee employee){
+
+ResponseEntity<String> resp=null;
+try {
+Integer id=service.saveEmployee(employee);
+resp=new ResponseEntity<String>("Employee '"+id+"' created", HttpStatus.OK);
+} catch (Exception e) {
+resp=new ResponseEntity<String>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+e.printStackTrace();
+}
+return resp;
+}
+
+//2. get All Records
+
+@GetMapping("/all")
+public ResponseEntity<?> getAll(){
+
+ResponseEntity<?> resp=null;
+List<Employee> list=service.getAllEmployees();
+
+if(list==null || list.isEmpty()) {
+String message="No Data Found";
+resp=new ResponseEntity<String>(message,HttpStatus.OK);
+} 
+else {
+resp=new ResponseEntity<List<Employee>>(list,HttpStatus.OK);
+}
+return resp;
+}
+
+//3. delete based on id , if exist
+
+@DeleteMapping("/delete/{id}")
+public ResponseEntity<String> deleteById(@PathVariable Integer id)
+{
+ResponseEntity<String> resp=null;
+//check for exist
+boolean present=service.isPresent(id);
+if(present) { 
+//if exist
+service.deleteEmployee(id);
+resp=new ResponseEntity<String>("Deleted '"+id+"' successfully",HttpStatus.OK);
+} 
+else { //not exist
+resp=new ResponseEntity<String>("'"+id+"' Not Exist",HttpStatus.BAD_REQUEST);
+}
+return resp;
+}
+
+//4. update data
+@PutMapping("/update")
+public ResponseEntity<String> update(@RequestBody Employee employee){
+ResponseEntity<String> resp=null;
+//check for id exist
+boolean present=service.isPresent(employee.getEmpId());
+if(present) { //if exist
+service.updateEmployee(employee);
+resp=new ResponseEntity<String>("Updated Successfully",HttpStatus.OK);
+} else { 
+//not exist
+resp=new ResponseEntity<String>("Record '"+employee.getEmpId()+" ' not 
+found",HttpStatus.BAD_REQUEST);
+}
+return resp;
+}
+}
